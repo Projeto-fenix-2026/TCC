@@ -20,4 +20,11 @@ router.post("/login",
   }
 );
 
+router.get("/home", function (req, res) {
+  res.render("pages/home"); 
+});
+router.get("/ongs", function (req, res) {
+  res.render("pages/ongs"); 
+});
+
 module.exports = router;

@@ -1,0 +1,27 @@
+body {
+    background-color: rgba(246, 238, 248, 1);
+   
+    
+}
+
+.container {
+  position: relative; /* Necessário para posicionar o pseudo-elemento */
+  width: 90%;
+  height: 50px;
+   justify-content: center;  /* centraliza na horizontal */
+  align-items: center;      /* centraliza na vertical */
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 5px;
+  height: 100%;
+  background-color: rgba(73, 49, 76, 1);
+}
+.container p{
+    margin-left: 10px;
+    vertical-align: middle;
+    align-items: center;
+}
