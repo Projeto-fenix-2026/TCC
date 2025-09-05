@@ -1,6 +1,4 @@
 
-   
-    
 
 a{
     text-decoration: none;
@@ -11,13 +9,18 @@ a{
 a:hover{
     color: tomato;
 }
+nav{
+    height:100px ;
+    background-color: rgba(73, 49, 76, 1);
+}
 #menuToggle{
     display: block;
     position: relative;
-    top: 50px;
+    top: 40px;
     left: 50px;
     z-index: 1;
     user-select: none;
+  
 }
 #menuToggle input{
     display: block;
@@ -36,7 +39,7 @@ a:hover{
     height: 4px;
     margin-bottom:5px;
     position: relative;
-    background: #cdcdcd;
+    background: rgba(242, 216, 136, 1);
     border-radius: 3px;
     z-index: 1;
     transform-origin: 4px 0px;
