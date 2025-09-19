@@ -26,5 +26,8 @@ router.get("/home", function (req, res) {
 router.get("/ongs", function (req, res) {
   res.render("pages/ongs"); 
 });
+router.get("/index", function (req, res) {
+  res.render("pages/index"); 
+});
 
 module.exports = router;
