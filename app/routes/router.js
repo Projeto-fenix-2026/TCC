@@ -26,8 +26,8 @@ router.get("/forms_doacao", function (req, res) {
 router.get("/ongs", function (req, res) {
   res.render("pages/ongs"); 
 });
-router.get("/index", function (req, res) {
-  res.render("pages/index"); 
+router.get("/home", function (req, res) {
+  res.render("pages/home"); 
 });
 
 module.exports = router;
