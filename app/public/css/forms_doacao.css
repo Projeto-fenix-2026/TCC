@@ -1,6 +1,6 @@
 body{
     font-family: Arial, sans-serif;
-    background-color: rgb(51, 25, 65);
+  background-color: rgba(246, 238, 248, 1);
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,12 +11,12 @@ body{
 }
 
 .container{
-    background-color:  rgba(112, 68, 117, 0.822);
+    background-color: #3f2645; 
     padding: 30px;
     border-radius: 12px;
     width: 90%;
     max-width: 500px;
-    color:#f5d76e
+  color:#f7dd8e ;
 }
 
 .container h2 {
@@ -60,7 +60,8 @@ button {
     padding:12px;
     border:none;
     border-radius: 8px;
-    background-color: #f5d76e;
+    background-color: #f7dd8e ;
+;
     color: #000;
     font-size: 16px;
     font-weight: bold;
@@ -69,5 +70,6 @@ button {
 }
 
 button:houver {
-    background-color: #e6c95f;
+    background-color: #f7dd8e ;
+;
 }

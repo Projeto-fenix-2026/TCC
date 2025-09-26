@@ -2,153 +2,122 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu Hambúrguer Lateral Direita</title>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- CSS externo -->
-  <link rel="stylesheet" href="../css/login_profissionais.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Perfil</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f4eef7; /* lilás claro */
+      font-family: Arial, sans-serif;
+    }
+
+    .profile-card {
+      max-width: 420px;
+      background-color: #f4eef7;
+      padding: 30px 20px;
+      margin: 30px auto;
+      border-radius: 12px;
+    }
+
+    .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 30px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .info-item i {
+      font-size: 22px;
+      margin-right: 12px;
+      color: #333;
+    }
+
+    .info-text strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .info-text span {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <div class="logo">FENIX</div>
-    <div class="header-right">
-      <a href="#" class="login-header"><i class="fas fa-user"></i></a>
-      <div class="menu-toggle" id="toggle">
-        <span></span>
-        <span></span>
-        <span></span>
+  <div class="profile-card shadow-sm">
+    <!-- Foto -->
+    <img src="avatar.jpg" alt="Foto de perfil" class="avatar">
+
+    <!-- Nome -->
+    <div class="info-item">
+      <i class="bi bi-person"></i>
+      <div class="info-text">
+        <strong>Nome</strong>
+        <span>Luiza</span>
       </div>
     </div>
-  </header>
 
-  <nav id="menu">
-    <a href="#"><i class="fas fa-home"></i> Início</a>
-    <a href="#"><i class="fas fa-info-circle"></i> Sobre</a>
-    <a href="#"><i class="fas fa-cogs"></i> Serviços</a>
-    <a href="#"><i class="fas fa-envelope"></i> Contato</a>
-    <a href="#"><i class="fas fa-user"></i> Login</a>
-  </nav>
+    <!-- Sobre -->
+    <div class="info-item">
+      <i class="bi bi-info-circle"></i>
+      <div class="info-text">
+        <strong>Sobre</strong>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+      </div>
+    </div>
 
+    <!-- Telefone -->
+    <div class="info-item">
+      <i class="bi bi-telephone"></i>
+      <div class="info-text">
+        <strong>Telefone</strong>
+        <span>+55 99 99999 - 9999</span>
+      </div>
+    </div>
 
-   <main>
+    <!-- Email -->
+    <div class="info-item">
+      <i class="bi bi-envelope"></i>
+      <div class="info-text">
+        <strong>Email</strong>
+        <span>luisa99999@gmail.com</span>
+      </div>
+    </div>
 
-       <!-- texto e botao da img 1--> 
-        <section class="main">
-            <h3>DIGA</h3>
-            <h3>NÃO À</h3> 
-            <h3>VIOLÊNCIA</h3>
-        
-        
-            <p class="reerguendo">Reerguendo Mulheres. Transformando Vidas.</p>
-            <section class="main-buttons">
-                <button class="button-denuncie">Denuncie</button>
-                <button class="button-procure-ajuda">Procure Ajuda</button>
-            </section>
-       </section>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+    <!-- Profissão -->
+    <div class="info-item">
+      <i class="bi bi-person-badge"></i>
+      <div class="info-text">
+        <strong>Profissão</strong>
+        <span>Ginecologista</span>
+      </div>
+    </div>
 
+    <!-- Clínica -->
+    <div class="info-item">
+      <i class="bi bi-hospital"></i>
+      <div class="info-text">
+        <strong>Clínica</strong>
+        <span>Eduarda clínica</span>
+      </div>
+    </div>
+  </div>
 
-
-<!--botoes procure apoio, -->
-
-      
- <section class="card">
-      <h2 class="ajd-btn"> PROCURE APOIO DE UM PROFISSIONAL</h2>
-      <p class="lead-textos">
-        Tenha apoio de pessoas profissionais que vão te ajudar de acordo com a sua situação.
-      </p>
-      <img class="denuncie-img" src="./imgs/main1.png" alt="Profissional em consulta">
-    </section>
-
-
-<!--botoes denuncie,etc-->
-
-    <section class="card">
-      <h2 class="pill-btn">DENUNCIE</h2>
-      <p class="lead-textos">
-        Ligue para o 180 para receber orientações e atendimentos ou o 190 se for uma emergência.
-      </p>
-      <img class="denuncie-img" src="../imgs/vlmulher.png" alt="Mão com X simbolizando denúncia">
-    </section>
-
-
-<!--botoes doador -->
-
-    <section class="card">
-      <h2 class="pill-btn">TORNE-SE UM DOADOR</h2>
-      <p class="lead-textos">
-        Ajude de maneira financeira a nossa organização ou ONGs para que possamos continuar juntos nesta luta.
-      </p>
-      <img class="denuncie-img" src="./imgs/dinheiro.png" alt="Saco de dinheiro com moedas">
-    </section>
-
-<!--botoes quem somos-->
-
-    <section class="card">
-      <h2 class="pill-btn">QUEM SOMOS</h2>
-      <p class="lead-textos">
-        Ajudamos você a encontrar ajuda de profissionais se sofreu qualquer tipo de violência ou a apoiar estes profissionais a continuar ajudando outros.
-      </p>
-      <img class="denuncie-img" src="./imgs/maos.png" alt="Equipe de mãos unidas">
-    </section>
-
-
-
-<!-- Noticia Agosto Lilás-->
-
-        <section class="conteudo-noticia">
-            <h1 class="titulo-noticia-conteudo">
-        Agosto Lilás reforça enfrentamento
-        à violência contra mulher do Brasil.
-            </h1>
-
-
-            <p class="conteudo-agosto"> O Agosto Lilás reforça a importância da Lei Maria da Penha, que em 2025 completa 19 anos,
-             voltada à prevenção ao combate da violência contra mulher, em suas diversas formas 
-            (fisica, psicológica, moral, patrimonial e sexual.)
-      
-          
-</section> 
-
-<!--imagem agosto lilas-->
-
-           <section class="imagem-agosto">
-            <img src="../imgs/agostolilas.png" alt="agosto-lilas" width="400px">
-            <p> Infográfico "Violência Contra Mulher em (2024-2025)"</p>
-            </section>
-
-
-
-
-
-
-
-<!--texto agosto lilas-->
-
- <section class="conteudo-noticia">
-<h1>Agosto Lilás</h1>
-                   <p class="texto-lilas"> Campanhas como o Agosto Lilás têm papel decisivo na transformação de símbolos em ações concretas. A pesquisadora do Projeto Fenix, Corina Mendes afirma que essas iniciativas fortalecem canais de denúncia e protocolos de proteção, promovendo a visibilidade das violências e incentivando a busca por ajuda. "Ao refletirmos sobre a subnotificação, de qualquer das formas já previstas nos sistemas de informações, é fundamental considerar aspectos que vão da falta de capacitação dos profissionais, que deveriam preencher os instrumentos que coletam dados, até os estigmas e preconceitos que produzem revitimizações", explica.
-
-        O Projeto Fenix atua de forma integrada, considerando as vulnerabilidades de mulheres 
-        negras e residentes de territórios periféricos, mais expostas à violência e ao feminicídio. 
-        A instituição contribui com atendimento especializado, pesquisa científica, ensino e articulação com políticas públicas.
-        <br> Corina ressalta que essa atuação não apenas fortalece a rede de proteção,
-        mas também serve de referência para outros países da América Latina. "Assistir, acolher,
-        produzir evidências científicas e influenciar políticas públicas são aprendizados que podem 
-        inspirar iniciativas semelhantes em outros contextos". </p>
- 
-
-</section>
-
-
-
-
-
-</main>
-
-
-
-  <!-- JS externo -->
-  <script src="../js/login_profissionais.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

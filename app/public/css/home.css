@@ -27,7 +27,7 @@ a:hover {
     color: #f7dd8e;
 }
 
-nav{
+.nav-bar{
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -60,7 +60,7 @@ nav{
 
 }.mobile-menu nav {
     width: 32px;
-    height: 2px;
+    height: 3px;
     background: #f7dd8e;
     margin: 8px;
     transition: 0.3s;
@@ -100,10 +100,7 @@ nav{
     .mobile-menu {
         display: block;
     }
-    .imagem-agosto{
-        width: 400px;
-
-    }
+   
     
 }
 
@@ -193,7 +190,6 @@ main img {
 
 
 
-
 main section{
     padding: 30px 20px;
     text-align: center;
@@ -211,10 +207,16 @@ main section{
 
 
 
-@media (max-width: 999px) {
+@media (max-width: 1800px) {
   .container {
     grid-template-columns: 1fr;
   }
+   .imagem-agosto{
+        width: 600px;
+
+    }
+    .ajd-btn {width: 200px;}
+    .pill-btn {width: 200px;}
 }
 
 .card {
@@ -278,6 +280,16 @@ main section{
  
 }
 
+@media (max-width: 1600px) {
+   .imagem-agosto{
+        width: 500px;
+
+    }
+
+
+
+}
+
 @media (max-width: 500px) {
   .pill-btn { padding: 12px 18px; font-size: 14px; }
   .lead { font-size: 20px; }
@@ -286,13 +298,7 @@ main section{
 
 
 
-.texto-footer{
-    text-align: center;
-}
-.copyright{
-    text-align: center;
-    margin: 50px;
-}
+
 @media only screen and (max-width:800px) {
     section.conteudo-noticia{
         margin-top: 0px;
@@ -302,6 +308,15 @@ main section{
 
 
 }
+
+@media (max-width: 500px) {
+  .texto-lilas { font-size: auto; margin:auto}
+  .lead { font-size: 20px; }
+  .imagem-agosto { width: 320px; margin: auto;}
+}
+
+
+
 .titulo-noticia-conteudo{
     font-size: 30px;
     text-align: left;
@@ -342,13 +357,16 @@ main section{
    align-items: center;
 
 }
-@media (max-width: 500px) {
-  .texto-lilas { font-size: auto; margin:auto}
-  .lead { font-size: 20px; }
-  .imagem-agosto { width: 320px; margin: auto;}
-}
 
 .footer{
     background-color: #3f2645;
     color: #fff;
+}
+
+.texto-footer{
+    text-align: center;
+}
+.copyright{
+    text-align: center;
+    margin: 50px;
 }
