@@ -29,5 +29,8 @@ router.get("/ongs", function (req, res) {
 router.get("/home", function (req, res) {
   res.render("pages/home"); 
 });
+router.get("/login_profissionais", function (req, res) {
+  res.render("pages/login_profissionais"); 
+});
 
 module.exports = router;
