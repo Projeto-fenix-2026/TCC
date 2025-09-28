@@ -37,6 +37,7 @@ a:hover {
 }
 .main {
 
+
     background-image: url("../imgs/muie.png") ;
     text-align: center;
     padding: 100px 20px;
@@ -94,6 +95,17 @@ a:hover {
         margin-left: 0;
         opacity: 100%;
         display:block;  
+
+body {
+ 
+    background-color: rgba(246, 238, 248, 1);
+   
+    
+}
+
+.banner img{
+  width: 410px;
+
  
 
     }
@@ -173,9 +185,12 @@ a:hover {
 }
 
 
+
 .main-buttons  {
     padding: 30px 20px;
     text-align: left;
+=======
+
 
     
 }
@@ -187,6 +202,7 @@ main img {
  border-radius: 10px;
  
 }
+
 
 
 
@@ -370,3 +386,6 @@ main section{
     text-align: center;
     margin: 50px;
 }
+=======
+
+
