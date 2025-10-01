@@ -1,33 +1,4 @@
-<!--       <header>
-
-       <nav class="nav-bar"> 
-
-        <a class="logo" href="/">Fenix</a>
-        
-        <nav class="mobile-menu">
-        <nav class="line1"> </nav>
-        <nav class="line2"> </nav>
-        <nav class="line3"> </nav>
-    </nav>
-    
-        <ul class="nav-list">
-            <li><a href="/">Perfil</a></li>
-            <li><a href="/">Menu</a></li>
-            <li><a href="/">Quem somos</a></li>
-            <li><a href="/">Contato</a></li>
-            <li><a href="forms_doacao.ejs">Doe</a></li>
-            <li><a href="/">Procure Apoio</a></li>
-            <li><a href="/">Depoimentos</a></li>
-        </ul> 
-   
-    </nav>
-  </header>-->
-
-  CSS
-
-
-<!-- 
-  *{
+*{
     margin: 0;
     padding: 0;
 }
@@ -169,23 +140,105 @@ a:hover {
         transform: rotate(45deg) translate(-5px, -7px);
 
 
-} -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
+ 
+main {
+  flex: 1;
+  padding: 30px 20px;
+  text-align: center;
+}
+ 
+main h1 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #000;
+}
+ 
+ 
+.card {
+  background: #f7e0b2;
+  padding: 70px;
+  max-width: 350px;
+  margin: 0 auto;
+  border-radius: 50px;
+  text-align: justify;
+  line-height: 1.5;
+  font-size: 20px;
+  color: #2d1d1d;
+}
+ 
+.caixa-contato {
+  background: #f5deb3;
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 15px;
+  text-align: center;
+}
+ 
+.caixa-contato p {
+  margin: 10px 0;
+}
+ 
+.caixa-contato i {
+  font-size: 22px;
+  margin-bottom: 15px;
+  display: block;
+}
+footer {
+  background: #402243;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 9px;
+  border-radius: 15px 15px 0 0;
+}
+ 
+footer h3 {
+  color: #f4e2a1;
+  margin-bottom: 10px;
+}
+ 
+footer ul {
+  list-style: none;
+}
+ 
+footer a {
+  color: white;
+  text-decoration: none;
+}
+ 
+footer a:hover {
+  text-decoration: underline;
+}
+ 
+ .icons-rodape {
+  background: #402243;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10 900 15px 15px;
+}
+ .icons-rodape i {
+  font-size: 24px;
+  color: white;
+}
+ 
+.icons-rodape span {
+  font-size: 20px;
+  margin-left: 10px;
+  color: white;
+}
+ footer {
+  margin-top: 200px;
+}
+.caixa-contato {
+  background-color: #f7e7b9;
+  padding: 80px;
+  border-radius: 60px;
+  width: 80%;
+  margin: 40px auto;
+  text-align: left;
+}

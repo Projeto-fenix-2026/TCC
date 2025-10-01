@@ -20,14 +20,36 @@ router.post("/login",
   }
 );
 
+
+
+
 router.get("/forms_doacao", function (req, res) {
   res.render("pages/forms_doacao"); 
 });
 router.get("/ongs", function (req, res) {
   res.render("pages/ongs"); 
 });
-router.get("/index", function (req, res) {
-  res.render("pages/index"); 
+router.get("/home", function (req, res) {
+  res.render("pages/home"); 
 });
+router.get("/login_profissionais", function (req, res) {
+  res.render("pages/login_profissionais"); 
+});
+
+router.get("/perfil_profissional", function (req, res) {
+  res.render("pages/perfil_profissional"); 
+});
+router.get("/perfil_ong", function (req, res) {
+  res.render("pages/perfil_ong"); 
+});
+router.get("/perfil_usuario", function (req, res) {
+  res.render("pages/perfil_usuario"); 
+});
+router.get("/denuncia", function (req, res) {
+  res.render("pages/denuncia"); 
+});
+
+
+
 
 module.exports = router;
