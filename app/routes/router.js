@@ -3,7 +3,17 @@ var router = express.Router();
 const {body, validationResult} = require("express-validator");
 
 router.get("/", function (req, res) {
-  res.render("pages/login",{ "erros": null, "valores": {"email":"","senha":""} ,"retorno":null }); 
+  res.render("pages/home",{ "erros": null, "valores": {"email":"","senha":""} ,"retorno":null }); 
+});
+
+router.get("/forms_doacao", function (req, res) {
+  res.render("pages/forms_doacao"); 
+});
+router.get("/ongs", function (req, res) {
+  res.render("pages/ongs"); 
+});
+router.get("/login", function (req, res) {
+  res.render("pages/login"); 
 });
 router.post("/login",
   body("email").isEmail().withMessage("Este email não é válido"),
@@ -20,18 +30,6 @@ router.post("/login",
   }
 );
 
-
-
-
-router.get("/forms_doacao", function (req, res) {
-  res.render("pages/forms_doacao"); 
-});
-router.get("/ongs", function (req, res) {
-  res.render("pages/ongs"); 
-});
-router.get("/home", function (req, res) {
-  res.render("pages/home"); 
-});
 router.get("/login_profissionais", function (req, res) {
   res.render("pages/login_profissionais"); 
 });
