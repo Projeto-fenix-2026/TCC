@@ -43,6 +43,10 @@ router.get("/perfil_ong", function (req, res) {
 router.get("/perfil_usuario", function (req, res) {
   res.render("pages/perfil_usuario"); 
 });
+router.get("/denuncia", function (req, res) {
+  res.render("pages/denuncia"); 
+});
+
 
 
 
