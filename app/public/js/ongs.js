@@ -1,74 +1,83 @@
-const data = [
-    {title: "Tamo juntas",
-        image: "imgs/tamojuntas.png",
-        description:
-        "Realizamos atendimentos a mulheres em situação de violência de forma gratuita."
-    },
-    {title: "Recomeçar",
-        image: "imgs/recomecar.png",
-        description:
-        "Oferecemos um serviço de acolhimento institucional sigiloso para mulheres em situação de violência",
-        link:"https://www.google.com/search?q=ia+que+faz+siter&sourceid=chrome&ie=UTF-8",
 
-    },
-      {title: " Amac",
-        image: "imgs/amac.png",
-        description:
-        "Realizamos um trabalho de promoção e informação sobre a violência doméstica."
-    },
-    {title: "Casa da mulher do nordeste",
-        image: "imgs/casadamulher.png",
-        description:
-        "Fortalece a autonomia econômica e política das mulheres."
-    },
-    {title: "Fala mulher",
-        image: "imgs/falamulher.png",
-        description:
-        "Atua no enfrentamento à violência contra a mulher, na promoção da independência financeira feminina e outros."
-    },
-    {title: "Ágatha Instituto social",
-        image: "imgs/agatha.png",
-        description:
-        "Tem a visão de resgatar as mulheres em situação de vulnerabilidade."
-    }
-    
+// Dados ONGs 
+
+const dataOngs = [
+  {title: "Tamo juntas", image: "imgs/tamojuntas.png", description: "Realizamos atendimentos a mulheres em situação de violência de forma gratuita.", link: "#"},
+  {title: "Recomeçar", image: "imgs/recomecar.png", description: "Oferecemos um serviço de acolhimento institucional sigiloso para mulheres em situação de violência", link: "#"},
+  {title: "Amac", image: "imgs/amac.png", description: "Realizamos um trabalho de promoção e informação sobre a violência doméstica.", link: "#"},
+  {title: "Casa da mulher do nordeste", image: "imgs/casadamulher.png", description: "Fortalece a autonomia econômica e política das mulheres.", link: "#"},
+  {title: "Fala mulher", image: "imgs/falamulher.png", description: "Atua no enfrentamento à violência contra a mulher, na promoção da independência financeira feminina e outros.", link: "#"},
+  {title: "Ágatha Instituto social", image: "imgs/agatha.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "#"}
 ];
 
 
-const cardContainer = document.querySelector(".card-container");
+// Dados Profissionais
+
+const dataProfissionais = [
+  {title: "Raquel", image: "imgs/tamojuntas.png", description: "Realizamos atendimentos a mulheres em situação de violência de forma gratuita.", link: "#"},
+  {title: "Rebecca", image: "imgs/recomecar.png", description: "Oferecemos um serviço de acolhimento institucional sigiloso para mulheres em situação de violência", link: "#"},
+  {title: "Ana", image: "imgs/amac.png", description: "Realizamos um trabalho de promoção e informação sobre a violência doméstica.", link: "#"},
+  {title: "Carla", image: "imgs/casadamulher.png", description: "Fortalece a autonomia econômica e política das mulheres.", link: "#"},
+  {title: "Fernanda", image: "imgs/falamulher.png", description: "Atua no enfrentamento à violência contra a mulher, na promoção da independência financeira feminina e outros.", link: "#"},
+  {title: "Ágatha", image: "imgs/agatha.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "#"}
+];
+
+
+// Seletores
+
+const cardContainerOngs = document.querySelector(".card-container");
+const cardContainerProfissionais = document.querySelector(".card-container-profissionais");
 const searchInput = document.querySelector("#searchInput");
 
-const displayData = data => {
-    cardContainer.innerHTML = "",
-    data.forEach(e =>{
-        cardContainer.innerHTML += `
-        <section class="card">
-            <a href = "${e.link}"
-            <h3>${e.title}</h3>
-            <img src = "${e.image}">
-            <p> ${e.description}</p>
-            </a>
-        </section>
-        `
-    })
-}
+
+// Função para gerar cards
+
+const gerarCards = (container, data) => {
+  container.innerHTML = "";
+  data.forEach(item => {
+    container.innerHTML += `
+      <section class="${container === cardContainerOngs ? "card" : "card-profissionais"}">
+        <a href="${item.link}">
+          <h3>${item.title}</h3>
+          <img src="${item.image}" alt="${item.title}">
+          <p>${item.description}</p>
+        </a>
+      </section>
+    `;
+  });
+};
 
 
+// Função para pesquisa
 
-searchInput.addEventListener("keyup", (e) =>{
-    const value = e.target.value.toLowerCase().trim().normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+const pesquisar = (e) => {
+  const value = e.target.value.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-   
-  const searchTitle = data.filter(i => i.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(value));
-  const searchDesc = data.filter(i => i.description.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(value));
-  
+  // Pesquisa ONGs
+  const resultadoOngs = [...new Set([
+    ...dataOngs.filter(i => i.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(value)),
+    ...dataOngs.filter(i => i.description.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(value))
+  ])];
 
-  const result = [...new Set([...searchTitle, ...searchDesc])];
+  // Pesquisa Profissionais
+  const resultadoProfissionais = [...new Set([
+    ...dataProfissionais.filter(i => i.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(value)),
+    ...dataProfissionais.filter(i => i.description.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(value))
+  ])];
 
-  displayData(result);
+  gerarCards(cardContainerOngs, resultadoOngs);
+  gerarCards(cardContainerProfissionais, resultadoProfissionais);
+};
+
+
+// Eventos
+
+searchInput.addEventListener("keyup", pesquisar);
+
+
+// Inicializar cards
+
+window.addEventListener("DOMContentLoaded", () => {
+  gerarCards(cardContainerOngs, dataOngs);
+  gerarCards(cardContainerProfissionais, dataProfissionais);
 });
-
-
-
-window.addEventListener("load", displayData.bind(null,data))
