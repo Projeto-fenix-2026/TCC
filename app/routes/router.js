@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const {body, validationResult} = require("express-validator");
 
-router.get("/", function (req, res) {
+router.get("/login", function (req, res) {
   res.render("pages/login",{ "erros": null, "valores": {"email":"","senha":""} ,"retorno":null }); 
 });
 router.post("/login",
@@ -29,7 +29,7 @@ router.get("/forms_doacao", function (req, res) {
 router.get("/ongs", function (req, res) {
   res.render("pages/ongs"); 
 });
-router.get("/home", function (req, res) {
+router.get("/", function (req, res) {
   res.render("pages/home"); 
 });
 router.get("/login_profissionais", function (req, res) {

@@ -53,6 +53,8 @@ const displayData = data => {
     })
 }
 
+
+
 searchInput.addEventListener("keyup", (e) =>{
     const value = e.target.value.toLowerCase().trim().normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
@@ -60,10 +62,13 @@ searchInput.addEventListener("keyup", (e) =>{
    
   const searchTitle = data.filter(i => i.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(value));
   const searchDesc = data.filter(i => i.description.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(value));
+  
 
   const result = [...new Set([...searchTitle, ...searchDesc])];
 
   displayData(result);
 });
+
+
 
 window.addEventListener("load", displayData.bind(null,data))
