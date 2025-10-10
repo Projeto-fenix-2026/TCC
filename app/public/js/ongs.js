@@ -7,6 +7,8 @@ const dataOngs = [
   {title: "Amac", image: "imgs/amac.png", description: "Realizamos um trabalho de promoção e informação sobre a violência doméstica.", link: "#"},
   {title: "Casa da mulher do nordeste", image: "imgs/casadamulher.png", description: "Fortalece a autonomia econômica e política das mulheres.", link: "#"},
   {title: "Fala mulher", image: "imgs/falamulher.png", description: "Atua no enfrentamento à violência contra a mulher, na promoção da independência financeira feminina e outros.", link: "#"},
+  {title: "Ágatha Instituto social", image: "imgs/agatha.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "#"},
+  {title: "Ágatha Instituto social", image: "imgs/agatha.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "#"},
   {title: "Ágatha Instituto social", image: "imgs/agatha.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "#"}
 ];
 
@@ -14,12 +16,14 @@ const dataOngs = [
 // Dados Profissionais
 
 const dataProfissionais = [
-  {title: "Raquel", image: "imgs/tamojuntas.png", description: "Realizamos atendimentos a mulheres em situação de violência de forma gratuita.", link: "#"},
-  {title: "Rebecca", image: "imgs/recomecar.png", description: "Oferecemos um serviço de acolhimento institucional sigiloso para mulheres em situação de violência", link: "#"},
-  {title: "Ana", image: "imgs/amac.png", description: "Realizamos um trabalho de promoção e informação sobre a violência doméstica.", link: "#"},
-  {title: "Carla", image: "imgs/casadamulher.png", description: "Fortalece a autonomia econômica e política das mulheres.", link: "#"},
-  {title: "Fernanda", image: "imgs/falamulher.png", description: "Atua no enfrentamento à violência contra a mulher, na promoção da independência financeira feminina e outros.", link: "#"},
-  {title: "Ágatha", image: "imgs/agatha.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "#"}
+  {title: "Jaqueline", image: "imgs/jaqueline.png", description: "Realizamos atendimentos a mulheres em situação de violência de forma gratuita.", link: "#"},
+  {title: "Jennifer", image: "imgs/jenifer.png", description: "Oferecemos um serviço de acolhimento institucional sigiloso para mulheres em situação de violência", link: "#"},
+  {title: "Jessica", image: "imgs/jessica.png", description: "Realizamos um trabalho de promoção e informação sobre a violência doméstica.", link: "#"},
+  {title: "Carol", image: "imgs/carol.png", description: "Fortalece a autonomia econômica e política das mulheres.", link: "#"},
+  {title: "Ângela", image: "imgs/angela.png", description: "Atua no enfrentamento à violência contra a mulher, na promoção da independência financeira feminina e outros.", link: "#"},
+  {title: "Luiza", image: "imgs/luiza.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "#"},
+  {title: "Luiza", image: "imgs/luiza.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "#"},
+  {title: "Luiza", image: "imgs/luiza.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "#"}
 ];
 
 
