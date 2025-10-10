@@ -18,3 +18,9 @@ btnProfissional.addEventListener("click", () => {
   btnOng.classList.remove("active");
 });
 
+window.addEventListener("DOMContentLoaded", () => {
+  cardContainer.style.display = "flex";
+  cardContainerProfissional.style.display = "none";
+  btnOng.classList.add("active");
+  btnProfissional.classList.remove("active");
+});
