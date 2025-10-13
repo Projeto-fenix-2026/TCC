@@ -1,0 +1,108 @@
+img{
+    margin: auto;
+    width: 200px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+label{
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+
+}
+
+input, select, textarea {
+  width: 500px;
+  padding: 10px;
+  margin-bottom: 19px;
+  border-radius: 8px;
+  border: none;
+  background-color: #1e1122;
+  color: #fff;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+input::placeholder,
+textarea::placeholder{
+  color: #aaa;
+}
+
+ 
+footer{
+    color: black;
+    background-color: #3e2c48;
+    padding: 20px;
+    text-align: center;
+     
+}
+main {
+  
+    padding: 2rem 1rem;
+  
+    flex: 1;
+  
+    text-align: center;
+    
+    
+  
+  }
+  
+  h1 {
+  
+    font-size: 1.8rem;
+  
+    margin-bottom: 1.5rem;
+  
+  }
+  
+  
+  .mensagem {
+  
+    background-color: #f5dbab;
+    border-radius: 100px;
+    padding: 3rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    display: flex;
+    color: #000;
+    height: 400px;
+    font-size: 1.35rem;
+    text-align: left;
+    align-items: center;
+    margin: 0 auto;
+    width: 600px;
+    flex-direction: column;
+
+  }
+  .botao {
+  
+    margin-bottom: 3rem;
+    margin-top: 30px;
+  
+  }
+  
+  .cadastrar-btn {
+  
+
+
+    background-color: #c4973f;
+  
+    color: #000;
+  
+    padding: 0.6rem 1.2rem;
+  
+    text-decoration: none;
+  
+    border-radius: 20px;
+  
+    font-weight: bold;
+  
+  }

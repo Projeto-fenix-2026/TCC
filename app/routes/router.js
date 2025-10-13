@@ -26,6 +26,9 @@ router.post("/login",
 router.get("/forms_doacao", function (req, res) {
   res.render("pages/forms_doacao"); 
 });
+router.get("/cadastrar", function (req, res) {
+  res.render("pages/cadastrar"); 
+});
 router.get("/ongs", function (req, res) {
   res.render("pages/ongs"); 
 });
