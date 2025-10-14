@@ -16,14 +16,14 @@ const dataOngs = [
 // Dados Profissionais
 
 const dataProfissionais = [
-  {title: "Jaqueline", image: "imgs/jaqueline.png", description: "Realizamos atendimentos a mulheres em situação de violência de forma gratuita.", link: "#"},
-  {title: "Jennifer", image: "imgs/jenifer.png", description: "Oferecemos um serviço de acolhimento institucional sigiloso para mulheres em situação de violência", link: "#"},
-  {title: "Jessica", image: "imgs/jessica.png", description: "Realizamos um trabalho de promoção e informação sobre a violência doméstica.", link: "#"},
-  {title: "Carol", image: "imgs/carol.png", description: "Fortalece a autonomia econômica e política das mulheres.", link: "#"},
-  {title: "Ângela", image: "imgs/angela.png", description: "Atua no enfrentamento à violência contra a mulher, na promoção da independência financeira feminina e outros.", link: "#"},
-  {title: "Luiza", image: "imgs/luiza.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "#"},
-  {title: "Luiza", image: "imgs/luiza.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "#"},
-  {title: "Luiza", image: "imgs/luiza.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "#"}
+  {title: "Jaqueline", image: "imgs/jaqueline.png", description: "Psicóloga", link: "#"},
+  {title: "Jennifer", image: "imgs/jenifer.png", description: "Advogada", link: "#"},
+  {title: "Jessica", image: "imgs/jessica.png", description: "Psicóloga", link: "#"},
+  {title: "Carol", image: "imgs/carol.png", description: "Genecologista", link: "#"},
+  {title: "Ângela", image: "imgs/angela.png", description: "Advogada", link: "#"},
+  {title: "Luiza", image: "imgs/luiza.png", description: "Genecologista", link: "#"},
+  {title: "Luiza", image: "imgs/luiza.png", description: "Psicóloga", link: "#"},
+  {title: "Luiza", image: "imgs/luiza.png", description: "Advogada", link: "#"}
 ];
 
 
