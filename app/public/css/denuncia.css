@@ -13,9 +13,9 @@ body {
     color:  #3f2645;
 }
 a {
-   color: #fff;
-   text-decoration: dotted;
-   transition: 0.3s; 
+    color: #fff;
+    text-decoration: dotted;
+    transition: 0.3s; 
 }
 a:hover {
     opacity: 0.7;
@@ -33,20 +33,13 @@ a:hover {
     align-items: center;
     font-family: Arial, Helvetica, sans-serif;
     height: 8vh;
-
+    
 }
-.main {
 
-    background-image: url("../imgs/muie.png") ;
-    text-align: center;
-    padding: 100px 20px;
-    background-size: cover;
-    background-position: center;
-}
 
 .nav-list {
-   list-style: none;
-   display: flex;
+    list-style: none;
+    display: flex;
 }
 
 .nav-list li {
@@ -56,8 +49,8 @@ a:hover {
 .mobile-menu {
     display: none;
     cursor: pointer;
-
-
+    
+    
 }.mobile-menu nav {
     width: 32px;
     height: 3px;
@@ -69,9 +62,20 @@ a:hover {
 }
 
 
+@media (max-width: 1800px) {
+
+   .imagem-agosto{
+        width: 600px;
+        margin: auto;
+
+    }
+
+
+  
+}
 
 @media (max-width:999px) {
-
+    
     body{
         overflow-x: hidden;
     }
@@ -87,7 +91,7 @@ a:hover {
         justify-content: space-around;
         transform: translateX(100%);
         transition: transform 0.3s ease-in;
-        opacity: 70%;
+        opacity: 0 ;
         
     }
     .nav-list li {
@@ -137,56 +141,104 @@ a:hover {
 
 
 }
-
-
-
-    .profile-card {
-      max-width: 420px;
-      padding: 40px 30px;
-      margin: 30px auto;
-      border-radius: 12px;
-    }
-
-    .avatar {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-      margin: 0 auto 30px;
-    }
-
-    .info-item {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 40px;
-    }
-
-    .info-item i {
-      font-size: 22px;
-      margin-right: 12px;
-      color: #333;
-    }
-
-    .info-text strong {
-      display: block;
-      font-size: 15px;
-    }
-
-    .info-text span {
-      font-size: 14px;
-      color: #555;
-    }
-
-.footer{
-    background-color: #3f2645;
-    color: #fff;
+ 
+main {
+  flex: 1;
+  padding: 30px 20px;
+  text-align: center;
 }
-
-.texto-footer{
-    text-align: center;
+ 
+main h1 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #000;
 }
-.copyright{
-    text-align: center;
-    margin: 50px;
+ 
+ 
+.card {
+  background: #f7e0b2;
+  padding: 70px;
+  max-width: 350px;
+  margin: 0 auto;
+  border-radius: 50px;
+  text-align: justify;
+  line-height: 1.5;
+  font-size: 20px;
+  color: #2d1d1d;
+}
+ 
+.caixa-contato {
+  background: #f5deb3;
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 15px;
+  text-align: center;
+}
+ 
+.caixa-contato p {
+  margin: 10px 0;
+}
+ 
+.caixa-contato i {
+  font-size: 22px;
+  margin-bottom: 15px;
+  display: block;
+}
+footer {
+  background: #402243;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 9px;
+  border-radius: 15px 15px 0 0;
+}
+ 
+footer h3 {
+  color: #f4e2a1;
+  margin-bottom: 10px;
+}
+ 
+footer ul {
+  list-style: none;
+}
+ 
+footer a {
+  color: white;
+  text-decoration: none;
+}
+ 
+footer a:hover {
+  text-decoration: underline;
+}
+ 
+ .icons-rodape {
+  background: #402243;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10 900 15px 15px;
+}
+ .icons-rodape i {
+  font-size: 24px;
+  color: white;
+}
+ 
+.icons-rodape span {
+  font-size: 20px;
+  margin-left: 10px;
+  color: white;
+}
+ footer {
+  margin-top: 200px;
+}
+.caixa-contato {
+  background-color: #f7e7b9;
+  padding: 80px;
+  border-radius: 60px;
+  width: 80%;
+  margin: 40px auto;
+  text-align: left;
 }

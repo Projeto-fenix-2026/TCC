@@ -13,9 +13,9 @@ body {
     color:  #3f2645;
 }
 a {
-   color: #fff;
-   text-decoration: dotted;
-   transition: 0.3s; 
+    color: #fff;
+    text-decoration: dotted;
+    transition: 0.3s; 
 }
 a:hover {
     opacity: 0.7;
@@ -33,7 +33,7 @@ a:hover {
     align-items: center;
     font-family: Arial, Helvetica, sans-serif;
     height: 8vh;
-
+    
 }
 .main {
 
@@ -46,8 +46,8 @@ a:hover {
 }
 
 .nav-list {
-   list-style: none;
-   display: flex;
+    list-style: none;
+    display: flex;
 }
 
 .nav-list li {
@@ -57,8 +57,8 @@ a:hover {
 .mobile-menu {
     display: none;
     cursor: pointer;
-
-
+    
+    
 }.mobile-menu nav {
     width: 32px;
     height: 3px;
@@ -70,9 +70,21 @@ a:hover {
 }
 
 
+@media (max-width: 2000px) {
+
+   .imagem-agosto{
+        width: 600px;
+        margin: auto;
+
+    }
+    
+
+
+  
+}
 
 @media (max-width:999px) {
-
+    
     body{
         overflow-x: hidden;
     }
@@ -88,7 +100,7 @@ a:hover {
         justify-content: space-around;
         transform: translateX(100%);
         transition: transform 0.3s ease-in;
-        opacity: 70%;
+        opacity: 0 ;
         
     }
     .nav-list li {
@@ -148,6 +160,14 @@ body {
         transform: rotate(45deg) translate(-5px, -7px);
 
 
+}
+.main {
+    
+    background-image: url("../imgs/muie.png") ;
+    text-align: center;
+    padding: 100px 20px;
+    background-size: cover;
+    background-position: center;
 }
 .reerguendo{
     text-align: left;
@@ -223,17 +243,6 @@ main section{
 
 
 
-@media (max-width: 1800px) {
-  .container {
-    grid-template-columns: 1fr;
-  }
-   .imagem-agosto{
-        width: 600px;
-
-    }
-    .ajd-btn {width: 200px;}
-    .pill-btn {width: 200px;}
-}
 
 .card {
   padding: 8px 0 24px 0;
@@ -301,6 +310,7 @@ main section{
         width: 500px;
 
     }
+
 
 
 
