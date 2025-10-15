@@ -16,14 +16,14 @@ const dataOngs = [
 // Dados Profissionais
 
 const dataProfissionais = [
-  {title: "Jaqueline", image: "imgs/jaqueline.png", description: "Psicóloga", link: "#"},
-  {title: "Jennifer", image: "imgs/jenifer.png", description: "Advogada", link: "#"},
-  {title: "Jessica", image: "imgs/jessica.png", description: "Psicóloga", link: "#"},
-  {title: "Carol", image: "imgs/carol.png", description: "Genecologista", link: "#"},
-  {title: "Ângela", image: "imgs/angela.png", description: "Advogada", link: "#"},
-  {title: "Luiza", image: "imgs/luiza.png", description: "Genecologista", link: "#"},
-  {title: "Luiza", image: "imgs/luiza.png", description: "Psicóloga", link: "#"},
-  {title: "Luiza", image: "imgs/luiza.png", description: "Advogada", link: "#"}
+  {title: "Jaqueline", image: "imgs/jaqueline.png", description: "Psicóloga, Especialidade em atendimento a mulheres vítimas de violência e terapia de reconstrução emcional", link: "#"},
+  {title: "Jennifer", image: "imgs/jenifer.png", description: "Advogada, Especializada em direito da mulher e violência doméstica. Ofereço orientação jurídica gratuita e acompanhamento em processos de medidas protetivas", link: "#"},
+  {title: "Jessica", image: "imgs/jessica.png", description: "Psicóloga, Especialidade em atendimento a mulheres vítimas de violência e terapia de reconstrução emcional", link: "#"},
+  {title: "Carol", image: "imgs/carol.png", description: "Assistente social,Trabalho com encaminhamento e suporte social para mulheres em situação de vulnerabilidade. Auxilio no acesso a serviços públicos, programas de renda e abrigamento, promovendo autonomia e acolhimento.", link: "#"},
+  {title: "Ângela", image: "imgs/angela.png", description: "Advogada, Especializada em direito da mulher e violência doméstica. Ofereço orientação jurídica gratuita e acompanhamento em processos de medidas protetivas", link: "#"},
+  {title: "Luiza", image: "imgs/luiza.png", description: "Assistente social, Trabalho com encaminhamento e suporte social para mulheres em situação de vulnerabilidade. Auxilio no acesso a serviços públicos, programas de renda e abrigamento, promovendo autonomia e acolhimento.", link: "#"},
+  {title: "Luiza", image: "imgs/luiza.png", description: "Psicóloga, Especialidade em atendimento a mulheres vítimas de violência e terapia de reconstrução emcional", link: "#"},
+  {title: "Luiza", image: "imgs/luiza.png", description: "Advogada, Especializada em direito da mulher e violência doméstica. Ofereço orientação jurídica gratuita e acompanhamento em processos de medidas protetivas", link: "#"}
 ];
 
 
