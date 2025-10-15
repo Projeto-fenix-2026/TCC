@@ -3,7 +3,7 @@ var router = express.Router();
 const {body, validationResult} = require("express-validator");
 
 router.get("/login", function (req, res) {
-  res.render("pages/login",{ "erros": null, "valores": {"email":"","senha":""} ,"retorno":null }); 
+  res.render("pages/login"); 
 });
 router.post("/login",
   body("email").isEmail().withMessage("Este email não é válido"),
