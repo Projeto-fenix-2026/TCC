@@ -239,7 +239,7 @@ display: flex;
    overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 5; /* número de linhas que quer mostrar */
+  -webkit-line-clamp: 3; /* número de linhas que quer mostrar */
   -webkit-box-orient: vertical;
   line-height: 120%;
 }
