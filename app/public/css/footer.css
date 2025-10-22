@@ -1,37 +1,76 @@
-
-footer{
-  background-color:rgba(73, 49, 76, 1);
-  color:white;
-  font-family: "Actor", sans-serif;
-  letter-spacing: 1px;
-  width: 100%;
-
-  
+/* ============ RODAPÉ ============ */
+.footer {    
+    
+ background-color: #3f2645;
+  color: #f7dd8e;
+  padding: 60px 20px 20px;
 }
-.textoFooter span{
-  color:rgba(231, 205, 132, 1);
-  font-size:larger
 
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
 }
-.textoFooter{
+
+.footer-section h4 {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.footer-section p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section li {
+  margin-bottom: 10px;
+}
+
+.footer-section a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-section a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.social-links {
   display: flex;
-  justify-content: space-between;
-  height: 120px;
-  line-height: 30px;
-  padding: 10px;
-  padding-left: 20px;
+  gap: 15px;
 }
 
-.links{
-  width: 410px; /
+.social-link {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
 
+.social-link:hover {
+  background-color: var(--primary-color);
 }
-.redes{
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
 }
-.redes span p{
-  font-size:medium;
-  font-family:Arial, Helvetica, sans-serif;
+
+.footer-bottom p {
+  margin-bottom: 5px;
 }

@@ -7,7 +7,11 @@
 <link rel="stylesheet" href="css/forms_doacao.css">
 </head>
 <body>
-<nav class="container">
+         <%- include('../partials/header.ejs') %>
+
+
+<main>
+      <nav class="container">
 <h2>Formulário de Doação</h2>
 <form id="donationForm">
 <label for="nome">Nome Completo</label>
@@ -34,6 +38,8 @@
 <button type="submit">ENVIAR</button>
 </form>
 </nav>
+</main>
+  <%- include('../partials/footer.ejs') %>
    <script src="./js/forms_doacao.js"></script>
 
 </body>

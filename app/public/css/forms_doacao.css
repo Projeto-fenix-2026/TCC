@@ -1,22 +1,27 @@
-body{
-    font-family: Arial, sans-serif;
-  background-color: rgba(246, 238, 248, 1);
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-
+* {
+  margin: 0;
+  padding: 0;
 }
+
+body
+{
+  background:#f6f8fb;
+  color:#333;
+  }
+
+
 
 .container{
     background-color: #3f2645; 
     padding: 30px;
     border-radius: 12px;
-    width: 90%;
+
     max-width: 500px;
-  color:#f7dd8e ;
+    color:#f7dd8e ;
+    width: 90%; 
+    margin-left: 30%;
+    margin-right:30% ;
+    margin-top: 5%;
 }
 
 .container h2 {
@@ -60,8 +65,7 @@ button {
     padding:12px;
     border:none;
     border-radius: 8px;
-    background-color: #f7dd8e ;
-;
+    background-color: #f7dd8e;
     color: #000;
     font-size: 16px;
     font-weight: bold;
@@ -70,6 +74,19 @@ button {
 }
 
 button:houver {
-    background-color: #f7dd8e ;
-;
+    background-color: #f7dd8e;
+
+}
+@media(max-width:600px){
+    .container{
+    background-color: #3f2645; 
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 500px;
+    color:#f7dd8e ;
+    justify-items: center;
+    margin-left: 10%;
+    margin-right:10% ;
+    margin-top: 5%
+}
 }

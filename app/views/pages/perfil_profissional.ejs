@@ -1,114 +1,215 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-  <title>Perfil Profissional - Projeto Phoenix</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil Profissional</title>
   <link rel="stylesheet" href="../css/perfil_profissional.css">
-  
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  
 </head>
 <body>
-    <header>
+             <%- include('../partials/header.ejs') %>
 
-       <nav class="nav-bar"> 
+    <nav class="container">
+        <!-- Cabeçalho com botão de voltar -->
 
-        <a class="logo" href="/">Fenix</a>
-        
-        <nav class="mobile-menu">
-        <nav class="line1"> </nav>
-        <nav class="line2"> </nav>
-        <nav class="line3"> </nav>
-<!--revisar-->
+<h1>Meu Perfil Profissional</h1>
+        <!-- Conteúdo principal -->
+        <main class="main-content">
+            <!-- Seção de Perfil Profissional -->
+            <section class="profile-section">
+                <nav class="profile-header">
+                    <nav class="avatar">
+                        <img id="profileAvatar" src="https://via.placeholder.com/120" alt="Avatar do profissional">
+                    </nav>
+                    <nav class="profile-info">
+                        <h2 id="profileName">Maria Silva</h2>
+                        <p class="profession" id="profileProfession">Ginicologista</p>
+                        <p id="profileEmail">maria.silva@example.com</p>
+                        <p class="member-since">Membro desde Janeiro de 2024</p>
+                    </nav>
+                </nav>
+                <button class="btn-edit" onclick="editarPerfil()">✎ Editar Perfil</button>
+            </section>
+
+            <!-- Seção de Descrição Profissional -->
+            <section class="description-section">
+                <h3>Sobre Mim</h3>
+                <nav class="description-content" id="descriptionContent">
+                    <p id="professionalDescription">Clique em "Adicionar Descrição" para contar sobre sua experiência e habilidades.</p>
+                </nav>
+                <button class="btn-action" onclick="abrirFormularioDescricao()">+ Adicionar/Editar Descrição</button>
+            </section>
+
+            <!-- Formulário de Descrição (Oculto por padrão) -->
+            <section class="description-form-section" id="descriptionFormSection" style="display: none;">
+                <h3>Editar Descrição Profissional</h3>
+                <form id="descriptionForm" class="description-form">
+                    <nav class="form-group">
+                        <label for="professionalDesc">Descrição Profissional:</label>
+                        <textarea 
+                            id="professionalDesc" 
+                            name="description" 
+                            placeholder="Descreva sua experiência, habilidades, áreas de atuação e o que você oferece..."
+                            rows="6"
+                            maxlength="1000"
+                            required
+                        ></textarea>
+                        <nav class="char-count">
+                            <span id="charCount">0</span>/1000 caracteres
+                        </nav>
+                        <span class="error-message" id="descriptionError"></span>
+                    </nav>
+
+                    <nav class="form-actions">
+                        <button type="submit" class="btn-submit">Salvar Descrição</button>
+                        <button type="button" class="btn-cancel" onclick="fecharFormularioDescricao()">Cancelar</button>
+                    </nav>
+                </form>
+            </section>
+
+            <!-- Seção de Portfólio -->
+            <section class="portfolio-section">
+                <h3>Meu Portfólio</h3>
+                <nav class="portfolio-grid" id="portfolioGrid">
+                    <!-- Os trabalhos serão adicionados aqui dinamicamente -->
+                </nav>
+                <button class="btn-action" onclick="abrirFormularioTrabalho()">+ Adicionar Trabalho</button>
+            </section>
+
+            <!-- Formulário de Trabalho (Oculto por padrão) -->
+            <section class="work-form-section" id="workFormSection" style="display: none;">
+                <h3>Adicionar Novo Trabalho</h3>
+                <form id="workForm" class="work-form">
+                    <nav class="form-group">
+                        <label for="workTitle">Título do Trabalho:</label>
+                        <input 
+                            type="text" 
+                            id="workTitle" 
+                            name="title" 
+                            placeholder="Ex: Logo Design para Startup XYZ"
+                            required
+                        >
+                        <span class="error-message" id="workTitleError"></span>
+                    </nav>
+
+                    <nav class="form-group">
+                        <label for="workCategory">Categoria:</label>
+                        <select id="workCategory" name="category" required>
+                            <option value="">Selecione uma categoria</option>
+                            <option value="design">Design</option>
+                            <option value="desenvolvimento">Desenvolvimento</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="consultoria">Consultoria</option>
+                            <option value="fotografia">Fotografia</option>
+                            <option value="redacao">Redação</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                        <span class="error-message" id="workCategoryError"></span>
+                    </nav>
+
+                    <nav class="form-group">
+                        <label for="workDescription">Descrição do Trabalho:</label>
+                        <textarea 
+                            id="workDescription" 
+                            name="description" 
+                            placeholder="Descreva o projeto, seu papel, tecnologias utilizadas, resultados alcançados..."
+                            rows="5"
+                            maxlength="500"
+                            required
+                        ></textarea>
+                        <nav class="char-count">
+                            <span id="workCharCount">0</span>/500 caracteres
+                        </nav>
+                        <span class="error-message" id="workDescriptionError"></span>
+                    </nav>
+
+                    <nav class="form-group">
+                        <label for="workImage">URL da Imagem:</label>
+                        <input 
+                            type="url" 
+                            id="workImage" 
+                            name="image" 
+                            placeholder="https://exemplo.com/imagem.jpg"
+                        >
+                        <span class="error-message" id="workImageError"></span>
+                    </nav>
+
+                    <nav class="form-group">
+                        <label for="workLink">Link do Projeto (opcional):</label>
+                        <input 
+                            type="url" 
+                            id="workLink" 
+                            name="link" 
+                            placeholder="https://exemplo.com"
+                        >
+                    </nav>
+
+                    <nav class="form-actions">
+                        <button type="submit" class="btn-submit">Adicionar Trabalho</button>
+                        <button type="button" class="btn-cancel" onclick="fecharFormularioTrabalho()">Cancelar</button>
+                    </nav>
+                </form>
+            </section>
+
+            <!-- Seção de Alteração de Senha -->
+            <section class="password-section">
+                <h3>Segurança</h3>
+                <button class="btn-action" onclick="abrirFormularioSenha()">🔒 Alterar Senha</button>
+
+                <!-- Formulário de Alteração de Senha (Oculto por padrão) -->
+                <form id="passwordForm" class="password-form" style="display: none; margin-top: 20px;">
+                    <nav class="form-group">
+                        <label for="currentPassword">Senha Atual:</label>
+                        <input 
+                            type="password" 
+                            id="currentPassword" 
+                            name="currentPassword" 
+                            placeholder="Digite sua senha atual"
+                            required
+                        >
+                        <span class="error-message" id="currentPasswordError"></span>
+                    </nav>
+
+                    <nav class="form-group">
+                        <label for="newPassword">Nova Senha:</label>
+                        <input 
+                            type="password" 
+                            id="newPassword" 
+                            name="newPassword" 
+                            placeholder="Digite sua nova senha"
+                            required
+                        >
+                        <nav class="password-strength" id="passwordStrength"></nav>
+                        <span class="error-message" id="newPasswordError"></span>
+                    </nav>
+
+                    <nav class="form-group">
+                        <label for="confirmPassword">Confirmar Nova Senha:</label>
+                        <input 
+                            type="password" 
+                            id="confirmPassword" 
+                            name="confirmPassword" 
+                            placeholder="Confirme sua nova senha"
+                            required
+                        >
+                        <span class="error-message" id="confirmPasswordError"></span>
+                    </nav>
+
+                    <nav class="form-actions">
+                        <button type="submit" class="btn-submit">Alterar Senha</button>
+                        <button type="button" class="btn-cancel" onclick="fecharFormularioSenha()">Cancelar</button>
+                    </nav>
+                </form>
+                <nav id="passwordSuccessMessage" class="success-message"></nav>
+            </section>
+        </main>
+
+        <!-- Rodapé -->
+        <footer class="footer">
+            <p>&copy; 2024 Plataforma de Perfis Profissionais. Todos os direitos reservados.</p>
+        </footer>
     </nav>
-        <ul class="nav-list"> 
-            <li><a href="/">Perfil</a></li>
-            <li><a href="/">Menu</a></li>
-            <li><a href="/">Quem somos</a></li>
-            <li><a href="/">Contato</a></li>
-            <li><a href="../pages/forms_doacao.ejs">Doe</a></li> 
-            <li><a href="/">Procure Apoio</a></li>
-            <li><a href="/">Depoimentos</a></li>
-           
 
-        </ul>
-    </nav>
-  </header>
-       
-    <main>
-        
- 
-  <nav class="profile-card shadow-sm">
-    <!-- Foto -->
-    <img src="../imgs/logo.png" alt="Foto de perfil" class="avatar">
-
-    <!-- Nome -->
-    <nav class="info-item">
-      <i class="bi bi-person"></i>
-      <section class="info-text">
-        <strong>Nome</strong>
-        <span>Luiza</span>
-      </section>
-    </nav>
-
-    <!-- Sobre -->
-    <nav class="info-item">
-      <i class="bi bi-info-circle"></i>
-      <section class="info-text">
-        <strong>Sobre</strong>
-        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-      </section>
-    </nav>
-
-    <!-- Telefone -->
-    <nav class="info-item">
-      <i class="bi bi-telephone"></i>
-      <section class="info-text">
-        <strong>Telefone</strong>
-        <span>+55 99 99999 - 9999</span>
-      </section>
-    </nav>
-
-    <!-- Email -->
-    <nav class="info-item">
-      <i class="bi bi-envelope"></i>
-      <section class="info-text">
-        <strong>Email</strong>
-        <span>luisa99999@gmail.com</span>
-      </section>
-    </nav>
-
-    <!-- Profissão -->
-    <nav class="info-item">
-      <i class="bi bi-person-badge"></i>
-      <section class="info-text">
-        <strong>Profissão</strong>
-        <span>Ginecologista</span>
-      </section>
-    </nav>
-
-    <!-- Clínica -->
-    <nav class="info-item">
-      <i class="bi bi-hospital"></i>
-      <section class="info-text">
-        <strong>Clínica</strong>
-        <span>Eduarda clínica</span>
-      </section>
-    </nav>
-  </nav>
-
-
-
-    </main>
-
-
-
-
-
-
-    <script src="./js/mobile-navbar.js"></script>
+    <script src="./js/perfil_profissional2.js"></script>
 </body>
 </html>
-
