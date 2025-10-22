@@ -1,65 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
-  background-color: rgba(246, 238, 248, 1);
-}
-.erro {
-  background-color: rgb(251, 223, 223);
-  border: 2px solid red;
-  border-radius: 30px;
-}
-form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 200px;
-  width: 500px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: larger;
-  line-height: 50px;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #F6EEF8;
 }
 
-.box1 {
-  background-color: antiquewhite;
-  border-radius: 800px;
-  height: 100px;
-  width: 500px;
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-}
-.box1 input::placeholder {
-  color: #aaa;
-  font-style: italic;
-}
-.box1 input {
-  border: 1px solid #333;
-  border-radius: 20px;
-  background-color: antiquewhite;
-  margin-left: 10px;
-  padding-left: 10px;
-  font-size: medium;
-  height: 30px;
-}
-.box2 input {
-  border: 1px solid #333;
-  border-radius: 20px;
-  background-color: antiquewhite;
-  margin-left: 10px;
-  padding-left: 10px;
-  font-size: medium;
-  height: 30px;
+.container {
+    width: 80%;
+    min-height: 80vh;
+    display: flex;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.box2 {
-  background-color: antiquewhite;
-  border-radius: 800px;
-  height: 100px;
-  width: 500px;
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-  line-height: 20px;
+.form-image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #fde3a7d7 0%, #f5d5a8 100%);
+    padding: 1rem;
 }
 
+.form-image img {
+    width: 31rem;
+    max-width: 100%;
+    height: auto;
+}
 
+.form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 3rem;
+    min-height: 100%;
+}
 
+.form-header {
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.form-header .title {
+    text-align: center;
+}
+
+.form-header h1 {
+    font-size: 2rem;
+    color: #5b366a;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.form-header h1::after {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 0.3rem;
+    background-color: #5b366a;
+    margin: 0.5rem auto 0;
+    border-radius: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.input-box label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #000000c0;
+    margin-bottom: 0.5rem;
+}
+
+.input-box input {
+    padding: 0.8rem 1.2rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #0000001c;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+.input-box input:hover {
+    background-color: #eeeeee75;
+    border-color: #d0d0d0;
+}
+
+.input-box input:focus-visible {
+    outline: none;
+    border-color: #5b366a;
+    box-shadow: 0 0 8px rgba(91, 54, 106, 0.3);
+}
+
+.input-box input::placeholder {
+    color: #000000be;
+}
+
+/* Wrapper para password com toggle */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 2.8rem;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #5b366a;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: #a020f0;
+}
+
+/* Validação */
+.input-box.invalid input {
+    border: 1px solid #dc3545 !important;
+    box-shadow: 0 0 5px rgba(220, 53, 69, 0.5) !important;
+}
+
+.input-box.valid input {
+    border: 1px solid #28a745 !important;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5) !important;
+}
+
+.input-box .error-message {
+    color: #dc3545;
+    font-size: 0.75rem;
+    margin-top: 5px;
+    display: none;
+}
+
+.input-box.invalid .error-message {
+    display: block;
+}
+
+.continue-button {
+    width: 100%;
+    margin-top: 2.5rem;
+}
+
+.continue-button button {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    background-color: #5b366a;
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.continue-button button:hover {
+    background-color: #6a4c70;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(91, 54, 106, 0.3);
+}
+
+.continue-button button:active {
+    transform: translateY(0);
+}
+
+.texto-secundario {
+    margin-top: 1.5rem;
+    color: #5b366a;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.texto-secundario a {
+    color: #a020f0;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.texto-secundario a:hover {
+    text-decoration: underline;
+    color: #5b366a;
+}
+
+/* Responsividade */
+@media screen and (max-width: 1330px) {
+    .container {
+        width: 85%;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .form-image {
+        display: none;
+    }
+
+    .form {
+        width: 100%;
+        padding: 2rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 90%;
+        min-height: auto;
+    }
+
+    .form {
+        padding: 1.5rem;
+    }
+
+    .form-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .input-box input {
+        font-size: 1rem;
+        padding: 0.7rem 1rem;
+    }
+
+    .continue-button button {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    .texto-secundario {
+        font-size: 0.85rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        padding: 1rem;
+    }
+
+    .container {
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    .form {
+        padding: 1rem;
+    }
+
+    .form-header {
+        margin-bottom: 2rem;
+    }
+
+    .form-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .input-group {
+        gap: 1rem;
+    }
+
+    .input-box label {
+        font-size: 0.8rem;
+    }
+
+    .input-box input {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+
+    .continue-button {
+        margin-top: 2rem;
+    }
+
+    .continue-button button {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+}

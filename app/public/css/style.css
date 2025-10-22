@@ -1,0 +1,94 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+
+html{
+    height: 500vh;
+}
+
+.container{
+    max-width: 1280px;
+    margin: auto;
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header{
+    width: 100%;
+    padding: 40px 4%;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
+}
+
+header.rolagem{
+    background-color: #322038;
+    padding: 20px 4%;
+}
+
+header.rolagem a, header.rolagem i{
+    color: #fff;
+}
+
+
+header i{
+    font-size: 30px;
+    color: #fff;
+}
+
+header ul{
+    list-style-type: none;
+    
+}
+header ul li{
+    display: inline-block;
+    margin: 0 40px;
+
+}
+
+header ul li a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.banner{
+    height: 100vh;
+    background-image: url(../imgs/banner.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.btn-contato button{
+    width: 120px;
+    height: 40px;
+    border: 0;
+    background-color:rgb(126, 80, 133);
+    color: #fff;
+    cursor: pointer;
+    transition: .2s;
+}
+.banner h1{
+    font-size: 3em;
+    color: #fff;
+    border: 4px;
+    border-style: solid;
+width: 300px;
+margin: auto;
+text-align: center;
+border-radius: 100px;
+border-color: rgb(94, 50, 100);
+background-color: rgb(94, 50, 100);
+position:relative;
+top: 800px;
+z-index: 1;
+}
+
