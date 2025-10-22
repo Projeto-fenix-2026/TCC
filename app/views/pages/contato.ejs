@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Contato - Validação Express</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Formulário de Contato</h1>
+            <p>Com validação em Express-Validator</p>
+        </header>
+
+        <main>
+            <div class="form-wrapper">
+                <form id="contactForm" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Nome Completo: <span class="required">*</span></label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            placeholder="Digite seu nome completo"
+                            required
+                        >
+                        <span class="error-message" id="nameError"></span>
+                        <span class="help-text">Mínimo 3 caracteres, máximo 100</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email: <span class="required">*</span></label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="seu@email.com"
+                            required
+                        >
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Telefone: <span class="optional">(opcional)</span></label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="phone" 
+                            placeholder="(11) 98765-4321"
+                        >
+                        <span class="error-message" id="phoneError"></span>
+                        <span class="help-text">Formato: (11) 98765-4321 ou 11 98765-4321</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Assunto: <span class="required">*</span></label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Selecione um assunto</option>
+                            <option value="emergencia">Emergência</option>
+                            <option value="orientacao">Orientação</option>
+                            <option value="denuncia">Denúncia</option>
+                            <option value="voluntariado">Voluntariado</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                        <span class="error-message" id="subjectError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Mensagem: <span class="required">*</span></label>
+                        <textarea 
+                            id="message" 
+                            name="message" 
+                            placeholder="Digite sua mensagem..."
+                            rows="6"
+                            required
+                        ></textarea>
+                        <div class="char-count">
+                            <span id="charCount">0</span>/2000 caracteres
+                        </div>
+                        <span class="error-message" id="messageError"></span>
+                        <span class="help-text">Mínimo 10 caracteres, máximo 2000</span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-submit">Enviar Formulário</button>
+                        <button type="reset" class="btn btn-reset">Limpar</button>
+                    </div>
+                </form>
+
+                <div id="successMessage" class="success-message" style="display: none;">
+                    <h3>✓ Sucesso!</h3>
+                    <p id="successText"></p>
+                </div>
+
+                <div id="errorMessage" class="error-alert" style="display: none;">
+                    <h3>✗ Erro na Validação</h3>
+                    <ul id="errorList"></ul>
+                </div>
+            </div>
+
+            <aside class="info-box">
+                <h2>Validações Aplicadas</h2>
+                <div class="validation-list">
+                    <div class="validation-item">
+                        <h4>Nome</h4>
+                        <ul>
+                            <li>Obrigatório</li>
+                            <li>Mínimo 3 caracteres</li>
+                            <li>Máximo 100 caracteres</li>
+                            <li>Apenas letras e espaços</li>
+                        </ul>
+                    </div>
+
+                    <div class="validation-item">
+                        <h4>Email</h4>
+                        <ul>
+                            <li>Obrigatório</li>
+                            <li>Formato válido de email</li>
+                            <li>Normalizado automaticamente</li>
+                            <li>Máximo 255 caracteres</li>
+                        </ul>
+                    </div>
+
+                    <div class="validation-item">
+                        <h4>Telefone</h4>
+                        <ul>
+                            <li>Opcional</li>
+                            <li>Formato: (11) 98765-4321</li>
+                            <li>Ou: 11 98765-4321</li>
+                        </ul>
+                    </div>
+
+                    <div class="validation-item">
+                        <h4>Assunto</h4>
+                        <ul>
+                            <li>Obrigatório</li>
+                            <li>Valores permitidos:</li>
+                            <li>emergencia, orientacao</li>
+                            <li>denuncia, voluntariado, outro</li>
+                        </ul>
+                    </div>
+
+                    <div class="validation-item">
+                        <h4>Mensagem</h4>
+                        <ul>
+                            <li>Obrigatório</li>
+                            <li>Mínimo 10 caracteres</li>
+                            <li>Máximo 2000 caracteres</li>
+                            <li>Escapado contra XSS</li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <footer>
+            <p>Status do servidor: <span id="serverStatus" class="status-loading">Verificando...</span></p>
+            <p>Endpoint: <code>POST /api/contact</code></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

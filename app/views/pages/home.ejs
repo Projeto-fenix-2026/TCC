@@ -1,165 +1,137 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-      <title>Página Inicial - Projeto Phoenix</title>
-    <link rel="stylesheet" href="../css/home.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+      <title>Página Inicial - Projeto Fenix</title>
+<link rel="stylesheet" href="../css/home.css">
 </head>
 <body>
-    <header>
-        <%- include("../../helpers/nav"); %>  
 
-       <nav class="nav-bar"> 
+   <%- include('../partials/header.ejs') %>
 
-        <a class="logo" href="/">Fenix</a>
-        
-        <nav class="mobile-menu">
-        <nav class="line1"> </nav>
-        <nav class="line2"> </nav>
-        <nav class="line3"> </nav>
-<!--revisar-->
+<main>
+  <!-- IMAGEM PRINCIPAL -->
+  <section class="main-img">
+    <h3 class="h3-inicio">DIGA</h3>
+    <h3 class="h3-inicio">NÃO À</h3>
+    <h3 class="h3-inicio">VIOLÊNCIA</h3>
+    <p class="reerguendo-inicio">Reerguendo Mulheres. Transformando Vidas.</p>
+    <nav class="main-buttons">
+    <a href="/ongs"><button class="button-procure-ajuda">Procure Ajuda</button></a>
     </nav>
-        <ul class="nav-list">
-            <li><a href="/perfil_usuario">Perfil</a></li>
-            <li><a href="/cadastrar">Cadastre-se</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/home">Menu</a></li>
-            <li><a href="/">Quem somos</a></li>
-            <li><a href="/">Contato</a></li>
-            <li><a href="/forms_doacao">Doe</a></li>
-            <li><a href="/ongs">Procure Apoio</a></li>
-            <li><a href="/">Depoimentos</a></li>
-        </ul>
-    </nav>
-  </header>
-       
-    <main>
+  </section>
 
-       <!-- texto e botao da img 1--> 
-        <section class="main">
-            <h3>DIGA</h3>
-            <h3>NÃO À</h3> 
-            <h3>VIOLÊNCIA</h3>
-        
-        
-            <p class="reerguendo">Reerguendo Mulheres. Transformando Vidas.</p>
-            <section class="main-buttons">
-                <button class="button-denuncie">Denuncie</button>
-                <button class="button-procure-ajuda">Procure Ajuda</button>
-            </section>
-       </section>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+
+<!-- Seção Sobre -->
+    <section id="sobre" class="about">
+        <div class="about-container">
+            <h2>Sobre a Violência Contra Mulher</h2>
+            <p class="about-intro">A violência contra a mulher é qualquer ação ou conduta, baseada no gênero, que cause morte, dano ou sofrimento físico, sexual ou psicológico. É um problema grave que afeta milhões de mulheres em todo o mundo.</p>
+
+  <!-- VIOLÊNCIA -->
+  <section id="violencia" class="violencia">
+    <h2>O que é Violência Contra a Mulher?</h2>
+    <p>A violência contra a mulher é qualquer ato baseado no gênero que cause morte, dano ou sofrimento físico, sexual, psicológico, patrimonial ou moral. Pode ocorrer em casa, no trabalho ou virtualmente.</p>
+
+    <section class="tipos">
+      <section class="tipo"><h3>Física</h3><p>Agressões que causem lesões, como empurrões, tapas, socos ou queimaduras.</p></section>
+      <section class="tipo"><h3>Psicológica</h3><p>Humilhações, ameaças, chantagens, isolamento e controle emocional.</p></section>
+      <section class="tipo"><h3>Sexual</h3><p>Ato sexual forçado, sem consentimento, ou coação.</p></section>
+      <section class="tipo"><h3>Patrimonial</h3><p>Controle de bens, destruição de documentos ou retenção de dinheiro.</p></section>
+      <section class="tipo"><h3>Moral</h3><p>Difamação, calúnia, insultos e ataques à honra da mulher.</p></section>
+    </section>
+  </section>
 
 
 
-<!--botoes procure apoio, -->
+    <!-- Seção de Ajuda Profissional -->
+    <section id="ajuda" class="professional-help">
+        <nav class="help-container">
+            <h2>Ajuda Profissional Disponível</h2>
+            <p class="section-subtitle">Profissionais especializados prontos para ajudar</p>
+            
+            <nav class="help-grid">
+                <nav class="help-card">
+                    <nav class="help-icon">👨‍⚖️</nav>
+                    <h3>Assessoria Jurídica</h3>
+                    <p>Advogados especializados em Lei Maria da Penha e direitos das mulheres. Orientação sobre medidas protetivas, separação e guarda de filhos.</p>
+                    <a href="/ongs" class="help-link">Solicitar Assessoria →</a>
+                </nav>
 
-      
- <section class="card">
-      <h2 class="ajd-btn"> PROCURE APOIO DE UM PROFISSIONAL</h2>
-      <p class="lead-textos">
-        Tenha apoio de pessoas profissionais que vão te ajudar de acordo com a sua situação.
-      </p>
-      <img class="denuncie-img" src="./imgs/main1.png" alt="Profissional em consulta">
+                <nav class="help-card">
+                    <nav class="help-icon">🧑‍⚕️</nav>
+                    <h3>Atendimento Psicológico</h3>
+                    <p>Psicólogos e psiquiatras para acompanhamento emocional e tratamento de transtornos relacionados à violência.</p>
+                    <a href="/ongs" class="help-link">Agendar Consulta →</a>
+                </nav>
+
+                <nav class="help-card">
+                    <nav class="help-icon">🏥</nav>
+                    <h3>Apoio Médico</h3>
+                    <p>Médicos para avaliação de lesões, atestados e encaminhamento para serviços de saúde especializados.</p>
+                    <a href="/ongs" class="help-link">Agendar Consulta →</a>
+                </nav>
+
+                <nav class="help-card">
+                    <nav class="help-icon">🤝</nav>
+                    <h3>Assistência Social</h3>
+                    <p>Assistentes sociais para orientação sobre benefícios, abrigos seguros e programas de reinserção social.</p>
+                    <a href="/ongs" class="help-link">Solicitar Assistência →</a>
+                </nav>
+
+                <nav class="help-card">
+                    <nav class="help-icon">💼</nav>
+                    <h3>Orientação Profissional</h3>
+                    <p>Consultores para auxílio na recolocação profissional e desenvolvimento de habilidades.</p>
+                    <a href="/ongs" class="help-link">Solicitar Orientação →</a>
+                </nav>
+
+                <nav class="help-card">
+                    <nav class="help-icon">📞</nav>
+                    <h3>Suporte 24/7</h3>
+                    <p>Atendimento telefônico contínuo para emergências e orientações imediatas.</p>
+                    <a href="/profissionais" class="help-link">Ligar Agora →</a>
+                </nav>
+            </nav>
+        </nav>
     </section>
 
+    <!-- Seção de Recursos Importantes -->
+    <section class="resources">
+        <nav class="resources-container">
+            <h2>Recursos Importantes</h2>
+            
+            <nav class="resources-grid">
+                <nav class="resource-card">
+                    <h3>Lei Maria da Penha</h3>
+                    <p>Conheça a legislação que protege as mulheres vítimas de violência doméstica e familiar.</p>
+                    <a href="#" class="resource-link">Saiba Mais →</a>
+                </nav>
 
-<!--botoes denuncie,etc-->
+                <nav class="resource-card">
+                    <h3>Números de Emergência</h3>
+                    <p>190 - Polícia Militar | 180 - Central de Atendimento à Mulher | 192 - SAMU</p>
+                    <a href="#" class="resource-link">Mais Informações →</a>
+                </nav>
 
-    <section class="card">
-      <h2 class="pill-btn">DENUNCIE</h2>
-      <p class="lead-textos">
-        Ligue para o 180 para receber orientações e atendimentos ou o 190 se for uma emergência.
-      </p>
-      <img class="denuncie-img" src="../imgs/vlmulher.png" alt="Mão com X simbolizando denúncia">
+                <nav class="resource-card">
+                    <h3>Direitos das Mulheres</h3>
+                    <p>Conheça seus direitos e como protegê-los em caso de violência.</p>
+                    <a href="#" class="resource-link">Explorar →</a>
+                </nav>
+            </nav>
+        </nav>
     </section>
-
-
-<!--botoes doador -->
-
-    <section class="card">
-      <h2 class="pill-btn">TORNE-SE UM DOADOR</h2>
-      <p class="lead-textos">
-        Ajude de maneira financeira a nossa organização ou ONGs para que possamos continuar juntos nesta luta.
-      </p>
-      <img class="denuncie-img" src="./imgs/dinheiro.png" alt="Saco de dinheiro com moedas">
-    </section>
-
-<!--botoes quem somos-->
-
-    <section class="card">
-      <h2 class="pill-btn">QUEM SOMOS</h2>
-      <p class="lead-textos">
-        Ajudamos você a encontrar ajuda de profissionais se sofreu qualquer tipo de violência ou a apoiar estes profissionais a continuar ajudando outros.
-      </p>
-      <img class="denuncie-img" src="./imgs/maos.png" alt="Equipe de mãos unidas">
-    </section>
-
-
-
-<!-- Noticia Agosto Lilás-->
-
-        <section class="conteudo-noticia">
-            <h1 class="titulo-noticia-conteudo">
-        Agosto Lilás reforça enfrentamento
-        à violência contra mulher do Brasil.
-            </h1>
-
-
-            <p class="conteudo-agosto"> O Agosto Lilás reforça a importância da Lei Maria da Penha, que em 2025 completa 19 anos,
-             voltada à prevenção ao combate da violência contra mulher, em suas diversas formas 
-            (fisica, psicológica, moral, patrimonial e sexual.)
-      
-          
-</section> 
-
-<!--imagem agosto lilas-->
-
-           <section class="imagem-agosto">
-            <img src="../imgs/agostolilas.png" alt="agosto-lilas" width="400px" class="imagem-agosto">
-            <p> Infográfico "Violência Contra Mulher em (2024-2025)"</p>
-            </section>
-
-
-
-
-
-
-
-<!--texto agosto lilas-->
-
- <section class="conteudo-noticia">
-<h1>Agosto Lilás</h1>
-                   <p class="texto-lilas"> Campanhas como o Agosto Lilás têm papel decisivo na transformação de símbolos em ações concretas. A pesquisadora do Projeto Fenix, Corina Mendes afirma que essas iniciativas fortalecem canais de denúncia e protocolos de proteção, promovendo a visibilidade das violências e incentivando a busca por ajuda. "Ao refletirmos sobre a subnotificação, de qualquer das formas já previstas nos sistemas de informações, é fundamental considerar aspectos que vão da falta de capacitação dos profissionais, que deveriam preencher os instrumentos que coletam dados, até os estigmas e preconceitos que produzem revitimizações", explica.
-
-        O Projeto Fenix atua de forma integrada, considerando as vulnerabilidades de mulheres 
-        negras e residentes de territórios periféricos, mais expostas à violência e ao feminicídio. 
-        A instituição contribui com atendimento especializado, pesquisa científica, ensino e articulação com políticas públicas.
-        <br> Corina ressalta que essa atuação não apenas fortalece a rede de proteção,
-        mas também serve de referência para outros países da América Latina. "Assistir, acolher,
-        produzir evidências científicas e influenciar políticas públicas são aprendizados que podem 
-        inspirar iniciativas semelhantes em outros contextos". </p>
- 
-
-</section>
-
-
-
-
 
 </main>
 
+  <%- include('../partials/footer.ejs') %>
+
+      <script src="./js/mobile-navbar.js"></script>
+      <script src="./js/home2.js"></script>
 
 
 
-
-
-    <footer class="footer">
-         <%- include("../../helpers/footer"); %>  
-        
-    </footer>
-
-    <script src="./js/mobile-navbar.js"></script>
 </body>
 </html>
-

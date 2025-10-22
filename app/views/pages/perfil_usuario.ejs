@@ -1,102 +1,109 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-  <title>Perfil Usuário - Projeto Phoenix</title>
-  <link rel="stylesheet" href="../css/perfil_profissional.css">
-  
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Perfil</title>
+  <link rel="stylesheet" href="../css/perfil_usuario.css">
 </head>
 <body>
-    <header>
-
-       <nav class="nav-bar"> 
-
-        <a class="logo" href="/">Fenix</a>
-        
-        <nav class="mobile-menu">
-        <nav class="line1"> </nav>
-        <nav class="line2"> </nav>
-        <nav class="line3"> </nav>
-<!--revisar-->
-    </nav>
-        <ul class="nav-list">
-            <li><a href="/">Menu</a></li>
-            <li><a href="/">Quem somos</a></li>
-            <li><a href="/">Contato</a></li>
-            <li><a href="../pages/forms_doacao.ejs">Doe</a></li>
-            <li><a href="/">Procure Apoio</a></li>
-            <li><a href="/">Depoimentos</a></li>
-        </ul>
-    </nav>
-  </header>
-       
-    <main>
-        
  
-  <nav class="profile-card shadow-sm">
-    <!-- Foto -->
-    <img src="../imgs/logo.png" alt="Foto de perfil" class="avatar">
+         <%- include('../partials/header.ejs') %>
 
-    <!-- Nome -->
-    <nav class="info-item">
-      <i class="bi bi-person"></i>
-      <section class="info-text">
-        <strong>Nome</strong>
-        <span>Luiza</span>
-      </section>
-    </nav>
+        <!-- Conteúdo principal -->
+        <main class="main-content">
+            <!-- Seção de Informações do Perfil -->
+            <section class="profile-section">
+                <nav class="profile-header">
+                    <nav class="avatar">
+                        <img src="imgs/mulher.png" alt="Avatar do usuário">
+                    </nav>
+                    <nav class="profile-info">
+                        <h2 id="userName">Eduarda Silva</h2>
+                        <p id="userEmail">eduarda.silva@example.com</p>
+                        <p class="member-since">Membro desde Janeiro de 2024</p>
+                    </nav>
+                </nav>
+            </section>
 
-    <!-- Sobre -->
-    <nav class="info-item">
-      <i class="bi bi-info-circle"></i>
-      <section class="info-text">
-        <strong>Sobre</strong>
-        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-      </section>
-    </nav>
+            <!-- Seção de Alteração de Senha -->
+            <section class="password-section">
+                <h3>Alterar Senha</h3>
+                <form id="passwordForm" class="password-form">
+                    <nav class="form-group">
+                        <label for="currentPassword">Senha Atual:</label>
+                        <input 
+                            type="password" 
+                            id="currentPassword" 
+                            name="currentPassword" 
+                            placeholder="Digite sua senha atual"
+                            required
+                        >
+                        <span class="error-message" id="currentPasswordError"></span>
+                    </nav>
 
-    <!-- Telefone -->
-    <nav class="info-item">
-      <i class="bi bi-telephone"></i>
-      <section class="info-text">
-        <strong>Telefone</strong>
-        <span>+55 99 99999 - 9999</span>
-      </section>
-    </nav>
+                    <nav class="form-group">
+                        <label for="newPassword">Nova Senha:</label>
+                        <input 
+                            type="password" 
+                            id="newPassword" 
+                            name="newPassword" 
+                            placeholder="Digite sua nova senha"
+                            required
+                        >
+                        <nav class="password-strength" id="passwordStrength"></nav>
+                        <span class="error-message" id="newPasswordError"></span>
+                    </nav>
 
-    <!-- Email -->
-    <nav class="info-item">
-      <i class="bi bi-envelope"></i>
-      <section class="info-text">
-        <strong>Email</strong>
-        <span>luisa99999@gmail.com</span>
-      </section>
-    </nav>
+                    <nav class="form-group">
+                        <label for="confirmPassword">Confirmar Nova Senha:</label>
+                        <input 
+                            type="password" 
+                            id="confirmPassword" 
+                            name="confirmPassword" 
+                            placeholder="Confirme sua nova senha"
+                            required
+                        >
+                        <span class="error-message" id="confirmPasswordError"></span>
+                    </nav>
 
-    <!-- Profissão -->
-    <nav class="info-item">
-      <i class="bi bi-person-badge"></i>
-      <section class="info-text">
-        <strong>Profissão</strong>
-        <span>Ginecologista</span>
-      </section>
-    </nav>
+                    <nav class="form-actions">
+                        <button type="submit" class="btn-submit">Alterar Senha</button>
+                        <button type="reset" class="btn-cancel">Cancelar</button>
+                    </nav>
+                </form>
+                <nav id="successMessage" class="success-message"></nav>
+            </section>
 
-   
-
-
+            <!-- Seção de Outras Informações -->
+            <section class="other-info-section">
+                <h3>Informações da Conta</h3>
+                <nav class="info-grid">
+                    <nav class="info-item">
+                        <label>Nome Completo:</label>
+                        <p>João Silva Santos</p>
+                    </nav>
+                    <nav class="info-item">
+                        <label>Email:</label>
+                        <p>joao.silva@example.com</p>
+                    </nav>
+                    <nav class="info-item">
+                        <label>Telefone:</label>
+                        <p>(11) 98765-4321</p>
+                    </nav>
+                    <nav class="info-item">
+                        <label>Data de Cadastro:</label>
+                        <p>15 de Janeiro de 2024</p>
+                    </nav>
+                </nav>
+            </section>
+     </nav>  
+    
     </main>
+  <%- include('../partials/footer.ejs') %>
+    
 
-
-
-
-
-
-    <script src="./js/mobile-navbar.js"></script>
+    <script src="./js/perfil_profissional.js"></script>
 </body>
 </html>
-
