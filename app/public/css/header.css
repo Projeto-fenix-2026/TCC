@@ -68,6 +68,10 @@ a:hover {
     body{
         overflow-x: hidden;
     }
+    .logo{
+        width: 150px;
+    height: 150px;
+    }
     .nav-list {
         position: absolute;
         top:10vh;
