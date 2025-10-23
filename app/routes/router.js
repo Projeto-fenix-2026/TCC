@@ -82,6 +82,9 @@ router.get("/ong_page", function (req, res) {
 router.get("/", function (req, res) {
   res.render("pages/home"); 
 });
+router.get("/home2", function (req, res) {
+  res.render("pages/home2"); 
+});
 router.get("/login_profissionais", function (req, res) {
   res.render("pages/login_profissionais"); 
 });

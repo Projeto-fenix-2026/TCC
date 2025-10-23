@@ -23,8 +23,8 @@ a:hover {
     opacity: 0.7;
 }
 .logo{
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
   
 }
 
@@ -33,7 +33,7 @@ a:hover {
     justify-content: space-around;
     align-items: center;
     font-family: Arial, Helvetica, sans-serif;
-    height: 10vh;
+    height: 15vh;
     
 }
 
@@ -74,7 +74,7 @@ a:hover {
     }
     .nav-list {
         position: absolute;
-        top:10vh;
+        top:15vh;
         right: 0; 
         width: 45vw;
         height: 92vh;
