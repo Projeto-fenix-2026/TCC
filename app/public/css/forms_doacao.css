@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body
+{
+  background:#f6f8fb;
+  color:#333;
+  }
+
+  .main{
+       margin-left: 30%;
+    margin-right:30% ;
+    margin-top: 5%;
+  }
+
+
+
+.container{
+    background-color: #3f2645; 
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 600px;
+    color:#f7dd8e ;
+    margin-left: 30%;
+    margin-right:30% ;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.container h2 {
+
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+label{
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: #1e1122;
+    color: #fff;
+    font-size: 14px;
+
+}
+
+input::placeholder,
+textarea::placeholder{
+    color: #aaa;
+}
+
+textarea{
+    resize: none;
+    height:80px;
+}
+
+button {
+    width: 100%;
+    padding:12px;
+    border:none;
+    border-radius: 8px;
+    background-color: #f7dd8e;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:houver {
+    background-color: #f7dd8e;
+
+}
+@media(max-width:600px){
+    .container{
+    background-color: #3f2645; 
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 500px;
+    color:#f7dd8e ;
+    justify-items: center;
+    margin-left: 10%;
+    margin-right:10% ;
+    margin-top: 5%;
+}
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    width: auto;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: #1e1122;
+    color: #fff;
+    font-size: 14px;
+
+}
+}
+
+/* Estilos para validação */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    color: #f7dd8e;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    border: 1px solid #1e1122;
+    transition: border-color 0.3s ease;
+}
+
+.form-group.invalid input,
+.form-group.invalid select,
+.form-group.invalid textarea {
+    border-color: #dc3545; /* Vermelho para erro */
+    box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+}
+
+.form-group.valid input,
+.form-group.valid select,
+.form-group.valid textarea {
+    border-color: #28a745; /* Verde para sucesso */
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+.error-message {
+    color: #dc3545; /* Cor do texto de erro */
+    font-size: 0.85em;
+    margin-top: 5px;
+    display: none; /* Escondido por padrão, mostrado via JS */
+}
+
+.form-group.invalid .error-message {
+    display: block;
+}
