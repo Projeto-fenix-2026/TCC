@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ong</title>
+    <link rel="stylesheet" href="css/ong_page.css">
+</head>
+
+<body>
+      <%- include('../partials/header.ejs') %>
+    <main>
+        <nav class="profile-card shadow-sm">
+            <!-- Foto -->
+            <img src="../imgs/luiza.png" alt="Foto de perfil" class="avatar">
+
+            <!-- Nome -->
+            <nav class="info-item">
+                <i class="bi bi-person"></i>
+                <section class="info-text">
+                    <strong>Nome</strong>
+                    <span>Ágatha instituto social</span>
+                </section>
+            </nav>
+
+            <!-- Sobre -->
+            <nav class="info-item">
+                <i class="bi bi-info-circle"></i>
+                <section class="info-text">
+                    <strong>Sobre</strong>
+                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                </section>
+            </nav>
+
+            <!-- Telefone -->
+            <nav class="info-item">
+                <i class="bi bi-telephone"></i>
+                <section class="info-text">
+                    <strong>Telefone</strong>
+                    <span>+55 99 99999 - 9999</span>
+                </section>
+            </nav>
+
+            <!-- Email -->
+            <nav class="info-item">
+                <i class="bi bi-envelope"></i>
+                <section class="info-text">
+                    <strong>Email</strong>
+                    <span>Agatha99999@gmail.com</span>
+                </section>
+            </nav>  
+
+            <!-- ONG -->
+            <nav class="info-item">
+                <i class="bi bi-hospital"></i>
+                <section class="info-text">
+                    <strong>Atendimento</strong>
+                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span><br>
+                    
+                    <button class="button-contato">Entrar em contato</button>
+            </nav>
+        </nav>
+        
+
+    </main>
+     <%- include('../partials/footer.ejs') %>
+</body>
+
+</html>

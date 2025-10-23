@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family:'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color:#eee8ed;
+    color:  #3f2645;
+}
+
+    .profile-card {
+      max-width: 520px;
+      background-color: #d6ced5;
+      padding: 40px 30px;
+      margin: 30px auto;
+      border-radius: 12px;
+    }
+
+    .avatar {
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 30px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      line-height: 25px;
+    }
+
+    .info-item i {
+      font-size: 22px;
+      margin-right: 12px;
+      color: #333;
+    }
+
+    .info-text strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .info-text span {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .button-contato{
+        width: 140px;
+        height: 40px;
+        padding: 0 2%;
+        margin-top: 2%;
+        font-family: Arial, sans serif;
+        font-size: 15px;
+        font-weight: 600;
+        background-color: #59415c;
+        color: #f7d6e0;
+        border-color: #f7d6e0;
+        border-radius: 5px;
+        border-style: solid;
+        border-bottom: 2px;
+        
+    }
+    .button-contato:hover{
+         background-color: #6a4c70;
+  transform: translateY(-2px);
+    }
