@@ -12,82 +12,69 @@
 </head>
 
 <body>
-   <%- include('../partials/header.ejs') %>
-     <%
-    let  erroValidacao =  {"email":"", "password":"" };
-    let  msgErro =  { "email":"", "password":"" };
-    if(erros) {
-         erros.errors.forEach(function(erro) {
-             if (erro.path == "email") {
-                erroValidacao.email = "erro",
-                msgErro.email = erro.msg
-             }
-             if (erro.path == "password") {
-                erroValidacao.password = "erro",
-                msgErro.password = erro.msg
-             }
-         })
-     }; %>
-    <section class="container">
-        <section class="form-image">
-            <img src="../imgs/svg2.svg" alt="Login Illustration">
-        </section>
-        <section class="form">
 
-            <form method="post" action="/login" id="loginForm">
-
-                <section class="form-header">
-                    <section class="title">
-                        <h1>Entrar</h1>
-                    </section>
-                </section>
-
-                <section class="input-group">
-                    <section class="input-box">
-                        <label for="email">E-mail</label>
-                        <input 
-                            id="email" 
-                            type="email" 
-                            name="email" 
-                            placeholder="Digite seu e-mail" 
-                            value="<%= valores.email  %>" 
-                            class="<%= erroValidacao.email %>"
-                            required>
-                            <span><%= msgErro.email %></span><br>
-                    </section>
-
-                    <section class="input-box">
-                        <label for="password">Senha</label>
-                        <section class="password-wrapper">
-                            <input 
-                                id="password" 
-                                type="password" 
-                                name="password" 
-                                placeholder="Digite sua senha" 
-                                value="<%= valores.password  %>" 
-                                class="<%= erroValidacao.password %>"
-                                required>
-                                 <span><%= msgErro.password %></span><br>
-                            <button type="button" class="password-toggle" id="togglePassword">
-                                <i class="bx bx-hide"></i>
-                            </button>
-                        </section>
-                    </section>
-                </section>
-
-            
-              
-            </form> 
-            <a href="/"><section class="continue-button">
-                    <button>Entrar</button>
-                </section></a>
-
-                <p class="texto-secundario">Não tem conta? <a href="/cadastro">Cadastre-se aqui</a></p>
-
+    <% let erroValidacao={"email":"", "password" :"" }; let msgErro={ "email" :"", "password" :"" }; if(erros) {
+        erros.errors.forEach(function(erro) { if (erro.path=="email" ) { erroValidacao.email="erro" ,
+        msgErro.email=erro.msg } if (erro.path=="password" ) { erroValidacao.password="erro" , msgErro.password=erro.msg
+        } }) }; %>
         
-        </section>
-    </section>
-      <%- include('../partials/header.ejs') %>
+            <main>
+                <section class="container">
+                    <section class="form-image">
+                        <img src="../imgs/svg2.svg" alt="Login Illustration">
+                    </section>
+                    <section class="form">
+
+                        <form method="post" action="/login" id="loginForm">
+
+                            <section class="form-header">
+                                <section class="title">
+                                    <h1>Entrar</h1>
+                                </section>
+                            </section>
+
+                            <section class="input-group">
+                                <section class="input-box">
+                                    <label for="email">E-mail</label>
+                                    <input id="email" type="email" name="email" placeholder="Digite seu e-mail"
+                                        value="<%= valores.email  %>" class="<%= erroValidacao.email %>" required>
+                                    <span>
+                                        <%= msgErro.email %>
+                                    </span><br>
+                                </section>
+
+                                <section class="input-box">
+                                    <label for="password">Senha</label>
+                                    <section class="password-wrapper">
+                                        <input id="password" type="password" name="password"
+                                            placeholder="Digite sua senha" value="<%= valores.password  %>"
+                                            class="<%= erroValidacao.password %>" required>
+                                        <span>
+                                            <%= msgErro.password %>
+                                        </span><br>
+                                        <button type="button" class="password-toggle" id="togglePassword">
+                                            <i class="bx bx-hide"></i>
+                                        </button>
+                                    </section>
+                                </section>
+                            </section>
+
+
+
+                        </form>
+                        <a href="/">
+                            <section class="continue-button">
+                                <button>Entrar</button>
+                            </section>
+                        </a>
+
+                        <p class="texto-secundario">Não tem conta? <a href="/cadastro">Cadastre-se aqui</a></p>
+
+
+                    </section>
+                </section>
+            </main>
+            <%- include('../partials/footer.ejs') %>
 </body>
 
 </html>

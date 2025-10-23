@@ -7,143 +7,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/cadastro.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
-    <script src="../js/modalcadastro.js"defer type="module"></script>
+
+    <script src="../js/modalcadastro.js" defer type="module"></script>
     <title>Formulário</title>
 </head>
 
 <body>
-     <%
-    var cssErro =  {"firstname":"", "email":"", "cpf":"","cnpj":"", "number":"","password":"","confirmPassword":""};
-    var msgErro =  {"firstname":"", "email":"", "cpf":"", "number":"","password":"","confirmPassword":"" };
-    if(listaErros) {
-
-        listaErros.errors.forEach(function(itemErro){
-             if (itemErro.path  == "firstname"){ 
-                cssErro.firstname = "erro";
-                msgErro.firstname = itemErro.msg;
-            }  
-             if (itemErro.path  == "email"){ 
-                cssErro.email = "erro";
-                msgErro.email = itemErro.msg;            
-             }  
-             if (itemErro.path  == "cnpj"){
-                cssErro.cnpj = "erro";
-                msgErro.cnpj = itemErro.msg;                
-             } 
-              if (itemErro.path  == "cpf"){
-                cssErro.cpf = "erro";
-                msgErro.cpf = itemErro.msg;                
-             }  
-             if (itemErro.path  == "number"){
-                cssErro.number = "erro";
-                msgErro.number = itemErro.msg;                
-             }  
-             if (itemErro.path  == "password"){
-                cssErro.password = "erro";
-                msgErro.password = itemErro.msg;                
-             }  
-               if (itemErro.path  == "confirmPassword"){
-                cssErro.confirmPassword = "erro";
-                msgErro.confirmPassword = itemErro.msg;                
-             }
-         }); 
-     }; %>
-    <section class="container">
-        <section class="form-image">
-            <img src="../imgs/svg2.svg" alt="">
-        </section>
-        <section class="form">
-
-            <form method="post" action="/cadastro">
-
-                <section class="form-header">
-                    <section class="title">
-                        <h1>Cadastre-se</h1>
-                    </section>
-
-                    <button type="button" class="btn-parceiro" id="btn-parceiro">Seja um Parceiro</button>
-
-                </section>
-
-                <section class="input-group">
-                    <section class="input-box">
-                        <label for="firstname">Nome</label>
-                        <input id="firstname" type="text" name="firstname" value="<%= campos.firstname %>" class="<%= cssErro.firstname %>" placeholder="Digite seu nome"
-                            required>
-                            <span><%= msgErro.firstname %></span>
-                    </section>
-
-                    <section class="input-box">
-                        <label for="cpf">CPF</label>
-                        <input id="cpf" type="text" name="cpf" placeholder="Digite seu CPF" required>
-                        <span><%= msgErro.cpf %></span>
-                    </section>
-                    <section class="input-box">
-                        <label for="email">E-mail</label>
-                        <input id="email" type="email" name="email" value="<%= campos.email  %>" class="<%= cssErro.email %>" placeholder="Digite seu e-mail" required>
-                        <span><%= msgErro.email %></span>
-                    </section>
-
-                    <section class="input-box">
-                        <label for="number">Celular</label>
-                        <input id="number" type="tel" name="number"  value="<%= campos.number  %>" class="<%= cssErro.number %>" placeholder="(xx) xxxx-xxxx" required>
-                        <span><%= msgErro.number %></span>
-                    </section>
-
-                    <section class="input-box">
-                        <label for="password">Senha</label>
-                        <input id="password" type="password" name="password" value="<%= campos.password  %>" class="<%= cssErro.password %>" placeholder="Digite sua senha" required>
-                        <span><%= msgErro.password %></span>
-                    </section>
-
-
-                    <section class="input-box">
-                        <label for="confirmPassword">Confirme sua Senha</label>
-                        <input id="confirmPassword" type="password" name="confirmPassword" value="<%= campos.confirmPassword  %>" class="<%= cssErro.confirmPassword %>"
-                            placeholder="Digite sua senha novamente" required>
-                            <span><%= msgErro.confirmPassword %></span>
-                    </section>
-
-                </section>
-
-                <section class="gender-inputs">
-                    <section class="gender-title">
-                        <h6>Gênero</h6>
-                    </section>
-
-                    <section class="gender-group">
-                        <section class="gender-input">
-                            <input id="female" type="radio" name="gender">
-                            <label for="female">Feminino</label>
-                        </section>
-
-                        <section class="gender-input">
-                            <input id="male" type="radio" name="gender">
-                            <label for="male">Masculino</label>
-                        </section>
-
-                        <section class="gender-input">
-                            <input id="others" type="radio" name="gender">
-                            <label for="others">Outros</label>
-                        </section>
-
-                        <section class="gender-input">
-                            <input id="none" type="radio" name="gender">
-                            <label for="none">Prefiro não dizer</label>
-                        </section>
-                    </section>
-                </section>
-
-                <section class="continue-button">
-                    <button><a href="/login">Enviar</a> </button>
-                </section>
-                <p class="texto-secundario">Já tem login? <button class="btn-entrar"><a href="/login">Entrar</a></button></p>
-            </form>
-            
-        </section>
-    </section>
     
+    <% var cssErro={"firstname":"", "email" :"", "cpf" :"","cnpj":"", "number" :"","password":"","confirmPassword":""};
+        var msgErro={"firstname":"", "email" :"", "cpf" :"", "number" :"","password":"","confirmPassword":"" };
+        if(listaErros) { listaErros.errors.forEach(function(itemErro){ if (itemErro.path=="firstname" ){
+        cssErro.firstname="erro" ; msgErro.firstname=itemErro.msg; } if (itemErro.path=="email" ){ cssErro.email="erro"
+        ; msgErro.email=itemErro.msg; } if (itemErro.path=="cnpj" ){ cssErro.cnpj="erro" ; msgErro.cnpj=itemErro.msg; }
+        if (itemErro.path=="cpf" ){ cssErro.cpf="erro" ; msgErro.cpf=itemErro.msg; } if (itemErro.path=="number" ){
+        cssErro.number="erro" ; msgErro.number=itemErro.msg; } if (itemErro.path=="password" ){ cssErro.password="erro"
+        ; msgErro.password=itemErro.msg; } if (itemErro.path=="confirmPassword" ){ cssErro.confirmPassword="erro" ;
+        msgErro.confirmPassword=itemErro.msg; } }); }; %>
+        
+        <main>
+            <section class="container">
+                <section class="form-image">
+                    <img src="../imgs/svg2.svg" alt="">
+                </section>
+                <section class="form">
+
+                    <form method="post" action="/cadastro">
+
+                        <section class="form-header">
+                            <section class="title">
+                                <h1>Cadastre-se</h1>
+                            </section>
+
+                            <button type="button" class="btn-parceiro" id="btn-parceiro">Seja um Parceiro</button>
+
+                        </section>
+
+                        <section class="input-group">
+                            <section class="input-box">
+                                <label for="firstname">Nome</label>
+                                <input id="firstname" type="text" name="firstname" value="<%= campos.firstname %>"
+                                    class="<%= cssErro.firstname %>" placeholder="Digite seu nome" required>
+                                <span>
+                                    <%= msgErro.firstname %>
+                                </span>
+                            </section>
+
+                            <section class="input-box">
+                                <label for="cpf">CPF</label>
+                                <input id="cpf" type="text" name="cpf" placeholder="Digite seu CPF" required>
+                                <span>
+                                    <%= msgErro.cpf %>
+                                </span>
+                            </section>
+                            <section class="input-box">
+                                <label for="email">E-mail</label>
+                                <input id="email" type="email" name="email" value="<%= campos.email  %>"
+                                    class="<%= cssErro.email %>" placeholder="Digite seu e-mail" required>
+                                <span>
+                                    <%= msgErro.email %>
+                                </span>
+                            </section>
+
+                            <section class="input-box">
+                                <label for="number">Celular</label>
+                                <input id="number" type="tel" name="number" value="<%= campos.number  %>"
+                                    class="<%= cssErro.number %>" placeholder="(xx) xxxx-xxxx" required>
+                                <span>
+                                    <%= msgErro.number %>
+                                </span>
+                            </section>
+
+                            <section class="input-box">
+                                <label for="password">Senha</label>
+                                <input id="password" type="password" name="password" value="<%= campos.password  %>"
+                                    class="<%= cssErro.password %>" placeholder="Digite sua senha" required>
+                                <span>
+                                    <%= msgErro.password %>
+                                </span>
+                            </section>
+
+
+                            <section class="input-box">
+                                <label for="confirmPassword">Confirme sua Senha</label>
+                                <input id="confirmPassword" type="password" name="confirmPassword"
+                                    value="<%= campos.confirmPassword  %>" class="<%= cssErro.confirmPassword %>"
+                                    placeholder="Digite sua senha novamente" required>
+                                <span>
+                                    <%= msgErro.confirmPassword %>
+                                </span>
+                            </section>
+
+                        </section>
+
+                        <section class="gender-inputs">
+                            <section class="gender-title">
+                                <h6>Gênero</h6>
+                            </section>
+
+                            <section class="gender-group">
+                                <section class="gender-input">
+                                    <input id="female" type="radio" name="gender">
+                                    <label for="female">Feminino</label>
+                                </section>
+
+                                <section class="gender-input">
+                                    <input id="male" type="radio" name="gender">
+                                    <label for="male">Masculino</label>
+                                </section>
+
+                                <section class="gender-input">
+                                    <input id="others" type="radio" name="gender">
+                                    <label for="others">Outros</label>
+                                </section>
+
+                                <section class="gender-input">
+                                    <input id="none" type="radio" name="gender">
+                                    <label for="none">Prefiro não dizer</label>
+                                </section>
+                            </section>
+                        </section>
+
+                        <section class="continue-button">
+                            <button><a href="/login">Enviar</a> </button>
+                        </section>
+                        <p class="texto-secundario">Já tem login? <button class="btn-entrar"><a
+                                    href="/login">Entrar</a></button></p>
+                    </form>
+
+                </section>
+            </section>
+        </main>
+        <%- include('../partials/footer.ejs') %>
 </body>
 
 </html>
