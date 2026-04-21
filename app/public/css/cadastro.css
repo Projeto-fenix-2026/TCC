@@ -29,6 +29,7 @@ main {
     align-items: center;
     background-color: #fde3a7d7;
     padding: 1rem;
+
 }
 
 .form-image img {
@@ -556,3 +557,4 @@ main {
 .password-toggle:focus {
     outline: none;
 }
+

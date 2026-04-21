@@ -70,6 +70,9 @@ router.post(
 
 
 
+router.get("/planos", function (req, res) {
+  res.render("pages/planos"); 
+});
 router.get("/forms_doacao", function (req, res) {
   res.render("pages/forms_doacao"); 
 });
@@ -80,7 +83,7 @@ router.get("/ong_page", function (req, res) {
   res.render("pages/ong_page"); 
 });
 router.get("/", function (req, res) {
-  res.render("pages/home"); 
+  res.render("pages/text"); 
 });
 router.get("/home2", function (req, res) {
   res.render("pages/home2"); 
@@ -112,6 +115,12 @@ router.get("/contato", function (req, res) {
 });
 router.get("/login", function (req, res) {
   res.render("pages/login"); 
+});
+router.get("/text", function (req, res) {
+  res.render("pages/text"); 
+});
+router.get("/geolocalizacao", function (req, res) {
+  res.render("pages/geolocalizacao"); 
 });
 
 

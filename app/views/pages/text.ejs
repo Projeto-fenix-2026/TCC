@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+ <html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fênix - Reconstruindo Mulheres</title>
+    
+    <!-- Fonte -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/text.css">
+</head>
+
+<body>
+         <%- include('../partials/header2.ejs') %>
+
+<main>
+    <!-- CARROSSEL -->
+    <div class="carousel-container">
+        <div class="carousel" id="carousel">
+            <img src="../imgs/falamulher.png">
+            <img src="../imgs/pecaajuda.png">
+        </div>
+
+        <button class="btn prev" onclick="prevSlide()">❮</button>
+        <button class="btn next" onclick="nextSlide()">❯</button>
+    </div>
+
+<section class="section" id="violencia">
+  <div class="section-inner">
+    <h2 class="section-title">O que é violência contra a mulher?</h2>
+    <p class="section-body">
+      A violência contra a mulher é qualquer ação ou conduta, baseada no gênero, que cause morte, dano ou sofrimento físico, sexual ou psicológico. É um problema grave que afeta milhões de mulheres em todo o mundo. Pode ocorrer no âmbito doméstico, nas relações afetivas, no trabalho ou em espaços públicos. Reconhecer e nomear essa violência é o primeiro passo para combatê-la.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ GEOLOCALIZAÇÃO ══════════════════════════ -->
+<section class="geo-section" id="geo">
+  <div class="geo-inner">
+    <h2 class="section-title">Geolocalização em tempo real</h2>
+
+    <!-- ✅ SOMENTE UM MAPA -->
+    <div class="map-placeholder">
+      <iframe id="mapFrame" title="Mapa em tempo real"></iframe>
+    </div>
+
+    <button onclick="getLocation()" class="saiba-mais-btn">
+      Ativar localização
+    </button>
+
+    <p id="statusGeo"></p>
+
+    <p class="geo-text">
+      Sua segurança não pode esperar. Com a geolocalização em tempo real,
+      sua localização é atualizada automaticamente para facilitar o acesso
+      a ajuda próxima. 💜
+    </p>
+  </div>
+</section>
+
+<!-- ══ PLANOS ══════════════════════════════════ -->
+<section class="plans-section" id="planos">
+  <div class="plans-inner">
+    <h2 class="section-title">Escolha seu Plano</h2>
+    <p class="plans-subtitle">Acesso à rede de apoio que você merece, no ritmo que funciona para você.</p>
+
+    <div class="plans-grid">
+
+      <!-- Plano Gratuito -->
+      <div class="plan-card">
+        <div class="plan-badge">Gratuito</div>
+        <div class="plan-price"><span class="currency">R$</span>0<span class="period">/mês</span></div>
+        <p class="plan-desc">Para quem está começando a buscar apoio.</p>
+        <ul class="plan-features">
+          <li>✔ Acesso ao fórum da comunidade</li>
+          <li>✔ Informações sobre tipos de violência</li>
+          <li>✔ Mapa básico de serviços</li>
+          <li class="disabled">✖ Geolocalização em tempo real</li>
+          <li class="disabled">✖ Chat com profissionais</li>
+          <li class="disabled">✖ Alerta de emergência</li>
+        </ul>
+        <a href="#sobre" class="plan-btn plan-btn-outline">Começar grátis</a>
+      </div>
+
+      <!-- Plano Essencial (destaque) -->
+      <div class="plan-card plan-featured">
+        <div class="plan-badge badge-featured">Mais Popular</div>
+        <div class="plan-price"><span class="currency">R$</span>19<span class="period">/mês</span></div>
+        <p class="plan-desc">Proteção e suporte no dia a dia.</p>
+        <ul class="plan-features">
+          <li>✔ Tudo do plano Gratuito</li>
+          <li>✔ Geolocalização em tempo real</li>
+          <li>✔ Chat com voluntárias treinadas</li>
+          <li>✔ Alerta de emergência</li>
+          <li>✔ Acesso a ONGs parceiras</li>
+          <li class="disabled">✖ Atendimento psicológico</li>
+        </ul>
+        <a href="#sobre" class="plan-btn plan-btn-solid">Assinar agora</a>
+      </div>
+
+      <!-- Plano Premium -->
+      <div class="plan-card">
+        <div class="plan-badge">Premium</div>
+        <div class="plan-price"><span class="currency">R$</span>49<span class="period">/mês</span></div>
+        <p class="plan-desc">Suporte completo para sua reconstrução.</p>
+        <ul class="plan-features">
+          <li>✔ Tudo do plano Essencial</li>
+          <li>✔ Sessões de apoio psicológico</li>
+          <li>✔ Consultoria jurídica online</li>
+          <li>✔ Grupo de apoio exclusivo</li>
+          <li>✔ Linha direta 24h</li>
+          <li>✔ Acompanhamento personalizado</li>
+        </ul>
+        <a href="#sobre" class="plan-btn plan-btn-outline">Escolher Premium</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+    <!-- Seção de Ajuda Profissional -->
+    <section id="ajuda" class="professional-help">
+        <nav class="help-container">
+            <h2>Ajuda Profissional Disponível</h2>
+            
+            <nav class="help-grid">
+                <nav class="help-card">
+                    <nav class="help-icon">⚠</nav>
+                    <h3>Violência Física</h3>
+ <p> É qualquer agressão ao corpo.
+
+                        <br>Exemplos:
+                        <br>Socos, tapas, chutes
+                        <br>Empurrões
+                        <br>Queimaduras </p>                
+                    <a href="/ongs" class="help-link"></a>
+                </nav>
+
+                <nav class="help-card">
+                    <nav class="help-icon">🧠</nav>
+                    <h3>Violência Psicológica</h3>
+                    <p>Afeta o emocional, a autoestima e a saúde mental.
+
+                        Exemplos:
+                        Ameaças
+                        Humilhações e xingamentos
+                        Controle excessivo (ciúmes, proibir amizades)
+                        Manipulação e chantagem</p>
+                    <a href="/ongs" class="help-link"></a>
+                </nav>
+
+                <nav class="help-card">
+                    <nav class="help-icon">💰</nav>
+                    <h3>Violência Patrimonial</h3>
+                    <p>Relacionada à honra e à reputação.
+
+                    Exemplos:
+                    Calúnia (acusar de algo que não fez)
+                    Difamação (falar mal para outras pessoas)
+                    Injúria (ofensas diretas)</p>
+
+
+                    <a href="/ongs" class="help-link"></a>
+                </nav>
+
+                <nav class="help-card">
+                    <nav class="help-icon"> 🗣️</nav>
+                    <h3>Violência Moral</h3>
+                    <p>Relacionada à honra e à reputação.
+
+                        Exemplos:
+                        Calúnia (acusar de algo que não fez)
+                        Difamação (falar mal para outras pessoas)
+                        Injúria (ofensas diretas) </p>
+                    <a href="/ongs" class="help-link"></a>
+                </nav>
+
+                <nav class="help-card">
+                    <nav class="help-icon">  🚫 </nav>
+                    <h3>Violência Sexual</h3>
+                    <p>     Qualquer ato sexual sem consentimento.
+
+                            Exemplos:
+                            Forçar relações sexuais
+                            Impedir uso de métodos contraceptivos
+                            Obrigar a práticas que a mulher não quer
+                            Estupro dentro ou fora do relacionamento</p>
+
+
+                    <a href="/ongs" class="help-link"></a>
+                </nav>
+
+                <nav class="help-card">
+                    <nav class="help-icon">🌐 </nav>
+                    <h3>Violência Digital (ou Cibernética) </h3>
+                    <p>É a violência praticada por meio da internet, redes sociais ou celular.
+
+                    Exemplos:
+                    Divulgação de fotos ou vídeos íntimos sem consentimento
+                    Ameaças e perseguição online (cyberstalking)
+                    Ofensas, humilhações ou exposição nas redes sociais
+                    Controle de redes sociais ou senhas
+                    Criação de perfis falsos para prejudicar a vítima</p>
+
+
+                    <a href="/profissionais" class="help-link"></a>
+                </nav>
+            </nav>
+        </nav>
+    </section>
+
+    <!-- Seção de Recursos Importantes -->
+    <section class="resources">
+        <nav class="resources-container">
+            <h2>Recursos Importantes</h2>
+            
+            <nav class="resources-grid">
+                <nav class="resource-card">
+                    <h3>Lei Maria da Penha</h3>
+                    <p>Conheça a legislação que protege as mulheres vítimas de violência doméstica e familiar.</p>
+                    <a href="https://www.institutomariadapenha.org.br/lei-11340/tipos-de-violencia.html" class="resource-link">Saiba Mais →</a>
+                </nav>
+
+                <nav class="resource-card">
+                    <h3>Números de Emergência</h3>
+                    <p>190 - Polícia Militar | 180 - Central de Atendimento à Mulher | 192 - SAMU</p>
+                    <a href="#" class="resource-link">Mais Informações →</a>
+                </nav>
+
+                <nav class="resource-card">
+                    <h3>Direitos das Mulheres</h3>
+                    <p>Conheça seus direitos e como protegê-los em caso de violência.</p>
+                    <a href="#" class="resource-link">Explorar →</a>
+                </nav>
+            </nav>
+        </nav>
+    </section>
+
+</main>
+  <%- include('../partials/footer.ejs') %>
+
+
+<script src="../js/text.js"></script>
+</body>
+</html>

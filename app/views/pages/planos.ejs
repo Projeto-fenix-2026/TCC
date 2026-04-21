@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fênix – Reconstruindo Mulheres</title>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Abhaya+Libre:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/planos.css">
+</head>
+<body>
+
+<!-- ══ NAVBAR ══════════════════════════════════ -->
+<nav id="navbar">           
+   <img src="../imgs/logo.png" alt="Logo Fênix" class="logo-img">
+
+  <div class="nav-logo">Fênix – reconstruindo mulheres</div>
+
+  <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <ul class="nav-links" id="nav-links" role="menu">
+    <li><a href="#violencia">Tipos de violência</a></li>
+    <li><a href="#geo">Geolocalização</a></li>
+    <li><a href="#planos">Planos</a></li>
+    <li><a href="#forum">Fórum</a></li>
+    <li><a href="#sobre">Sobre nós</a></li>
+  </ul>
+
+  <div class="nav-icon" title="Minha conta">
+    <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+  </div>
+</nav>
+
+<!-- ══ CAROUSEL ════════════════════════════════ -->
+<section class="carousel" id="carousel" aria-label="Banner principal">
+  <div class="carousel-track" id="track">
+
+    <div class="slide slide-1">
+      <svg class="slide-silhouette" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="150" cy="120" rx="70" ry="90" fill="white"/>
+        <path d="M80 280 Q150 220 220 280 L220 400 L80 400Z" fill="white"/>
+      </svg>
+      <div class="slide-content">
+        <h2>Peça ajuda!<br/>acesse ong's ou<br/>profissionais.</h2>
+        <p>Você não está sozinha. Conectamos você a redes de apoio, ONGs e profissionais especializados prontos para ajudar.</p>
+        <a href="#" class="slide-btn">Acessar agora</a>
+      </div>
+    </div>
+
+    <div class="slide slide-2">
+      <div class="slide-content">
+        <h2>Sua segurança<br/>é prioridade.</h2>
+        <p>Em caso de emergência, ligue 180 – Central de Atendimento à Mulher. Atendimento 24h, gratuito e sigiloso.</p>
+        <a href="tel:180" class="slide-btn">Ligar 180</a>
+      </div>
+    </div>
+
+    <div class="slide slide-3">
+      <div class="slide-content">
+        <h2>Geolocalização<br/>para te proteger.</h2>
+        <p>Encontre serviços de atendimento próximos de você com nossa ferramenta de geolocalização inteligente.</p>
+        <a href="#geo" class="slide-btn">Ver no mapa</a>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="carousel-btn carousel-prev" id="prev" aria-label="Slide anterior">
+    <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+  </button>
+  <button class="carousel-btn carousel-next" id="next" aria-label="Próximo slide">
+    <svg viewBox="0 0 24 24"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+  </button>
+
+  <div class="carousel-dots" id="dots">
+    <span class="dot active" data-i="0" aria-label="Slide 1"></span>
+    <span class="dot" data-i="1" aria-label="Slide 2"></span>
+    <span class="dot" data-i="2" aria-label="Slide 3"></span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ LIGUE 180 ═══════════════════════════════ -->
+<div class="ligue-banner">
+  <div class="ligue-number">LIGUE – 180</div>
+  <div class="ligue-text">Central de Atendimento à Mulher · 24h por dia · Gratuito e sigiloso</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ O QUE É VIOLÊNCIA ═══════════════════════ -->
+<section class="section" id="violencia">
+  <div class="section-inner">
+    <h2 class="section-title">O que é violência contra a mulher?</h2>
+    <p class="section-body">
+      A violência contra a mulher é qualquer ação ou conduta, baseada no gênero, que cause morte, dano ou sofrimento físico, sexual ou psicológico. É um problema grave que afeta milhões de mulheres em todo o mundo. Pode ocorrer no âmbito doméstico, nas relações afetivas, no trabalho ou em espaços públicos. Reconhecer e nomear essa violência é o primeiro passo para combatê-la.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ GEOLOCALIZAÇÃO ══════════════════════════ -->
+<section class="geo-section" id="geo">
+  <div class="geo-inner">
+    <h2 class="section-title">Temos serviços de geolocalização!</h2>
+
+    <div class="map-placeholder">
+      <iframe
+        title="Mapa de serviços próximos"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-46.7%2C-23.6%2C-46.5%2C-23.5&layer=mapnik"
+        allowfullscreen loading="lazy">
+      </iframe>
+    </div>
+
+    <a href="#" class="saiba-mais-btn">Saber mais…</a>
+
+    <p class="geo-text">
+      Sua segurança não pode esperar. Com a geolocalização, você nunca está sozinha: em um toque, sua localização é enviada para quem pode te ajudar. Mais proteção, mais rapidez, mais cuidado com você. Porque toda mulher merece se sentir segura em qualquer lugar. 💜
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ PLANOS ══════════════════════════════════ -->
+<section class="plans-section" id="planos">
+  <div class="plans-inner">
+    <h2 class="section-title">Escolha seu Plano</h2>
+    <p class="plans-subtitle">Acesso à rede de apoio que você merece, no ritmo que funciona para você.</p>
+
+    <div class="plans-grid">
+
+      <!-- Plano Gratuito -->
+      <div class="plan-card">
+        <div class="plan-badge">Gratuito</div>
+        <div class="plan-price"><span class="currency">R$</span>0<span class="period">/mês</span></div>
+        <p class="plan-desc">Para quem está começando a buscar apoio.</p>
+        <ul class="plan-features">
+          <li>✔ Acesso ao fórum da comunidade</li>
+          <li>✔ Informações sobre tipos de violência</li>
+          <li>✔ Mapa básico de serviços</li>
+          <li class="disabled">✖ Geolocalização em tempo real</li>
+          <li class="disabled">✖ Chat com profissionais</li>
+          <li class="disabled">✖ Alerta de emergência</li>
+        </ul>
+        <a href="#sobre" class="plan-btn plan-btn-outline">Começar grátis</a>
+      </div>
+
+      <!-- Plano Essencial (destaque) -->
+      <div class="plan-card plan-featured">
+        <div class="plan-badge badge-featured">Mais Popular</div>
+        <div class="plan-price"><span class="currency">R$</span>19<span class="period">/mês</span></div>
+        <p class="plan-desc">Proteção e suporte no dia a dia.</p>
+        <ul class="plan-features">
+          <li>✔ Tudo do plano Gratuito</li>
+          <li>✔ Geolocalização em tempo real</li>
+          <li>✔ Chat com voluntárias treinadas</li>
+          <li>✔ Alerta de emergência</li>
+          <li>✔ Acesso a ONGs parceiras</li>
+          <li class="disabled">✖ Atendimento psicológico</li>
+        </ul>
+        <a href="#sobre" class="plan-btn plan-btn-solid">Assinar agora</a>
+      </div>
+
+      <!-- Plano Premium -->
+      <div class="plan-card">
+        <div class="plan-badge">Premium</div>
+        <div class="plan-price"><span class="currency">R$</span>49<span class="period">/mês</span></div>
+        <p class="plan-desc">Suporte completo para sua reconstrução.</p>
+        <ul class="plan-features">
+          <li>✔ Tudo do plano Essencial</li>
+          <li>✔ Sessões de apoio psicológico</li>
+          <li>✔ Consultoria jurídica online</li>
+          <li>✔ Grupo de apoio exclusivo</li>
+          <li>✔ Linha direta 24h</li>
+          <li>✔ Acompanhamento personalizado</li>
+        </ul>
+        <a href="#sobre" class="plan-btn plan-btn-outline">Escolher Premium</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ FORMULÁRIO ══════════════════════════════ -->
+<section class="form-section" id="sobre">
+  <div class="form-inner">
+    <h2 class="form-title">Preencha os dados abaixo:</h2>
+
+    <div class="form-group">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" placeholder="Seu nome completo" autocomplete="name"/>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="seu@email.com" autocomplete="email"/>
+    </div>
+    <div class="form-group">
+      <label for="telefone">Telefone:</label>
+      <input type="tel" id="telefone" placeholder="(00) 00000-0000" autocomplete="tel"/>
+    </div>
+    <div class="form-group">
+      <label for="cpf">CPF:</label>
+      <input type="text" id="cpf" placeholder="000.000.000-00" inputmode="numeric"/>
+    </div>
+
+    <button class="form-submit" id="enviar">Enviar</button>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════ -->
+<footer>
+  <span class="footer-logo">Fênix – reconstruindo mulheres</span>
+  <p class="footer-copy">© 2025 · Todos os direitos reservados · Ligue 180</p>
+</footer>
+
+
+    <script src="./js/planos.js"></script>
+</body>
+</html>

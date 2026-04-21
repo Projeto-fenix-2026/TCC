@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geolocalização - Fênix</title>
+
+  <link rel="stylesheet" href="../css/geolocalizacao.css">
+</head>
+
+<body>
+
+<%- include('../partials/header2.ejs') %>
+
+<main class="container">
+
+  <section>
+    <header>
+      <h1>Geolocalização em tempo real</h1>
+      <p>Compartilhe sua localização com pessoas de confiança</p>
+    </header>
+
+    <!-- MAPA -->
+    <figure class="map-container">
+      <iframe id="mapFrame"></iframe>
+    </figure>
+
+    <!-- BOTÃO -->
+    <button onclick="getLocation()">Ativar localização</button>
+    <p id="statusGeo"></p>
+  </section>
+
+  <!-- CONTATOS -->
+  <section>
+    <h2>Contatos de confiança</h2>
+
+    <form onsubmit="addContact(event)" class="form">
+      <input type="text" id="name" placeholder="Nome" required>
+      <input type="text" id="phone" placeholder="WhatsApp (5511999999999)" required>
+      <button type="submit">Adicionar</button>
+    </form>
+
+    <ul id="contactList"></ul>
+  </section>
+
+  <!-- ALERTA -->
+  <section>
+    <h2>Emergência</h2>
+    <button onclick="sendAlert()" class="alert-btn">
+      🚨 Enviar localização
+    </button>
+  </section>
+
+</main>
+
+<%- include('../partials/footer.ejs') %>
+
+<script src="../js/geolocalizacao.js"></script>
+
+</body>
+</html>

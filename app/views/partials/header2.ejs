@@ -1,35 +1,52 @@
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/header.css">
 
-    <header>
+   
+<header class="header">
+    <div class="logo-container">
+        <a href="/text">
+        <img src="../imgs/logo.png" alt="Logo Fênix" class="logo-img" ></a>
+        <h1 class="site-title">
+            Fênix <span class="subtitle">- reconstruindo mulheres</span>
+        </h1>
+    </div>
 
-       <nav class="nav-bar"> 
+    <div class="icons-container">
+        <a href="#" class="user-profile">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+        </a>
 
-        <a class="logo" href="/"><img src="../imgs/logo-02.svg" alt="Foto de perfil" class="logo"></a>
-    
-        <nav class="mobile-menu">
-        <nav class="line1"> </nav>
-        <nav class="line2"> </nav>
-        <nav class="line3"> </nav>
-<!--revisar-->
-    </nav>
-        <ul class="nav-list">
-            <li><a href="/home2">Menu</a></li>
-            <li><a href="/perfil_usuario">Perfil</a></li>
-            <li><a href="/sobre_nos">Sobre Nós</a></li>
-            <li><a href="/forms_doacao">Doe</a></li>
-            <li><a href="/ongs">Procure Apoio</a></li>
-           
+        <button class="hamburger" id="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </div>
+</header>
 
-        </ul>
-    </nav>
-  </header>
+<nav class="sidebar-menu" id="sidebar-menu">
+    <ul> 
+        <li><a href="/text">Inicio</a></li>
+        <li><a href="/tipos_violencia">Tipos de violência</a></li>
+        <li><a href="/geolocalizacao">Geolocalização</a></li>
+        <li><a href="/forum">Fórum</a></li>
+        <li><a href="/sobre_nos">Sobre nós</a></li>      
+        <li><a href="/ongs">Procure Apoio</a></li>
+        <li><a href="/cadastro">Cadrastre-se</a></li>
+        <li><a href="/forms_doacao">Doe</a></li>
        
+
+
+    </ul>
+</nav>
   
 
 
 
-    <script src="./js/mobile-navbar.js"></script>
 
 </body>
 </html>

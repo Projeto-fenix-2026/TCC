@@ -1,0 +1,79 @@
+body {
+  background: #f4f4f4;
+    font-family: Abhaya Libre Medium;
+}
+
+.container {
+  padding: 100px 20px 40px;
+  max-width: 900px;
+  margin: auto;
+}
+
+/* MAPA */
+.map-container {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* BOTÕES */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 30px;
+  background: #6a1b9a;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #4a148c;
+}
+
+.alert-btn {
+  background: #c62828;
+}
+
+.alert-btn:hover {
+  background: #8e0000;
+}
+
+/* FORM */
+.form {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+/* LISTA */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
