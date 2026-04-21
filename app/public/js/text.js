@@ -82,3 +82,9 @@ document.addEventListener('click', (event) => {
     }
   );
 }
+
+if (navigator.permissions) {
+  navigator.permissions.query({ name: "geolocation" }).then(result => {
+    console.log(result.state); // granted, denied, prompt
+  });
+}
