@@ -1,7 +1,4 @@
-CREATE DATABASE fenix;
-USE fenix;
-
-CREATE TABLE usuario (
+CREATE TABLE IF NOT EXISTS usuario (
   id_usuario  INT          NOT NULL AUTO_INCREMENT,
   nome        VARCHAR(60)  NOT NULL,
   CPF         CHAR(11)     NOT NULL UNIQUE,
@@ -12,7 +9,7 @@ CREATE TABLE usuario (
   CONSTRAINT pk_usuario PRIMARY KEY (id_usuario)
 );
 
-CREATE TABLE doacoes (
+CREATE TABLE IF NOT EXISTS doacoes (
   id_doacoes       INT            NOT NULL,
   valor            DECIMAL(10,2)  NOT NULL,
   metodo_pagamento VARCHAR(50)    NOT NULL,
@@ -22,7 +19,7 @@ CREATE TABLE doacoes (
   CONSTRAINT fk_doacoes_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
-CREATE TABLE ONG (
+CREATE TABLE IF NOT EXISTS ONG (
   id_ong    INT         NOT NULL,
   nome      VARCHAR(50) NOT NULL,
   email     VARCHAR(70) NOT NULL,
@@ -31,7 +28,7 @@ CREATE TABLE ONG (
   CONSTRAINT pk_ong PRIMARY KEY (id_ong)
 );
 
-CREATE TABLE profissionais (
+CREATE TABLE IF NOT EXISTS profissionais (
   id_profissionais INT         NOT NULL,
   nome             VARCHAR(70) NOT NULL,
   area             VARCHAR(50) NOT NULL,
@@ -39,7 +36,7 @@ CREATE TABLE profissionais (
   CONSTRAINT pk_profissionais PRIMARY KEY (id_profissionais)
 );
 
-CREATE TABLE pagamento (
+CREATE TABLE IF NOT EXISTS pagamento (
   id_pagamento     INT           NOT NULL,
   forma_pagamento  VARCHAR(50),
   valor            DECIMAL(10,2) NOT NULL,
@@ -50,7 +47,7 @@ CREATE TABLE pagamento (
   CONSTRAINT fk_pagamento_prof FOREIGN KEY (id_profissionais) REFERENCES profissionais(id_profissionais)
 );
 
-CREATE TABLE anuncio (
+CREATE TABLE IF NOT EXISTS anuncio (
   id_anuncio       INT         NOT NULL,
   id_ong           INT         NOT NULL,
   titulo           VARCHAR(80),

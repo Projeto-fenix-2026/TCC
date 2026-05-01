@@ -3,6 +3,7 @@ var router = express.Router();
 const pool = require("../../config/pool_conexoes");
 const {body, validationResult} = require("express-validator");
 var {validarCNPJ, validarCPF } = require("../helpers/validacoes");
+const { usuarioModel } = require("../models/usuarioModel");
 
 router.get("/login", function (req, res) {
   res.render("pages/login",{"erros": null, "valores": {"email":"","password":""} ,"retorno":null}); 
@@ -65,17 +66,35 @@ router.post(
       return true;
     }),
 
-  function (req, res) {
+  async function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(errors);
       return res.render("pages/cadastro", { retorno: null, "listaErros": errors, "campos": req.body });
     }
-    return res.redirect("/login");
+
+    const resultado = await usuarioModel.create({
+      nome:     req.body.firstname,
+      cpf:      req.body.cpf,
+      email:    req.body.email,
+      telefone: req.body.number,
+      senha:    req.body.password,
+      genero:   req.body.gender
+    });
+
+    if (resultado.affectedRows) {
+      return res.redirect("/login");
+    } else {
+      return res.render("pages/cadastro", { retorno: null, "listaErros": { errors: [{ msg: "Erro ao cadastrar. Tente novamente." }] }, "campos": req.body });
+    }
   }
 );
 
 
+
+router.get("/usuarios", async function (req, res) {
+  const usuarios = await usuarioModel.findAll();
+  res.json(usuarios);
+});
 
 router.get("/planos", function (req, res) {
   res.render("pages/planos"); 

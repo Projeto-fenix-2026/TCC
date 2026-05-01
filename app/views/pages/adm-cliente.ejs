@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Usuários Cadastrados</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="../css/index-adm.css">
+</head>
+
+<body>
+    <input type="checkbox" id="sidebare-toggle">
+    <section class="sidebar">
+        <section class="sidebar-header">
+            <h3 class="brand"><span class="ti-unlink"></span>
+                <span>Fenix</span>
+            </h3>
+            <label for="sidebare-toggle" class="ti-menu-alt"></label>
+        </section>
+
+        <section class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="/adm">
+                        <span class="ti-home"></span>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/adm/adm-cliente">
+                        <span class="ti-face-smile"></span>
+                        <span>Usuários</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </section>
+
+    <section class="main-content">
+
+        <header>
+            <section class="search-wrapper">
+                <span class="ti-search"></span>
+                <input type="search" placeholder="Buscar">
+            </section>
+            <section class="social-icons">
+                <span class="ti-bell"></span>
+                <span class="ti-comment"></span>
+                <section></section>
+            </section>
+        </header>
+
+        <main>
+            <h2 class="dash-title">Usuários Cadastrados</h2>
+
+            <section class="recent">
+                <section class="activity-grid">
+                    <section class="activity-card">
+
+                        <section class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>CPF</th>
+                                        <th>E-mail</th>
+                                        <th>Telefone</th>
+                                        <th>Gênero</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (usuarios.length === 0) { %>
+                                        <tr>
+                                            <td colspan="6" style="text-align:center;">Nenhum usuário cadastrado.</td>
+                                        </tr>
+                                    <% } else { %>
+                                        <% usuarios.forEach(function(usuario) { %>
+                                            <tr>
+                                                <td><%= usuario.id_usuario %></td>
+                                                <td><%= usuario.nome %></td>
+                                                <td><%= usuario.CPF %></td>
+                                                <td><%= usuario.email %></td>
+                                                <td><%= usuario.telefone %></td>
+                                                <td><%= usuario.genero %></td>
+                                            </tr>
+                                        <% }); %>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </section>
+
+                    </section>
+                </section>
+            </section>
+
+        </main>
+
+    </section>
+</body>
+
+</html>
