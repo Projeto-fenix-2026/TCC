@@ -1,65 +1,61 @@
-create database fenix;
+CREATE DATABASE fenix;
+USE fenix;
 
-use fenix;
-
-create table usuario
-(
- nome varchar(60) not null,
- categoria varchar(50) not null,
- CPF int not null,
- data_nascimento date not null,
- cidade varchar(20) not null,
- bairro varchar(20) not null,
- estado char(02) not null,
- id_usuario int not null,
-constraint id_usuario primary key(id_usuario)
-);
-create table doaçoes
-(
- valor int not null,
- metodo_pagamento varchar(50) not null,
- data_doacao date not null,
- id_usuario int not null,
- id_doacoes int not null,
-constraint id_doacoes primary key(id_doacoes)
+CREATE TABLE usuario (
+  id_usuario  INT          NOT NULL AUTO_INCREMENT,
+  nome        VARCHAR(60)  NOT NULL,
+  CPF         CHAR(11)     NOT NULL UNIQUE,
+  email       VARCHAR(100) NOT NULL UNIQUE,
+  telefone    CHAR(11)     NOT NULL,
+  senha       VARCHAR(255) NOT NULL,
+  genero      VARCHAR(20),
+  CONSTRAINT pk_usuario PRIMARY KEY (id_usuario)
 );
 
-create table ONG
-(
-nome varchar(50) not null,
-email varchar(70) not null,
-telefone char(11) not null,
-CNPJ char(14) not null,
-id_pagamento int not null,
-id_ong int not null,
-constraint id_ong primary key(id_ong)
-); 
-create table profissionais
-(
-area varchar(50) not null,
-cpf char(11) not null,
-nome varchar(70) not null,
-id_pagamento int not null,
-id_profissionais int not null,
-constraint id_profissionais primary key(id_profissionais)
-);
-create table pagamento
-(
-forma_pagamento varchar(50),
-valor varchar(10000),
-id_ong int not null,
-id_profissionais int not null,
-id_pagamento int not null,
-constraint id_pagamento primary key(id_pagamento)
-);
-create table anuncio 
-(
-id_ong int not null,
-titulo varchar(80),
-data_publicacao date not null,
-tipo_anuncio varchar(70),
-id_anuncio int not null,
-constraint id_anuncio primary key(id_anuncio)
+CREATE TABLE doacoes (
+  id_doacoes       INT            NOT NULL,
+  valor            DECIMAL(10,2)  NOT NULL,
+  metodo_pagamento VARCHAR(50)    NOT NULL,
+  data_doacao      DATE           NOT NULL,
+  id_usuario       INT            NOT NULL,
+  CONSTRAINT pk_doacoes PRIMARY KEY (id_doacoes),
+  CONSTRAINT fk_doacoes_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
+CREATE TABLE ONG (
+  id_ong    INT         NOT NULL,
+  nome      VARCHAR(50) NOT NULL,
+  email     VARCHAR(70) NOT NULL,
+  telefone  CHAR(11)    NOT NULL,
+  CNPJ      CHAR(14)    NOT NULL,
+  CONSTRAINT pk_ong PRIMARY KEY (id_ong)
+);
 
+CREATE TABLE profissionais (
+  id_profissionais INT         NOT NULL,
+  nome             VARCHAR(70) NOT NULL,
+  area             VARCHAR(50) NOT NULL,
+  cpf              CHAR(11)    NOT NULL,
+  CONSTRAINT pk_profissionais PRIMARY KEY (id_profissionais)
+);
+
+CREATE TABLE pagamento (
+  id_pagamento     INT           NOT NULL,
+  forma_pagamento  VARCHAR(50),
+  valor            DECIMAL(10,2) NOT NULL,
+  id_ong           INT           NOT NULL,
+  id_profissionais INT           NOT NULL,
+  CONSTRAINT pk_pagamento PRIMARY KEY (id_pagamento),
+  CONSTRAINT fk_pagamento_ong FOREIGN KEY (id_ong) REFERENCES ONG(id_ong),
+  CONSTRAINT fk_pagamento_prof FOREIGN KEY (id_profissionais) REFERENCES profissionais(id_profissionais)
+);
+
+CREATE TABLE anuncio (
+  id_anuncio       INT         NOT NULL,
+  id_ong           INT         NOT NULL,
+  titulo           VARCHAR(80),
+  data_publicacao  DATE        NOT NULL,
+  tipo_anuncio     VARCHAR(70),
+  CONSTRAINT pk_anuncio PRIMARY KEY (id_anuncio),
+  CONSTRAINT fk_anuncio_ong FOREIGN KEY (id_ong) REFERENCES ONG(id_ong)
+);

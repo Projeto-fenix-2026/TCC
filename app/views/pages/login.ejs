@@ -49,24 +49,19 @@
                                         <input id="password" type="password" name="password"
                                             placeholder="Digite sua senha" value="<%= valores.password  %>"
                                             class="<%= erroValidacao.password %>" required>
-                                        <span>
-                                            <%= msgErro.password %>
-                                        </span><br>
                                         <button type="button" class="password-toggle" id="togglePassword">
                                             <i class="bx bx-hide"></i>
                                         </button>
                                     </section>
+                                    <span><%= msgErro.password %></span>
                                 </section>
                             </section>
 
-
+                            <section class="continue-button">
+                                <button type="submit">Entrar</button>
+                            </section>
 
                         </form>
-                        <a href="/home2">
-                            <section class="continue-button">
-                                <button>Entrar</button>
-                            </section>
-                        </a>
 
                         <p class="texto-secundario">Não tem conta? <a href="/cadastro">Cadastre-se aqui</a></p>
 
