@@ -101,8 +101,8 @@ router.get("/perfil_ong", function (req, res) {
 router.get("/perfil_usuario", function (req, res) {
   res.render("pages/perfil_usuario"); 
 });
-router.get("/denuncia", function (req, res) {
-  res.render("pages/denuncia"); 
+router.get("/direitos", function (req, res) {
+  res.render("pages/direitos"); 
 });
 router.get("/sobre_nos", function (req, res) {
   res.render("pages/sobre_nos"); 
@@ -121,6 +121,9 @@ router.get("/text", function (req, res) {
 });
 router.get("/geolocalizacao", function (req, res) {
   res.render("pages/geolocalizacao"); 
+});
+router.get("/tipos_violencia", function (req, res) {
+  res.render("pages/tipos_violencia"); 
 });
 
 

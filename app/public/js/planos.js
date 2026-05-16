@@ -25,7 +25,7 @@ document.addEventListener('click', (e) => {
   }
 });
 
-/* ─── CAROUSEL ───────────────────────────── */
+/* ─── carrossel───────────────────────────── */
 const track  = document.getElementById('track');
 const dots   = document.querySelectorAll('.dot');
 const total  = dots.length;

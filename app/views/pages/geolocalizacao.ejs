@@ -1,61 +1,220 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geolocalização - Fênix</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Localização Segura</title>
 
-  <link rel="stylesheet" href="../css/geolocalizacao.css">
+<style>
+:root {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --primary: #ff4d6d;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+}
+
+body {
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  padding: 16px;
+  text-align: center;
+  font-weight: 600;
+  background: #020617;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#map {
+  flex: 1;
+}
+
+/* INFO CARD */
+.info {
+  background: var(--card);
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.coords {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 13px;
+}
+
+.status {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* CONTATOS */
+.contacts {
+  display: grid;
+  gap: 8px;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #334155;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.contact.active {
+  outline: 2px solid var(--primary);
+  background: #475569;
+}
+
+/* BOTÃO SOS */
+button {
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+</style>
 </head>
 
 <body>
 
-<%- include('../partials/header2.ejs') %>
+<header>📍 Modo Segurança</header>
 
-<main class="container">
+<main>
 
-  <section>
-    <header>
-      <h1>Geolocalização em tempo real</h1>
-      <p>Compartilhe sua localização com pessoas de confiança</p>
-    </header>
+<section id="map"></section>
 
-    <!-- MAPA -->
-    <figure class="map-container">
-      <iframe id="mapFrame"></iframe>
-    </figure>
+<section class="info">
 
-    <!-- BOTÃO -->
-    <button onclick="getLocation()">Ativar localização</button>
-    <p id="statusGeo"></p>
+  <section class="coords">
+    <div>Lat: <span id="lat">--</span></div>
+    <div>Lng: <span id="lng">--</span></div>
+    <div>Precisão: <span id="accuracy">--</span>m</div>
   </section>
+
+  <div class="status" id="status">Buscando localização...</div>
 
   <!-- CONTATOS -->
-  <section>
-    <h2>Contatos de confiança</h2>
+  <section class="contacts" id="contacts">
 
-    <form onsubmit="addContact(event)" class="form">
-      <input type="text" id="name" placeholder="Nome" required>
-      <input type="text" id="phone" placeholder="WhatsApp (5511999999999)" required>
-      <button type="submit">Adicionar</button>
-    </form>
+    <article class="contact active" data-number="5511999999999">
+      👩 Maria (Mãe)
+    </article>
 
-    <ul id="contactList"></ul>
+    <article class="contact" data-number="5511888888888">
+      👩 Ana (Amiga)
+    </article>
+
+    <article class="contact" data-number="5511777777777">
+      🚓 Polícia / Apoio
+    </article>
+
   </section>
 
-  <!-- ALERTA -->
-  <section>
-    <h2>Emergência</h2>
-    <button onclick="sendAlert()" class="alert-btn">
-      🚨 Enviar localização
-    </button>
-  </section>
+  <button id="sosBtn">🚨 ENVIAR LOCALIZAÇÃO</button>
+
+</section>
 
 </main>
 
-<%- include('../partials/footer.ejs') %>
+<script>
+let map;
+let marker;
+let currentPosition = null;
+let selectedNumber = "5511999999999";
 
-<script src="../js/geolocalizacao.js"></script>
+// GOOGLE MAPS
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -23.5505, lng: -46.6333 },
+    zoom: 15,
+  });
+
+  marker = new google.maps.Marker({
+    map: map,
+  });
+
+  navigator.geolocation.watchPosition(
+    (pos) => {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      const acc = pos.coords.accuracy;
+
+      currentPosition = { lat, lng };
+
+      marker.setPosition({ lat, lng });
+      map.setCenter({ lat, lng });
+
+      document.getElementById("lat").textContent = lat.toFixed(6);
+      document.getElementById("lng").textContent = lng.toFixed(6);
+      document.getElementById("accuracy").textContent = Math.round(acc);
+      document.getElementById("status").textContent = "Localização ativa";
+    },
+    () => {
+      document.getElementById("status").textContent = "Erro ao obter localização";
+    },
+    { enableHighAccuracy: true }
+  );
+}
+
+// SELEÇÃO DE CONTATOS
+document.querySelectorAll(".contact").forEach(el => {
+  el.addEventListener("click", () => {
+
+    document.querySelectorAll(".contact").forEach(c => c.classList.remove("active"));
+
+    el.classList.add("active");
+    selectedNumber = el.dataset.number;
+
+  });
+});
+
+// BOTÃO SOS
+document.getElementById("sosBtn").addEventListener("click", () => {
+
+  if (!currentPosition) {
+    alert("Localização não disponível ainda");
+    return;
+  }
+
+  const { lat, lng } = currentPosition;
+
+  const msg = `🚨 Preciso de ajuda!
+Minha localização:
+https://www.google.com/maps?q=${lat},${lng}`;
+
+  const url = `https://wa.me/${selectedNumber}?text=${encodeURIComponent(msg)}`;
+
+  window.open(url, "_blank");
+});
+</script>
+
+<!-- COLE SUA API KEY -->
+<script async
+src="https://maps.googleapis.com/maps/api/js?key=SUA_API_KEY_AQUI&callback=initMap">
+</script>
 
 </body>
 </html>
