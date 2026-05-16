@@ -355,7 +355,6 @@ body {
   font-size: .875rem;
   outline: none;
   transition: border var(--transition), box-shadow var(--transition);
-  -webkit-appearance: none;
 }
 .form-group input::placeholder,
 .form-group textarea::placeholder { color: var(--text-faint); }
@@ -568,14 +567,55 @@ body {
   padding: 1rem 1.15rem;
 }
 .test-header 
-{ display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: .4rem; flex-wrap: wrap; gap: .4rem; }
+{
+   display: flex; 
+   justify-content: space-between;
+    align-items: flex-start;
+     margin-bottom: .4rem;
+      flex-wrap: wrap;
+       gap: .4rem; 
+      }
+
 .test-title { font-weight: 600; font-size: .88rem; }
-.test-meta { display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; }
-.test-badge { font-size: .64rem; font-weight: 600; padding: .16rem .5rem; border-radius: 20px; text-transform: uppercase; letter-spacing: .04em; }
-.test-badge.pub  { background: var(--success-bg); color: var(--success); }
-.test-badge.priv { background: var(--gold-dim);   color: var(--gold-dark); }
-.test-badge.com  { background: #eff6ff;            color: #1d4ed8; }
-.test-text { font-size: .84rem; color: var(--text-muted); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.test-meta 
+{ 
+  display: flex;
+   gap: .4rem;
+    flex-wrap: wrap; 
+    align-items: center;
+   }
+.test-badge
+ {
+   font-size: .64rem;
+    font-weight: 600; 
+    padding: .16rem .5rem;
+     border-radius: 20px; 
+     text-transform: uppercase;
+      letter-spacing: .04em;
+     }
+.test-badge.pub
+  { 
+    background: var(--success-bg); 
+    color: var(--success);
+   }
+.test-badge.priv
+ {
+   background: var(--gold-dim); 
+     color: var(--gold-dark); 
+    }
+
+     .test-badge.com
+     
+     {
+       background: #eff6ff;     
+              color: #1d4ed8; 
+            }
+.test-text { 
+  font-size: .84rem;
+   color: var(--text-muted); 
+   line-height: 1.6; display: -webkit-box;
+    -webkit-box-orient: vertical;
+     overflow: hidden;}
 .test-actions { display: flex; gap: .4rem; margin-top: .6rem; }
 .test-btn { padding: .26rem .7rem; border-radius: 6px; border: none; cursor: pointer; font-size: .75rem; font-weight: 500; font-family: 'DM Sans', sans-serif; transition: all var(--transition); }
 .test-btn-edit { background: var(--gold-dim); color: var(--gold-dark); border: 1px solid var(--gold-border); }
