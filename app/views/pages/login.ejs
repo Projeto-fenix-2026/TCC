@@ -61,6 +61,10 @@
                                 <button type="submit">Entrar</button>
                             </section>
 
+                            <% if (retorno && retorno.tipo === 'erro') { %>
+                                <p style="color: red; text-align: center; margin-top: 8px;"><%= retorno.msg %></p>
+                            <% } %>
+
                         </form>
 
                         <a href="/text">

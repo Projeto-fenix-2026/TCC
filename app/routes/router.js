@@ -4,6 +4,7 @@ const pool = require("../../config/pool_conexoes");
 const {body, validationResult} = require("express-validator");
 var {validarCNPJ, validarCPF } = require("../helpers/validacoes");
 const { usuarioModel } = require("../models/usuarioModel");
+const { autenticado } = require("../helpers/autenticado");
 
 router.get("/login", function (req, res) {
   res.render("pages/login",{"erros": null, "valores": {"email":"","password":""} ,"retorno":null}); 
@@ -13,12 +14,23 @@ router.post(
   "/login",
   body("email").isEmail().withMessage('Digite um e-mail válido!'),
   body("password").isLength({ min: 6 }).withMessage('A senha deve ter pelo menos 6 caracteres!'),
-  function (req, res) {
+  async function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.render("pages/login", { "erros": errors, "valores": req.body, "retorno": null });
     }
-    return res.redirect("/home2");
+
+    const usuario = await usuarioModel.findByEmail(req.body.email);
+    if (!usuario || usuario.senha !== req.body.password) {
+      return res.render("pages/login", {
+        "erros": null,
+        "valores": req.body,
+        "retorno": { tipo: "erro", msg: "E-mail ou senha incorretos." }
+      });
+    }
+
+    req.session.usuario = { id: usuario.id_usuario, nome: usuario.nome, email: usuario.email };
+    return res.redirect("/text");
   }
 );
 
@@ -96,63 +108,67 @@ router.get("/usuarios", async function (req, res) {
   res.json(usuarios);
 });
 
-router.get("/planos", function (req, res) {
-  res.render("pages/planos"); 
-});
-router.get("/forms_doacao", function (req, res) {
-  res.render("pages/forms_doacao"); 
-});
-router.get("/ongs", function (req, res) {
-  res.render("pages/ongs"); 
-});
-router.get("/ong_page", function (req, res) {
-  res.render("pages/ong_page"); 
-});
+// rotas públicas
 router.get("/", function (req, res) {
-  res.render("pages/text"); 
-});
-router.get("/home2", function (req, res) {
-  res.render("pages/home2"); 
-});
-router.get("/login_profissionais", function (req, res) {
-  res.render("pages/login_profissionais"); 
-});
-
-router.get("/perfil_profissional", function (req, res) {
-  res.render("pages/perfil_profissional"); 
-});
-router.get("/perfil_ong", function (req, res) {
-  res.render("pages/perfil_ong"); 
-});
-router.get("/perfil_usuario", function (req, res) {
-  res.render("pages/perfil_usuario"); 
-});
-router.get("/direitos", function (req, res) {
-  res.render("pages/direitos"); 
-});
-router.get("/sobre_nos", function (req, res) {
-  res.render("pages/sobre_nos"); 
-});
-router.get("/carrossel", function (req, res) {
-  res.render("pages/carrossel"); 
-});
-router.get("/contato", function (req, res) {
-  res.render("pages/contato"); 
-});
-router.get("/login", function (req, res) {
-  res.render("pages/login"); 
+  res.render("pages/text");
 });
 router.get("/text", function (req, res) {
-  res.render("pages/text"); 
+  res.render("pages/text");
 });
-router.get("/geolocalizacao", function (req, res) {
-  res.render("pages/geolocalizacao"); 
+
+// rotas protegidas — exigem login
+router.get("/home2", autenticado, function (req, res) {
+  res.render("pages/home2");
 });
-router.get("/tipos_violencia", function (req, res) {
-  res.render("pages/tipos_violencia"); 
+router.get("/planos", autenticado, function (req, res) {
+  res.render("pages/planos");
+});
+router.get("/forms_doacao", autenticado, function (req, res) {
+  res.render("pages/forms_doacao");
+});
+router.get("/ongs", autenticado, function (req, res) {
+  res.render("pages/ongs");
+});
+router.get("/ong_page", autenticado, function (req, res) {
+  res.render("pages/ong_page");
+});
+router.get("/login_profissionais", autenticado, function (req, res) {
+  res.render("pages/login_profissionais");
+});
+router.get("/perfil_profissional", autenticado, function (req, res) {
+  res.render("pages/perfil_profissional");
+});
+router.get("/perfil_ong", autenticado, function (req, res) {
+  res.render("pages/perfil_ong");
+});
+router.get("/perfil_usuario", autenticado, function (req, res) {
+  res.render("pages/perfil_usuario");
+});
+router.get("/direitos", autenticado, function (req, res) {
+  res.render("pages/direitos");
+});
+router.get("/sobre_nos", autenticado, function (req, res) {
+  res.render("pages/sobre_nos");
+});
+router.get("/carrossel", autenticado, function (req, res) {
+  res.render("pages/carrossel");
+});
+router.get("/contato", autenticado, function (req, res) {
+  res.render("pages/contato");
+});
+router.get("/geolocalizacao", autenticado, function (req, res) {
+  res.render("pages/geolocalizacao");
+});
+router.get("/tipos_violencia", autenticado, function (req, res) {
+  res.render("pages/tipos_violencia");
 });
 
 
 
+
+router.get("/logout", function (req, res) {
+  req.session.destroy();
+  res.redirect("/login");
+});
 
 module.exports = router;
