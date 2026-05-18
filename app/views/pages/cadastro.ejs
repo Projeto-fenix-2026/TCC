@@ -40,7 +40,7 @@
                                 <h1>Cadastre-se</h1>
                             </section>
 
-                            <button type="button" class="btn-parceiro" id="btn-parceiro">Seja um Parceiro</button>
+                            <button type="button" class="btn-parceiro" id="btn-parceiro" style="display:none;">Seja um Parceiro</button>
 
                         </section>
 
@@ -56,7 +56,8 @@
 
                             <section class="input-box">
                                 <label for="cpf">CPF</label>
-                                <input id="cpf" type="text" name="cpf" placeholder="Digite seu CPF" required>
+                                <input id="cpf" type="text" name="cpf" value="<%= campos.cpf  %>" class="<%= cssErro.cpf %>"
+                                    placeholder="Digite seu CPF" required>
                                 <span>
                                     <%= msgErro.cpf %>
                                 </span>
@@ -130,7 +131,7 @@
                         </section>
 
                         <section class="continue-button">
-                            <button><a href="/login">Enviar</a> </button>
+                            <button type="submit">Enviar</button>
                         </section>
                         <p class="texto-secundario">Já tem login? <button class="btn-entrar"><a
                                     href="/login">Entrar</a></button></p>
