@@ -56,3 +56,29 @@ CREATE TABLE IF NOT EXISTS anuncio (
   CONSTRAINT pk_anuncio PRIMARY KEY (id_anuncio),
   CONSTRAINT fk_anuncio_ong FOREIGN KEY (id_ong) REFERENCES ONG(id_ong)
 );
+
+
+
+USE bppt1eeecfgcdubxp4cn;
+
+CREATE TABLE IF NOT EXISTS historico_localizacao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    latitude VARCHAR(50) NOT NULL,
+    longitude VARCHAR(50) NOT NULL,
+    data_hora DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 1. Cria a tabela para os planos do site
+CREATE TABLE IF NOT EXISTS planos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL,
+    periodo VARCHAR(30) NOT NULL,
+    tagline VARCHAR(150),
+    destaque BOOLEAN DEFAULT FALSE
+);
+
+-- 2. Insere as duas opções: Gratuito e Plus
+INSERT INTO planos (nome, preco, periodo, tagline, destaque) VALUES
+('Plano Gratuito', 0.00, 'sempre', 'O essencial para o seu dia a dia.', FALSE),
+('Plano Plus', 9.90, 'mês', 'Proteção completa e monitoramento contínuo.', TRUE);

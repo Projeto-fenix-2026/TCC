@@ -23,7 +23,7 @@ body {
 }
 
 /* =========================================
-   HEADER
+   header
    ========================================= */
 .header {
     background-color: var(--bg-color);
@@ -46,6 +46,7 @@ body {
     align-items: center;
     gap: 15px;
 }
+
 
 .logo-img {
     height: 50px;
@@ -139,7 +140,7 @@ body {
 
 .sidebar-menu ul {
     list-style: none;
-    padding: 30px 0;
+    padding: 20px 0;
     display: flex;
     flex-direction: column;
 }
@@ -267,199 +268,6 @@ body {
   color: #3d2255;
 }
 
-/* ─── GEOLOCALIZAÇÃO ─────────────────────── */
-.geo-section {
-  background: var(--white);
-  padding: 4rem 1.5rem;
-}
-
-.geo-inner {
-  max-width: 860px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.map-placeholder {
-  width: 100%;
-  height: 280px;
-  background: #d1e8d4;
-  border-radius: 1rem;
-  overflow: hidden;
-  margin: 1.5rem 0;
-  box-shadow: 0 6px 28px rgba(0,0,0,.1);
-}
-
-.map-placeholder iframe {
-  width: 100%; height: 100%;
-  border: none;
-}
-
-.saiba-mais-btn {
-  display: inline-block;
-  padding: .75rem 3rem;
-  background: var(--purple-dark);
-  color: var(--white);
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 1rem;
-  text-decoration: none;
-  letter-spacing: .05em;
-  transition: background .2s, transform .2s;
-}
-
-.saiba-mais-btn:hover { background: var(--purple-mid); transform: translateY(-2px); }
-
-.geo-text {
-  margin-top: 1.5rem;
-  font-size: 1rem;
-  line-height: 1.8;
-  text-align: justify;
-  color: #3d2255;
-}
-/* ─── PLANOS ─────────────────────────────── */
-.plans-section {
-  background: var(--bg);
-  padding: 5rem 1.5rem;
-}
-
-.plans-inner {
-  max-width: 1060px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.plans-subtitle {
-  color: var(--purple-mid);
-  font-size: 1.05rem;
-  margin-bottom: 2.5rem;
-  margin-top: -.5rem;
-}
-
-.plans-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
-  align-items: start;
-}
-
-.plan-card {
-  background: var(--white);
-  border: 2px solid var(--purple-light);
-  border-radius: 1.2rem;
-  padding: 2rem 1.5rem 2rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: .8rem;
-  transition: transform .25s, box-shadow .25s, border-color .25s;
-}
-
-.plan-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(74,32,96,.15);
-  border-color: var(--purple-mid);
-}
-
-.plan-featured {
-  border-color: var(--purple-mid);
-  background: var(--purple-dark);
-  color: var(--white);
-  box-shadow: 0 12px 40px rgba(74,32,96,.35);
-  transform: scale(1.03);
-}
-
-.plan-featured:hover { transform: scale(1.03) translateY(-6px); }
-
-.plan-badge {
-  display: inline-block;
-  font-size: .8rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--purple-mid);
-  background: var(--lilac);
-  padding: .25rem .85rem;
-  border-radius: 999px;
-  align-self: center;
-}
-
-.badge-featured {
-  background: var(--pink);
-  color: var(--white);
-}
-
-.plan-price {
-  font-size: 3rem;
-  font-weight: 800;
-  line-height: 1;
-  color: inherit;
-}
-
-.plan-featured .plan-price { color: var(--white); }
-
-.currency { font-size: 1.4rem; vertical-align: top; margin-top: .5rem; display: inline-block; }
-.period   { font-size: 1rem; font-weight: 400; opacity: .7; }
-
-.plan-desc {
-  font-size: .95rem;
-  opacity: .75;
-  line-height: 1.5;
-}
-
-.plan-features {
-  list-style: none;
-  text-align: left;
-  font-size: .93rem;
-  line-height: 1;
-  display: flex;
-  flex-direction: column;
-  gap: .65rem;
-  margin: .5rem 0;
-}
-
-.plan-features li { color: inherit; opacity: .9; }
-.plan-features li.disabled { opacity: .35; text-decoration: line-through; }
-.plan-featured .plan-features li { color: var(--lilac); }
-.plan-featured .plan-features li.disabled { color: var(--white); opacity: .25; }
-
-.plan-btn {
-  display: block;
-  width: 100%;
-  padding: .8rem;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: .95rem;
-  letter-spacing: .04em;
-  text-decoration: none;
-  text-align: center;
-  transition: background .2s, transform .2s, box-shadow .2s;
-  margin-top: auto;
-}
-
-.plan-btn-outline {
-  border: 2px solid var(--purple-mid);
-  color: var(--purple-dark);
-  background: transparent;
-}
-
-.plan-btn-outline:hover {
-  background: var(--purple-dark);
-  color: var(--white);
-  transform: translateY(-2px);
-}
-
-.plan-btn-solid {
-  background: var(--pink);
-  color: var(--white);
-  border: 2px solid transparent;
-  box-shadow: 0 4px 16px rgba(232,112,154,.35);
-}
-
-.plan-btn-solid:hover {
-  background: #d45a85;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(232,112,154,.45);
-}
 
 /* ===== RESPONSIVIDADE GLOBAL ===== */
 
