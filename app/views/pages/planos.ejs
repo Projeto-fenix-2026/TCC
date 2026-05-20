@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fênix - Reerguendo Mulheres</title>
+
+    <!-- Fonte -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Allura&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/planos.css" />
+  </head>
+
+  <body>
+    <main class="container-planos">
+      <header class="planos-header-principal">
+        <h1>Escolha o Seu Plano de Proteção</h1>
+        <p>
+          Apoio básico essencial ou monitoramento avançado. Escolha a melhor
+          opção para a sua segurança.
+        </p>
+      </header>
+
+      <section class="plans-grid">
+        <article class="plan-card">
+          <header class="plan-card-header">
+            <h2>Plano Gratuito</h2>
+            <p class="plan-price">R$ 0<span>/sempre</span></p>
+            <p class="plan-tagline">O essencial para o seu dia a dia.</p>
+          </header>
+
+          <ul class="plan-features">
+            <li>
+              <span class="check-icon">✓</span> Acesso ao Painel de Notícias e
+              Direitos
+            </li>
+            <li>
+              <span class="check-icon">✓</span> Visualização de ONGs Parceiras
+            </li>
+            <li>
+              <span class="check-icon">✓</span> Central de Chatbot para
+              Orientações Básicas
+            </li>
+            <li>
+              <span class="check-icon">✓</span> Cadastro de até 2 Contatos de
+              Emergência
+            </li>
+            <li class="disabled">
+              <span class="cross-icon">✕</span> Geolocalização Contínua em Tempo
+              Real
+            </li>
+            <li class="disabled">
+              <span class="cross-icon">✕</span> Envio Automático de SOS via
+              WhatsApp
+            </li>
+          </ul>
+
+          <footer class="plan-card-footer">
+            <button class="btn-plano btn-secundario">Ativar Plano Atual</button>
+          </footer>
+        </article>
+
+        <article class="plan-card plan-featured">
+          <div class="badge-destaque">Mais Recomendado</div>
+          <header class="plan-card-header">
+            <h2>Plano Plus</h2>
+            <p class="plan-price">R$ 9,90<span>/mês</span></p>
+            <p class="plan-tagline">
+              Proteção completa e monitoramento contínuo.
+            </p>
+          </header>
+
+          <ul class="plan-features">
+            <li>
+              <span class="check-icon">✓</span> Acesso ao Painel de Notícias e
+              Direitos
+            </li>
+            <li>
+              <span class="check-icon">✓</span> Visualização de ONGs Parceiras
+            </li>
+            <li>
+              <span class="check-icon">✓</span> Central de Chatbot Avançada com
+              Suporte Humano
+            </li>
+            <li>
+              <span class="check-icon">✓</span> Cadastro Ilimitado de Contatos
+              de Emergência
+            </li>
+            <li>
+              <span class="check-icon">✓</span>
+              <strong>Geolocalização Contínua em Tempo Real</strong>
+            </li>
+            <li>
+              <span class="check-icon">✓</span>
+              <strong>Botão de Pânico com SOS via WhatsApp</strong>
+            </li>
+            <li>
+              <span class="check-icon">✓</span> Prioridade no Canal de
+              Acolhimento da ONG
+            </li>
+          </ul>
+
+          <footer class="plan-card-footer">
+            <button class="btn-plano btn-primario">Seja Plus</button>
+          </footer>
+        </article>
+      </section>
+
+      <section class="depoimentos-wrapper">
+        <header class="depoimentos-header">
+          <h2>Relatos de Quem se Sente Mais Segura</h2>
+          <p>
+            O Projeto Fênix já ajudou diversas mulheres a recuperarem sua
+            autonomia e tranquilidade.
+          </p>
+        </header>
+
+        <div class="depoimentos-grid">
+          <blockquote class="card-depoimento">
+            <p>
+              "O botão de pânico com geolocalização do Plano Plus me deu a
+              coragem que eu precisava para voltar a caminhar tranquila até o
+              ponto de ônibus após o trabalho."
+            </p>
+            <cite>— Mariana S., São Paulo</cite>
+          </blockquote>
+
+          <blockquote class="card-depoimento">
+            <p>
+              "O chatbot me orientou juridicamente de forma anônima e rápida.
+              Hoje, graças às informações e ao apoio da ONG parceira, consigo
+              viver em paz."
+            </p>
+            <cite>— Beatriz R., Rio de Janeiro</cite>
+          </blockquote>
+        </div>
+      </section>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+
+    <script src="../js/planos.js"></script>
+  </body>
+</html>

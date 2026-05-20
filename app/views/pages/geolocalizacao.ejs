@@ -1,220 +1,73 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Localização Segura</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Área de Segurança - Projeto Fênix</title>
+    <link rel="stylesheet" href="/css/geolocalizacao.css" />
+  </head>
 
-<style>
-:root {
-  --bg: #0f172a;
-  --card: #1e293b;
-  --primary: #ff4d6d;
-  --text: #f1f5f9;
-  --muted: #94a3b8;
-}
+  <body>
+    <main class="header-seguranca">
+      <h1 class="logo-titulo">Painel de Proteção Fênix</h1>
+      <p class="status-conexao" id="status-texto">
+        Iniciando rastreamento seguro...
+      </p>
+    </main>
 
-body {
-  margin: 0;
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
+    <main class="container-seguranca">
+      <section class="mapa-wrapper">
+        <header class="mapa-header">
+          <h2>Sua Localização em Tempo Real</h2>
+        </header>
+        <iframe
+          id="mapa-google"
+          src=""
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </section>
 
-header {
-  padding: 16px;
-  text-align: center;
-  font-weight: 600;
-  background: #020617;
-}
+      <section class="contatos-wrapper">
+        <header class="contatos-header">
+          <h2>Canais de Ajuda Rápida</h2>
+          <p>
+            Clique em um dos contatos abaixo para enviar sua localização
+            atualizada imediatamente.
+          </p>
+        </header>
 
-main {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
+        <nav class="lista-contatos">
+          <article class="card-contato emergência">
+            <h3>Central de Polícia (190)</h3>
+            <p>Para situações de risco iminente.</p>
+            <button class="btn-emergencia" onclick="enviarAlerta('190')">
+              Discar 190
+            </button>
+          </article>
 
-#map {
-  flex: 1;
-}
+          <article class="card-contato">
+            <h3>Central de Atendimento (Ligue 180)</h3>
+            <p>Orientação e denúncias de violência.</p>
+            <button class="btn-alerta" onclick="enviarAlerta('5511999999999')">
+              Enviar para Ligue 180
+            </button>
+          </article>
 
-/* INFO CARD */
-.info {
-  background: var(--card);
-  padding: 16px;
-  display: grid;
-  gap: 10px;
-}
+          <article class="card-contato">
+            <h3>ONG Parceira de Apoio</h3>
+            <p>Suporte jurídico e acolhimento psicológico.</p>
+            <button class="btn-alerta" onclick="enviarAlerta('5511988888888')">
+              Acionar Guardiã ONG
+            </button>
+          </article>
+        </nav>
+      </section>
+    </main>
 
-.coords {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  font-size: 13px;
-}
+    <%- include('../partials/footer.ejs') %>
 
-.status {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-/* CONTATOS */
-.contacts {
-  display: grid;
-  gap: 8px;
-}
-
-.contact {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #334155;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.contact.active {
-  outline: 2px solid var(--primary);
-  background: #475569;
-}
-
-/* BOTÃO SOS */
-button {
-  margin-top: 10px;
-  padding: 14px;
-  border: none;
-  border-radius: 8px;
-  background: var(--primary);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 15px;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-</style>
-</head>
-
-<body>
-
-<header>📍 Modo Segurança</header>
-
-<main>
-
-<section id="map"></section>
-
-<section class="info">
-
-  <section class="coords">
-    <div>Lat: <span id="lat">--</span></div>
-    <div>Lng: <span id="lng">--</span></div>
-    <div>Precisão: <span id="accuracy">--</span>m</div>
-  </section>
-
-  <div class="status" id="status">Buscando localização...</div>
-
-  <!-- CONTATOS -->
-  <section class="contacts" id="contacts">
-
-    <article class="contact active" data-number="5511999999999">
-      👩 Maria (Mãe)
-    </article>
-
-    <article class="contact" data-number="5511888888888">
-      👩 Ana (Amiga)
-    </article>
-
-    <article class="contact" data-number="5511777777777">
-      🚓 Polícia / Apoio
-    </article>
-
-  </section>
-
-  <button id="sosBtn">🚨 ENVIAR LOCALIZAÇÃO</button>
-
-</section>
-
-</main>
-
-<script>
-let map;
-let marker;
-let currentPosition = null;
-let selectedNumber = "5511999999999";
-
-// GOOGLE MAPS
-function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -23.5505, lng: -46.6333 },
-    zoom: 15,
-  });
-
-  marker = new google.maps.Marker({
-    map: map,
-  });
-
-  navigator.geolocation.watchPosition(
-    (pos) => {
-      const lat = pos.coords.latitude;
-      const lng = pos.coords.longitude;
-      const acc = pos.coords.accuracy;
-
-      currentPosition = { lat, lng };
-
-      marker.setPosition({ lat, lng });
-      map.setCenter({ lat, lng });
-
-      document.getElementById("lat").textContent = lat.toFixed(6);
-      document.getElementById("lng").textContent = lng.toFixed(6);
-      document.getElementById("accuracy").textContent = Math.round(acc);
-      document.getElementById("status").textContent = "Localização ativa";
-    },
-    () => {
-      document.getElementById("status").textContent = "Erro ao obter localização";
-    },
-    { enableHighAccuracy: true }
-  );
-}
-
-// SELEÇÃO DE CONTATOS
-document.querySelectorAll(".contact").forEach(el => {
-  el.addEventListener("click", () => {
-
-    document.querySelectorAll(".contact").forEach(c => c.classList.remove("active"));
-
-    el.classList.add("active");
-    selectedNumber = el.dataset.number;
-
-  });
-});
-
-// BOTÃO SOS
-document.getElementById("sosBtn").addEventListener("click", () => {
-
-  if (!currentPosition) {
-    alert("Localização não disponível ainda");
-    return;
-  }
-
-  const { lat, lng } = currentPosition;
-
-  const msg = `🚨 Preciso de ajuda!
-Minha localização:
-https://www.google.com/maps?q=${lat},${lng}`;
-
-  const url = `https://wa.me/${selectedNumber}?text=${encodeURIComponent(msg)}`;
-
-  window.open(url, "_blank");
-});
-</script>
-
-<!-- COLE SUA API KEY -->
-<script async
-src="https://maps.googleapis.com/maps/api/js?key=SUA_API_KEY_AQUI&callback=initMap">
-</script>
-
-</body>
+    <script src="../js/geolocalizacao.js"></script>
+  </body>
 </html>

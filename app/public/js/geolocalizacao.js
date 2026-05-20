@@ -1,99 +1,81 @@
-let currentLocation = "";
+let ultimaLatitude = "";
+let ultimaLongitude = "";
 
-// ================= GEO =================
-function getLocation() {
-  const status = document.getElementById("statusGeo");
+// Função para iniciar o rastreamento assim que entrar no site
+function iniciarRastreamento() {
+  const status = document.getElementById("status-texto");
+  const mapaIframe = document.getElementById("mapa-google");
 
   if (!navigator.geolocation) {
-    status.innerText = "Geolocalização não suportada.";
+    status.textContent = "Geolocalização não é suportada pelo seu navegador.";
     return;
   }
 
-  status.innerText = "Localizando...";
+  // watchPosition monitora a localização continuamente enquanto a aba estiver aberta
+  navigator.geolocation.watchPosition(
+    (position) => {
+      ultimaLatitude = position.coords.latitude;
+      ultimaLongitude = position.coords.longitude;
 
-  navigator.geolocation.watchPosition((pos) => {
-    const lat = pos.coords.latitude;
-    const lon = pos.coords.longitude;
+      status.textContent = "Rastreamento Contínuo Ativo • Proteção Ligada";
+      status.style.color = "#85e3b2"; // Verde para seguro
 
-    currentLocation = `https://www.google.com/maps?q=${lat},${lon}`;
+      // Atualiza o mapa do Google de forma dinâmica e gratuita usando o Embed API
+      mapaIframe.src = `https://maps.google.com/maps?q=${ultimaLatitude},${ultimaLongitude}&z=16&output=embed`;
 
-    status.innerText = `Localização: ${lat.toFixed(5)}, ${lon.toFixed(5)}`;
-
-    document.getElementById("mapFrame").src =
-      `https://www.openstreetmap.org/export/embed.html?bbox=${lon-0.01}%2C${lat-0.01}%2C${lon+0.01}%2C${lat+0.01}&marker=${lat}%2C${lon}`;
-
-  }, () => {
-    status.innerText = "Erro ao obter localização.";
-  });
+      // Envia a localização em segundo plano para o banco de dados MySQL
+      salvarNoBanco(ultimaLatitude, ultimaLongitude);
+    },
+    (error) => {
+      console.error(error);
+      status.textContent =
+        "Acesso à localização negado. Ative a permissão para sua segurança.";
+      status.style.color = "#ff7675"; // Vermelho para erro
+    },
+    {
+      enableHighAccuracy: true, // Força o GPS do celular a buscar a precisão máxima
+      maximumAge: 0,
+      timeout: 10000,
+    },
+  );
 }
 
-// ================= CONTATOS =================
-function getContacts() {
-  return JSON.parse(localStorage.getItem("contacts")) || [];
+// Envia as coordenadas para salvar no histórico do MySQL
+async function salvarNoBanco(lat, lng) {
+  try {
+    await fetch("/api/salvar-localizacao", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ latitude: lat, longitude: lng }),
+    });
+  } catch (err) {
+    console.error("Falha ao sincronizar com o banco de dados:", err);
+  }
 }
 
-function saveContacts(c) {
-  localStorage.setItem("contacts", JSON.stringify(c));
-}
-
-function renderContacts() {
-  const list = document.getElementById("contactList");
-  list.innerHTML = "";
-
-  getContacts().forEach((c, i) => {
-    const li = document.createElement("li");
-    li.innerHTML = `
-      ${c.name} (${c.phone})
-      <button onclick="removeContact(${i})">X</button>
-    `;
-    list.appendChild(li);
-  });
-}
-
-function addContact(e) {
-  e.preventDefault();
-
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-
-  const contacts = getContacts();
-  contacts.push({ name, phone });
-
-  saveContacts(contacts);
-  renderContacts();
-
-  e.target.reset();
-}
-
-function removeContact(i) {
-  const contacts = getContacts();
-  contacts.splice(i, 1);
-  saveContacts(contacts);
-  renderContacts();
-}
-
-// ================= WHATS =================
-function sendAlert() {
-  if (!currentLocation) {
-    alert("Ative a localização primeiro!");
+// Dispara o alerta para o número de telefone
+function enviarAlerta(numero) {
+  if (!ultimaLatitude || !ultimaLongitude) {
+    alert("Aguardando coordenadas do GPS. Tente novamente em instantes.");
     return;
   }
 
-  const contacts = getContacts();
-
-  if (contacts.length === 0) {
-    alert("Adicione um contato!");
-    return;
-  }
-
-  const msg = encodeURIComponent(
-    `🚨 Preciso de ajuda! Minha localização: ${currentLocation}`
+  // Cria a mensagem de SOS formatada com o link exato do mapa
+  const mensagem = encodeURIComponent(
+    `🚨 *ALERTA DE EMERGÊNCIA - PROJETO FÊNIX*\n\nPreciso de ajuda urgente! Minha localização atualizada em tempo real é:\nhttps://maps.google.com/?q=${ultimaLatitude},${ultimaLongitude}`,
   );
 
-  contacts.forEach(c => {
-    window.open(`https://wa.me/${c.phone}?text=${msg}`, "_blank");
-  });
+  if (numero === "190") {
+    // Discar direto no celular se for número de emergência pública
+    window.location.href = `tel:${numero}`;
+  } else {
+    // Redireciona para o WhatsApp com o texto pronto e o link do Google Maps para os números móveis
+    window.open(
+      `https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`,
+      "_blank",
+    );
+  }
 }
 
-// INIT
-window.onload = renderContacts;
+// Executa a geolocalização imediatamente ao abrir a página
+window.onload = iniciarRastreamento;
