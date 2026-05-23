@@ -13,24 +13,12 @@ const dataOngs = [
 ];
 
 
-// Dados Profissionais
-
-const dataProfissionais = [
-  {title: "Jaqueline", image: "imgs/jaqueline.png", description: "Psicóloga, Especialidade em atendimento a mulheres vítimas de violência e terapia de reconstrução emcional", link: "/ong_page"},
-  {title: "Jennifer", image: "imgs/jenifer.png", description: "Advogada, Especializada em direito da mulher e violência doméstica. Ofereço orientação jurídica gratuita e acompanhamento em processos de medidas protetivas", link: "/ong_page"},
-  {title: "Jessica", image: "imgs/jessica.png", description: "Psicóloga, Especialidade em atendimento a mulheres vítimas de violência e terapia de reconstrução emcional", link: "/ong_page"},
-  {title: "Carol", image: "imgs/carol.png", description: "Assistente social,Trabalho com encaminhamento e suporte social para mulheres em situação de vulnerabilidade. Auxilio no acesso a serviços públicos, programas de renda e abrigamento, promovendo autonomia e acolhimento.", link: "/ong_page"},
-  {title: "Ângela", image: "imgs/angela.png", description: "Advogada, Especializada em direito da mulher e violência doméstica. Ofereço orientação jurídica gratuita e acompanhamento em processos de medidas protetivas", link: "/ong_page"},
-  {title: "Luiza", image: "imgs/luiza.png", description: "Assistente social, Trabalho com encaminhamento e suporte social para mulheres em situação de vulnerabilidade. Auxilio no acesso a serviços públicos, programas de renda e abrigamento, promovendo autonomia e acolhimento.", link: "/ong_page"},
-  {title: "Luiza", image: "imgs/luiza.png", description: "Psicóloga, Especialidade em atendimento a mulheres vítimas de violência e terapia de reconstrução emcional", link: "/ong_page"},
-  {title: "Luiza", image: "imgs/luiza.png", description: "Advogada, Especializada em direito da mulher e violência doméstica. Ofereço orientação jurídica gratuita e acompanhamento em processos de medidas protetivas", link: "/ong_page"}
-];
 
 
 // Seletores
 
 const cardContainerOngs = document.querySelector(".card-container");
-const cardContainerProfissionais = document.querySelector(".card-container-profissionais");
+
 const searchInput = document.querySelector("#searchInput");
 
 
@@ -63,14 +51,10 @@ const pesquisar = (e) => {
     ...dataOngs.filter(i => i.description.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(value))
   ])];
 
-  // Pesquisa Profissionais
-  const resultadoProfissionais = [...new Set([
-    ...dataProfissionais.filter(i => i.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(value)),
-    ...dataProfissionais.filter(i => i.description.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(value))
-  ])];
+  
 
   gerarCards(cardContainerOngs, resultadoOngs);
-  gerarCards(cardContainerProfissionais, resultadoProfissionais);
+  
 };
 
 
@@ -83,5 +67,5 @@ searchInput.addEventListener("keyup", pesquisar);
 
 window.addEventListener("DOMContentLoaded", () => {
   gerarCards(cardContainerOngs, dataOngs);
-  gerarCards(cardContainerProfissionais, dataProfissionais);
+  
 });
