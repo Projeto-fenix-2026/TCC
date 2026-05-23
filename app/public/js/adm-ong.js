@@ -6,6 +6,7 @@ function abrirModalCadastro() {
     document.getElementById('ongEmail').value = '';
     document.getElementById('ongTelefone').value = '';
     document.getElementById('ongCnpj').value = '';
+    document.getElementById('ongDescricao').value = '';
     document.getElementById('modalOng').classList.add('active');
 }
 
@@ -17,6 +18,7 @@ function abrirModalEditar(btn) {
     document.getElementById('ongEmail').value = btn.dataset.email;
     document.getElementById('ongTelefone').value = btn.dataset.telefone;
     document.getElementById('ongCnpj').value = btn.dataset.cnpj;
+    document.getElementById('ongDescricao').value = btn.dataset.descricao || '';
     document.getElementById('modalOng').classList.add('active');
 }
 

@@ -28,8 +28,8 @@ const ongModel = {
                 "SELECT COALESCE(MAX(id_ong), 0) + 1 AS next_id FROM ONG");
             const nextId = maxResult[0].next_id;
             const [resultado] = await pool.query(
-                "INSERT INTO ONG (id_ong, nome, email, telefone, CNPJ) VALUES (?, ?, ?, ?, ?)",
-                [nextId, dados.nome, dados.email, dados.telefone, dados.cnpj]);
+                "INSERT INTO ONG (id_ong, nome, email, telefone, CNPJ, descricao) VALUES (?, ?, ?, ?, ?, ?)",
+                [nextId, dados.nome, dados.email, dados.telefone, dados.cnpj, dados.descricao || null]);
             return resultado;
         } catch (erro) {
             return erro;
@@ -39,8 +39,8 @@ const ongModel = {
     update: async (dados) => {
         try {
             const [resultado] = await pool.query(
-                "UPDATE ONG SET nome = ?, email = ?, telefone = ?, CNPJ = ? WHERE id_ong = ?",
-                [dados.nome, dados.email, dados.telefone, dados.cnpj, dados.id]);
+                "UPDATE ONG SET nome = ?, email = ?, telefone = ?, CNPJ = ?, descricao = ? WHERE id_ong = ?",
+                [dados.nome, dados.email, dados.telefone, dados.cnpj, dados.descricao || null, dados.id]);
             return resultado;
         } catch (erro) {
             return erro;

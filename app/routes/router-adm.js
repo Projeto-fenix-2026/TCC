@@ -18,14 +18,14 @@ router.get("/adm-ong", async (req, res) => {
 });
 
 router.post("/adm-ong/cadastrar", async (req, res) => {
-    const { nome, email, telefone, cnpj } = req.body;
-    await ongModel.create({ nome, email, telefone, cnpj });
+    const { nome, email, telefone, cnpj, descricao } = req.body;
+    await ongModel.create({ nome, email, telefone, cnpj, descricao });
     res.redirect("/adm/adm-ong");
 });
 
 router.post("/adm-ong/editar", async (req, res) => {
-    const { id, nome, email, telefone, cnpj } = req.body;
-    await ongModel.update({ id, nome, email, telefone, cnpj });
+    const { id, nome, email, telefone, cnpj, descricao } = req.body;
+    await ongModel.update({ id, nome, email, telefone, cnpj, descricao });
     res.redirect("/adm/adm-ong");
 });
 
