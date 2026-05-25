@@ -1,7 +1,18 @@
 var express = require("express");
 var router = express.Router();
+const path = require("path");
+const multer = require("multer");
 const { usuarioModel } = require("../models/usuarioModel");
 const { ongModel } = require("../models/ongModel");
+
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, "../../app/public/uploads/ongs"),
+    filename: (req, file, cb) => {
+        const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);
+        cb(null, unique + path.extname(file.originalname));
+    }
+});
+const upload = multer({ storage, limits: { fileSize: 3 * 1024 * 1024 } });
 
 router.get("/", (req, res) => {
     res.render("pages/index-adm");
@@ -17,15 +28,17 @@ router.get("/adm-ong", async (req, res) => {
     res.render("pages/adm-ong", { ongs });
 });
 
-router.post("/adm-ong/cadastrar", async (req, res) => {
+router.post("/adm-ong/cadastrar", upload.single("imagem"), async (req, res) => {
     const { nome, email, telefone, cnpj, descricao } = req.body;
-    await ongModel.create({ nome, email, telefone, cnpj, descricao });
+    const imagem = req.file ? "/uploads/ongs/" + req.file.filename : null;
+    await ongModel.create({ nome, email, telefone, cnpj, descricao, imagem });
     res.redirect("/adm/adm-ong");
 });
 
-router.post("/adm-ong/editar", async (req, res) => {
-    const { id, nome, email, telefone, cnpj, descricao } = req.body;
-    await ongModel.update({ id, nome, email, telefone, cnpj, descricao });
+router.post("/adm-ong/editar", upload.single("imagem"), async (req, res) => {
+    const { id, nome, email, telefone, cnpj, descricao, imagemAtual } = req.body;
+    const imagem = req.file ? "/uploads/ongs/" + req.file.filename : (imagemAtual || null);
+    await ongModel.update({ id, nome, email, telefone, cnpj, descricao, imagem });
     res.redirect("/adm/adm-ong");
 });
 

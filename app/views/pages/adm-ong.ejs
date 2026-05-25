@@ -81,6 +81,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>Capa</th>
                                         <th>Nome</th>
                                         <th>E-mail</th>
                                         <th>Telefone</th>
@@ -97,6 +98,13 @@
                                         <% ongs.forEach(function(ong) { %>
                                             <tr>
                                                 <td><%= ong.id_ong %></td>
+                                                <td>
+                                                    <% if (ong.imagem) { %>
+                                                        <img src="<%= ong.imagem %>" alt="capa" class="thumb-ong">
+                                                    <% } else { %>
+                                                        <span class="sem-imagem">—</span>
+                                                    <% } %>
+                                                </td>
                                                 <td><%= ong.nome %></td>
                                                 <td><%= ong.email %></td>
                                                 <td><%= ong.telefone %></td>
@@ -109,6 +117,7 @@
                                                         data-telefone="<%= ong.telefone %>"
                                                         data-cnpj="<%= ong.CNPJ %>"
                                                         data-descricao="<%= ong.descricao || '' %>"
+                                                        data-imagem="<%= ong.imagem || '' %>"
                                                         onclick="abrirModalEditar(this)">
                                                         <span class="ti-pencil"></span> Editar
                                                     </button>
@@ -138,7 +147,7 @@
     <div class="modal-overlay" id="modalOng">
         <div class="modal">
             <h3 id="modalTitulo">Adicionar ONG</h3>
-            <form id="formOng" method="post">
+            <form id="formOng" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" id="ongId">
 
                 <div class="modal-form-group">
@@ -167,6 +176,13 @@
                     <label for="ongDescricao">Descrição</label>
                     <textarea id="ongDescricao" name="descricao" maxlength="500" rows="4"
                         placeholder="Descreva a ONG..."></textarea>
+                </div>
+
+                <div class="modal-form-group">
+                    <label for="ongImagem">Imagem de capa</label>
+                    <img id="ongImagemPreview" src="" alt="preview" class="imagem-preview" style="display:none;">
+                    <input type="file" id="ongImagem" name="imagem" accept="image/*">
+                    <input type="hidden" id="ongImagemAtual" name="imagemAtual">
                 </div>
 
                 <div class="modal-actions">

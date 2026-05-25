@@ -7,6 +7,10 @@ function abrirModalCadastro() {
     document.getElementById('ongTelefone').value = '';
     document.getElementById('ongCnpj').value = '';
     document.getElementById('ongDescricao').value = '';
+    document.getElementById('ongImagem').value = '';
+    document.getElementById('ongImagemAtual').value = '';
+    document.getElementById('ongImagemPreview').src = '';
+    document.getElementById('ongImagemPreview').style.display = 'none';
     document.getElementById('modalOng').classList.add('active');
 }
 
@@ -19,8 +23,28 @@ function abrirModalEditar(btn) {
     document.getElementById('ongTelefone').value = btn.dataset.telefone;
     document.getElementById('ongCnpj').value = btn.dataset.cnpj;
     document.getElementById('ongDescricao').value = btn.dataset.descricao || '';
+    document.getElementById('ongImagem').value = '';
+    const imagemAtual = btn.dataset.imagem || '';
+    document.getElementById('ongImagemAtual').value = imagemAtual;
+    const preview = document.getElementById('ongImagemPreview');
+    if (imagemAtual) {
+        preview.src = imagemAtual;
+        preview.style.display = 'block';
+    } else {
+        preview.src = '';
+        preview.style.display = 'none';
+    }
     document.getElementById('modalOng').classList.add('active');
 }
+
+document.getElementById('ongImagem').addEventListener('change', function () {
+    const file = this.files[0];
+    const preview = document.getElementById('ongImagemPreview');
+    if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block';
+    }
+});
 
 function fecharModal() {
     document.getElementById('modalOng').classList.remove('active');

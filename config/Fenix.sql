@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS ONG (
   telefone  CHAR(11)    NOT NULL,
   CNPJ      CHAR(14)    NOT NULL,
   descricao VARCHAR(500) NULL,
+  imagem    VARCHAR(255) NULL,
   CONSTRAINT pk_ong PRIMARY KEY (id_ong)
 );
 
