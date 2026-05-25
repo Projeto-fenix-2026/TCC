@@ -63,14 +63,13 @@
                                 <button type="submit">Entrar</button>
                             </section>
 
+                            <% if (retorno && retorno.tipo === 'erro') { %>
+                                <p style="color: red; text-align: center; margin-top: 8px;"><%= retorno.msg %></p>
+                            <% } %>
+
                         </form>
 
-                        <a href="/text">
-                            <section class="continue-button">
-                                <button>Entrar</button>
-                            </section>
-                        </a>
-
+                        
 
                         <p class="texto-secundario">Não tem conta? <a href="/cadastro">Cadastre-se aqui</a></p>
 
