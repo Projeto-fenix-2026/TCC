@@ -12,6 +12,8 @@
 </head>
 
 <body>
+    
+    <%- include('../partials/header2.ejs') %>
 
     <% let erroValidacao={"email":"", "password" :"" }; let msgErro={ "email" :"", "password" :"" }; if(erros) {
         erros.errors.forEach(function(erro) { if (erro.path=="email" ) { erroValidacao.email="erro" ,

@@ -1,79 +1,265 @@
+:root {
+  --bg-base: #130919;
+  --bg-card: rgba(42, 19, 54, 0.4);
+  --gold: #e6c27a;
+  --white: #ecdada; /* Sua cor de texto atualizada */
+  --header-height: 80px; /* Alinhado com o seu header2.ejs */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
 body {
-  background: #f4f4f4;
-    font-family: Abhaya Libre Medium;
+  background-color: #f4f4f4; /* MANTIDO: Sua cor de fundo customizada para contraste */
+  color: var(--white);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.container {
-  padding: 100px 20px 40px;
-  max-width: 900px;
-  margin: auto;
-}
-
-/* MAPA */
-.map-container {
+/* CONTAINER DO CONTEÚDO: Ajustado para centralizar e alinhar blocos em telas gigantes */
+.main-conteudo-seguranca {
+  flex: 1;
+  margin-top: var(--header-height);
+  padding: 1.5rem 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Garante que o conteúdo não mude de eixo em telas maiores */
   width: 100%;
-  height: 300px;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 20px;
 }
 
-iframe {
+/* ADAPTAÇÃO DO BANNER DE AVISO: Alinhamento milimétrico com a largura máxima dos cards */
+.banner-rastreamento {
+  background: #2a1336; /* Seu roxo selecionado */
+  border: 1px solid rgba(230, 194, 122, 0.15);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+  max-width: 1200px;
+  width: 100%; /* Ocupa 100% até atingir o limite do max-width */
+  margin: 0 auto 2rem auto;
+}
+
+.logo-titulo {
+  font-size: 1.6rem;
+  color: var(--gold);
+}
+
+.status-conexao {
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+  opacity: 0.8;
+}
+
+/* GRID PRINCIPAL RESPONSIVO */
+.container-seguranca {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.mapa-wrapper,
+.contatos-wrapper {
+  background: #2a1336; /* Seu roxo selecionado */
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(230, 194, 122, 0.1);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.mapa-header h2,
+.contatos-header h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--gold);
+}
+
+#mapa-google {
   width: 100%;
   height: 100%;
-  border: none;
+  min-height: 380px;
+  border: 1px solid rgba(230, 194, 122, 0.2);
+  border-radius: 1rem;
+  background: #25162e;
+}
+
+.contatos-header p {
+  font-size: 0.95rem;
+  opacity: 0.7;
+  margin-bottom: 1.5rem;
+}
+
+.lista-contatos {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card-contato {
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 4px solid var(--gold);
+  border-radius: 0.5rem;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-contato.emergência {
+  border-left-color: #ff7675;
+}
+
+.card-contato h3 {
+  font-size: 1.1rem;
+  color: #f3eef5;
+}
+
+.card-contato p {
+  font-size: 0.85rem;
+  opacity: 0.6;
+  color: #f3eef5;
+}
+
+.titilo-ctt {
+  font-size: 0.95rem;
+  opacity: 0.7;
+  margin-bottom: 1.5rem;
+  color: #f3eef5;
+}
+
+/* INPUTS DO FORMULÁRIO */
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #f3d08c !important;
+  box-shadow: 0 0 5px rgba(230, 194, 122, 0.4);
 }
 
 /* BOTÕES */
-button {
+.btn-alerta,
+.btn-emergencia {
   width: 100%;
-  padding: 12px;
-  margin-top: 10px;
+  padding: 0.8rem;
+  border-radius: 8px;
   border: none;
-  border-radius: 30px;
-  background: #6a1b9a;
-  color: white;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 5px;
 }
 
-button:hover {
-  background: #4a148c;
+.btn-alerta {
+  background: var(--gold);
+  color: #0e0711;
 }
 
-.alert-btn {
-  background: #c62828;
+.btn-alerta:hover {
+  background: #f3d08c;
 }
 
-.alert-btn:hover {
-  background: #8e0000;
+.btn-emergencia {
+  background: #d81714; /* MANTIDO: Seu vermelho escuro selecionado */
+  color: white;
 }
 
-/* FORM */
-.form {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
+.btn-emergencia:hover {
+  background: #d81714; /* MANTIDO: Seu hover do botão vermelho */
 }
 
-input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
+/* ==========================================================
+   REGRAS ADICIONADAS PARA RESPONSIVIDADE COMPLETA E TELAS MAIORES
+   ========================================================== */
+
+/* Ajustes finos para Notebooks e telas médias */
+@media (max-width: 1024px) {
+  .container-seguranca {
+    gap: 1.5rem;
+  }
+  .mapa-wrapper,
+  .contatos-wrapper {
+    padding: 1.5rem;
+  }
 }
 
-/* LISTA */
-ul {
-  list-style: none;
-  padding: 0;
+/* Tablets (Converte o grid de 2 colunas para empilhamento vertical) */
+@media (max-width: 768px) {
+  .main-conteudo-seguranca {
+    padding: 1rem;
+  }
+  .banner-rastreamento {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+  }
+  .container-seguranca {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0;
+  }
+  #mapa-google {
+    min-height: 300px;
+  }
 }
 
-li {
-  background: white;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 8px;
-  display: flex;
-  justify-content: space-between;
+/* Celulares pequenos e Telas Médias Mobile (Correção de quebra de layout) */
+@media (max-width: 480px) {
+  .main-conteudo-seguranca {
+    padding: 0.8rem 4%; /* Padding fluido em porcentagem evita estouro horizontal */
+  }
+  .banner-rastreamento {
+    padding: 1.2rem;
+    border-radius: 1rem;
+  }
+  .logo-titulo {
+    font-size: 1.25rem;
+  }
+  .status-conexao {
+    font-size: 0.8rem;
+  }
+  .container-seguranca {
+    gap: 1rem;
+  }
+  .mapa-wrapper,
+  .contatos-wrapper {
+    padding: 1.2rem;
+    border-radius: 1rem;
+  }
+  /* Torna o grid do topo do formulário (Nome e Vínculo) em linha única se a tela for muito estreita */
+  #form-cadastro-contato div {
+    grid-template-columns: 1fr !important;
+  }
+  #mapa-google {
+    min-height: 250px;
+  }
+}
+
+/* Telas Extremamente Pequenas (Celulares antigos ou mini) */
+@media (max-width: 340px) {
+  .main-conteudo-seguranca {
+    padding: 0.5rem 2%;
+  }
+  .banner-rastreamento,
+  .mapa-wrapper,
+  .contatos-wrapper {
+    padding: 0.9rem;
+    border-radius: 0.75rem;
+  }
+  .logo-titulo {
+    font-size: 1.1rem;
+  }
+  #mapa-google {
+    min-height: 200px;
+  }
+  .card-contato {
+    padding: 0.8rem;
+  }
 }

@@ -1,14 +1,18 @@
 var express = require("express");
 var router = express.Router();
 const pool = require("../../config/pool_conexoes");
-const {body, validationResult} = require("express-validator");
-var {validarCNPJ, validarCPF } = require("../helpers/validacoes");
+const { body, validationResult } = require("express-validator");
+var { validarCNPJ, validarCPF } = require("../helpers/validacoes");
 const { usuarioModel } = require("../models/usuarioModel");
 const { ongModel } = require("../models/ongModel");
 const { autenticado } = require("../helpers/autenticado");
 
 router.get("/login", function (req, res) {
-  res.render("pages/login",{"erros": null, "valores": {"email":"","password":""} ,"retorno":null}); 
+  res.render("pages/login", {
+    erros: null,
+    valores: { email: "", password: "" },
+    retorno: null,
+  });
 });
 
 router.post(
@@ -18,7 +22,11 @@ router.post(
   async function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.render("pages/login", { "erros": errors, "valores": req.body, "retorno": null });
+      return res.render("pages/login", {
+        erros: errors,
+        valores: req.body,
+        retorno: null,
+      });
     }
 
     const usuario = await usuarioModel.findByEmail(req.body.email);
@@ -35,74 +43,98 @@ router.post(
   }
 );
 
-
-
 router.get("/cadastro", function (req, res) {
-  res.render("pages/cadastro",{"listaErros": null, "campos": {"firstname":"", "email":"", "cpf":"","cnpj":"", "number":"","password":"","confirmPassword":""} ,"retorno":null}); 
+  res.render("pages/cadastro", {
+    listaErros: null,
+    campos: {
+      firstname: "",
+      email: "",
+      cpf: "",
+      cnpj: "",
+      number: "",
+      password: "",
+      confirmPassword: "",
+    },
+    retorno: null,
+  });
 });
 router.post(
   "/cadastro",
   body("firstname")
-    .isLength({ min: 2 }).withMessage('O nome deve ter minimo 2 caracteres!'),
-  body("email")
-    .isEmail().withMessage('O e-mail deve ser válido!'),
+    .isLength({ min: 2 })
+    .withMessage("O nome deve ter minimo 2 caracteres!"),
+  body("email").isEmail().withMessage("O e-mail deve ser válido!"),
   body("cnpj")
     .optional({ checkFalsy: true })
-    .customSanitizer(value => value.replace(/\D/g, ''))
-    .isLength({ min: 14, max: 14 }).withMessage('O CNPJ deve ter 14 dígitos!')
+    .customSanitizer((value) => value.replace(/\D/g, ""))
+    .isLength({ min: 14, max: 14 })
+    .withMessage("O CNPJ deve ter 14 dígitos!")
     .custom((value) => {
       if (validarCNPJ(value)) {
         return true;
       } else {
-        throw new Error('CNPJ inválido!');
+        throw new Error("CNPJ inválido!");
       }
     }),
   body("cpf")
-    .customSanitizer(value => value.replace(/\D/g, ''))
-    .isLength({ min: 11, max: 11 }).withMessage('O CPF deve ter 11 dígitos!')
+    .customSanitizer((value) => value.replace(/\D/g, ""))
+    .isLength({ min: 11, max: 11 })
+    .withMessage("O CPF deve ter 11 dígitos!")
     .custom((value) => {
       if (validarCPF(value)) {
         return true;
       } else {
-        throw new Error('CPF inválido!');
+        throw new Error("CPF inválido!");
       }
     }),
   body("number")
-    .customSanitizer(value => value.replace(/\D/g, ''))
-    .isLength({ min: 10, max: 11 }).withMessage('O celular deve ter 10 ou 11 dígitos!'),
+    .customSanitizer((value) => value.replace(/\D/g, ""))
+    .isLength({ min: 10, max: 11 })
+    .withMessage("O celular deve ter 10 ou 11 dígitos!"),
   body("password")
-    .isLength({ min: 6 }).withMessage('A senha deve ter pelo menos 6 caracteres!'),
+    .isLength({ min: 6 })
+    .withMessage("A senha deve ter pelo menos 6 caracteres!"),
   body("confirmPassword")
-    .isLength({ min: 6 }).withMessage('A senha deve ter pelo menos 6 caracteres!')
+    .isLength({ min: 6 })
+    .withMessage("A senha deve ter pelo menos 6 caracteres!")
     .custom((value, { req }) => {
-      if (value !== req.body.password) throw new Error('As senhas não coincidem!');
+      if (value !== req.body.password)
+        throw new Error("As senhas não coincidem!");
       return true;
     }),
 
   async function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.render("pages/cadastro", { retorno: null, "listaErros": errors, "campos": req.body });
+      return res.render("pages/cadastro", {
+        retorno: null,
+        listaErros: errors,
+        campos: req.body,
+      });
     }
 
     const resultado = await usuarioModel.create({
-      nome:     req.body.firstname,
-      cpf:      req.body.cpf,
-      email:    req.body.email,
+      nome: req.body.firstname,
+      cpf: req.body.cpf,
+      email: req.body.email,
       telefone: req.body.number,
-      senha:    req.body.password,
-      genero:   req.body.gender
+      senha: req.body.password,
+      genero: req.body.gender,
     });
 
     if (resultado.affectedRows) {
       return res.redirect("/login");
     } else {
-      return res.render("pages/cadastro", { retorno: null, "listaErros": { errors: [{ msg: "Erro ao cadastrar. Tente novamente." }] }, "campos": req.body });
+      return res.render("pages/cadastro", {
+        retorno: null,
+        listaErros: {
+          errors: [{ msg: "Erro ao cadastrar. Tente novamente." }],
+        },
+        campos: req.body,
+      });
     }
-  }
+  },
 );
-
-
 
 router.get("/usuarios", async function (req, res) {
   const usuarios = await usuarioModel.findAll();
@@ -170,7 +202,20 @@ router.get("/tipos_violencia", autenticado, function (req, res) {
 });
 
 
+// Rota para salvar a localização atual da vítima no banco
+router.post("/api/salvar-localizacao", (req, res) => {
+  const { latitude, longitude } = req.body;
 
+  const query =
+    "INSERT INTO historico_localizacao (latitude, longitude) VALUES (?, ?)";
+  db.query(query, [latitude, longitude], (err, result) => {
+    if (err) {
+      console.error("Erro ao salvar localização:", err);
+      return res.status(500).json({ erro: "Erro interno ao salvar." });
+    }
+    res.status(200).json({ sucesso: true, id: result.insertId });
+  });
+});
 
 router.get("/logout", function (req, res) {
   req.session.destroy();
