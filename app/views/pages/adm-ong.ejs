@@ -147,41 +147,45 @@
     <div class="modal-overlay" id="modalOng">
         <div class="modal">
             <h3 id="modalTitulo">Adicionar ONG</h3>
-            <form id="formOng" method="post" enctype="multipart/form-data">
+            <form id="formOng" method="post" enctype="multipart/form-data" onsubmit="return validarFormOng(event)">
                 <input type="hidden" name="id" id="ongId">
 
                 <div class="modal-form-group">
                     <label for="ongNome">Nome</label>
-                    <input type="text" id="ongNome" name="nome" required maxlength="50" placeholder="Nome da ONG">
+                    <input type="text" id="ongNome" name="nome" maxlength="50" placeholder="Nome da ONG">
+                    <span class="erro-campo" id="erro-nome"></span>
                 </div>
 
                 <div class="modal-form-group">
                     <label for="ongEmail">E-mail</label>
-                    <input type="email" id="ongEmail" name="email" required maxlength="70" placeholder="contato@ong.org">
+                    <input type="email" id="ongEmail" name="email" maxlength="70" placeholder="contato@ong.org">
+                    <span class="erro-campo" id="erro-email"></span>
                 </div>
 
                 <div class="modal-form-group">
                     <label for="ongTelefone">Telefone <small>(somente números, 11 dígitos)</small></label>
-                    <input type="text" id="ongTelefone" name="telefone" required maxlength="11"
-                        pattern="\d{11}" title="Digite 11 dígitos numéricos" placeholder="11999999999">
+                    <input type="text" id="ongTelefone" name="telefone" maxlength="15" placeholder="(11) 99999-9999">
+                    <span class="erro-campo" id="erro-telefone"></span>
                 </div>
 
                 <div class="modal-form-group">
                     <label for="ongCnpj">CNPJ <small>(somente números, 14 dígitos)</small></label>
-                    <input type="text" id="ongCnpj" name="cnpj" required maxlength="14"
-                        pattern="\d{14}" title="Digite 14 dígitos numéricos" placeholder="00000000000000">
+                    <input type="text" id="ongCnpj" name="cnpj" maxlength="18" placeholder="00.000.000/0001-00">
+                    <span class="erro-campo" id="erro-cnpj"></span>
                 </div>
 
                 <div class="modal-form-group">
                     <label for="ongDescricao">Descrição</label>
                     <textarea id="ongDescricao" name="descricao" maxlength="500" rows="4"
                         placeholder="Descreva a ONG..."></textarea>
+                    <span class="erro-campo" id="erro-descricao"></span>
                 </div>
 
                 <div class="modal-form-group">
                     <label for="ongImagem">Imagem de capa</label>
                     <img id="ongImagemPreview" src="" alt="preview" class="imagem-preview" style="display:none;">
                     <input type="file" id="ongImagem" name="imagem" accept="image/*">
+                    <span class="erro-campo" id="erro-imagem"></span>
                     <input type="hidden" id="ongImagemAtual" name="imagemAtual">
                 </div>
 

@@ -142,6 +142,18 @@
     margin-bottom: 0.5rem;
 }
 
+.erro-campo {
+    display: none;
+    color: #c0392b;
+    font-size: 0.78rem;
+    margin-top: 0.25rem;
+}
+
+.modal-form-group input.input-erro,
+.modal-form-group textarea.input-erro {
+    border-color: #c0392b;
+}
+
 .modal-form-group input[type="file"] {
     padding: 0.3rem 0;
     border: none;

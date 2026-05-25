@@ -4,6 +4,7 @@ const pool = require("../../config/pool_conexoes");
 const {body, validationResult} = require("express-validator");
 var {validarCNPJ, validarCPF } = require("../helpers/validacoes");
 const { usuarioModel } = require("../models/usuarioModel");
+const { ongModel } = require("../models/ongModel");
 const { autenticado } = require("../helpers/autenticado");
 
 router.get("/login", function (req, res) {
@@ -128,6 +129,11 @@ router.get("/forms_doacao", autenticado, function (req, res) {
 });
 router.get("/ongs", autenticado, function (req, res) {
   res.render("pages/ongs");
+});
+
+router.get("/ongs/dados", autenticado, async function (req, res) {
+  const ongs = await ongModel.findAll();
+  res.json(ongs);
 });
 router.get("/ong_page", autenticado, function (req, res) {
   res.render("pages/ong_page");
