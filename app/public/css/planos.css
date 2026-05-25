@@ -1,20 +1,19 @@
-:root {
-  --bg-base: #130919;
-  --bg-card: rgba(42, 19, 54, 0.4);
-  --gold: #e6c27a;
-  --white: #ffffff;
-  --gray-disabled: rgba(255, 255, 255, 0.3);
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Segoe UI", system-ui, sans-serif;
 }
+:root {
+  --bg-base: #130919;
+  --bg-card: rgba(42, 19, 54, 0.4);
+  --gold: #e6c27a;
+  --white: #ecdada;
+  --gray-disabled: rgba(255, 255, 255, 0.3);
+}
 
 body {
-  background-color: var(--bg-base);
+  background-color: #f4f4f4; /* Cor de fundo do site para contraste */
   color: var(--white);
   min-height: 100vh;
   display: flex;
@@ -27,23 +26,7 @@ body {
   margin: 0 auto;
   width: 100%;
   padding: 4rem 2rem;
-}
-
-/* CABEÇALHOS */
-.planos-header-principal {
-  text-align: center;
-  margin-bottom: 4rem;
-}
-
-.planos-header-principal h1 {
-  font-size: 2.2rem;
-  color: var(--gold);
-  margin-bottom: 0.5rem;
-}
-
-.planos-header-principal p {
-  font-size: 1.1rem;
-  opacity: 0.8;
+  margin-top: 100px; /* Para compensar o header fixo */
 }
 
 /* GRID DE 2 COLUNAS PARA OS PLANOS */
@@ -58,10 +41,10 @@ body {
 
 /* CARDS DE PLANOS */
 .plan-card {
-  background: var(--bg-card);
+  background: #2a1336;
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(230, 194, 122, 0.1);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--gold);
   border-radius: 1.5rem;
   padding: 3rem 2.5rem;
   display: flex;
@@ -77,7 +60,7 @@ body {
 /* DESTAQUE DO PLANO PLUS */
 .plan-card.plan-featured {
   border: 2px solid var(--gold);
-  background: rgba(54, 24, 70, 0.5);
+  background: #2a1336;
   box-shadow: 0 10px 30px rgba(230, 194, 122, 0.05);
 }
 
@@ -94,14 +77,14 @@ body {
   text-transform: uppercase;
 }
 
-/* HEADER DO CARD */
-.plan-card-header h2 {
+/* MAIN DO CARD */
+.plan-card-main h2 {
   font-size: 1.6rem;
   margin-bottom: 1rem;
 }
 
-.plan-card.plan-featured .plan-card-header h2 {
-  color: var(--gold);
+.plan-card.plan-featured .plan-card-main h2 {
+  color: var(--while);
 }
 
 .plan-price {
@@ -201,13 +184,14 @@ body {
 
 .depoimentos-header h2 {
   font-size: 1.6rem;
-  color: var(--gold);
+  color: #2a1336;
   margin-bottom: 0.5rem;
 }
 
 .depoimentos-header p {
   font-size: 0.95rem;
   opacity: 0.7;
+  color: rgb(0, 0, 0);
 }
 
 .depoimentos-grid {
@@ -217,8 +201,8 @@ body {
 }
 
 .card-depoimento {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #2a1336;
+  border: 1px solid rgb(0, 0, 0);
   padding: 2rem;
   border-radius: 1rem;
   position: relative;
@@ -251,5 +235,289 @@ body {
   }
   .plan-card {
     padding: 2rem 1.5rem;
+  }
+}
+
+:root {
+  --bg-color: #3b1c4a;
+  --bg-sidebar: #2a1336;
+  --text-header: #e6c27a;
+  --text-hover: #ffffff;
+  --header-height: 80px;
+}
+
+.header {
+  background-color: var(--bg-color);
+  color: var(--text-header);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  height: var(--header-height);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: 75%;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.site-title {
+  font-family: "Allura", cursive;
+  font-size: 2.8rem;
+  font-weight: normal;
+  color: var(--text-header);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.subtitle {
+  font-family: "Allura", cursive;
+  font-size: 2rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* CONTAINER DE ÍCONES DIREITA */
+.icons-container {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-shrink: 0;
+}
+
+.header-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: var(--text-header);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    fill 0.3s ease;
+  display: block;
+}
+
+.header-icon:hover svg {
+  fill: var(--text-hover);
+  transform: scale(1.05);
+}
+
+/* Menu Hambúrguer */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  gap: 6px;
+  height: 28px;
+  padding: 0;
+}
+
+.hamburger .bar {
+  width: 28px;
+  height: 3px;
+  background-color: var(--text-header);
+  transition: all 0.3s ease;
+  border-radius: 3px;
+}
+
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.hamburger.active .bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* ==========================================================================
+   3. BARRA LATERAL (SIDEBAR) ESQUERDA - COM SCROLL
+   ========================================================================== */
+.sidebar-menu {
+  position: fixed;
+  top: var(--header-height);
+  left: -300px;
+  width: 280px;
+  height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: var(--bg-sidebar);
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+  transition: left 0.4s ease-in-out;
+  z-index: 1000;
+  border-right: 2px solid var(--text-header);
+}
+
+.sidebar-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-menu::-webkit-scrollbar-track {
+  background: var(--bg-sidebar);
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb {
+  background: rgba(230, 194, 122, 0.3);
+  border-radius: 10px;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+.sidebar-menu.active {
+  left: 0;
+}
+
+.sidebar-menu ul {
+  list-style: none;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-menu li {
+  width: 100%;
+}
+
+.sidebar-menu a {
+  text-decoration: none;
+  color: var(--text-header);
+  font-weight: 500;
+  font-size: 1.2rem;
+  display: block;
+  padding: 15px 30px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    padding-left 0.3s ease;
+  border-bottom: 1px solid rgba(230, 194, 122, 0.1);
+}
+
+.sidebar-menu a:hover {
+  background-color: rgba(230, 194, 122, 0.1);
+  color: var(--text-hover);
+  padding-left: 40px;
+}
+
+/* ESTILIZAÇÃO DA CONFIGURAÇÃO INTERNA DA SIDEBAR */
+.menu-item-config {
+  background: rgba(230, 194, 122, 0.04);
+}
+
+.link-config-sidebar {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600 !important;
+}
+
+.icon-sidebar-gear {
+  width: 22px;
+  height: 22px;
+  stroke: var(--text-header);
+  transition: transform 0.4s ease;
+}
+
+.sidebar-menu li:hover .icon-sidebar-gear {
+  stroke: var(--text-hover);
+  transform: rotate(45deg);
+}
+
+.divisor-sidebar {
+  border: 0;
+  border-top: 1px solid rgba(230, 194, 122, 0.25);
+  margin: 5px 0 15px 0;
+}
+
+/* ==========================================================================
+   6. RESPONSIVIDADE COMPLETA, ADAPTÁVEL E FLUIDA
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .carousel img {
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 15px;
+  }
+
+  /* Diminuição fluida das fontes para manter o subtítulo visível em tablets */
+  .site-title {
+    font-size: 2.2rem;
+  }
+  .subtitle {
+    font-size: 1.4rem;
+  }
+
+  .logo-img {
+    height: 42px;
+  }
+  .sidebar-menu {
+    width: 250px;
+  }
+
+  .plans-grid,
+  .depoimentos-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .container-planos {
+    padding: 2rem 1rem;
+  }
+  .plan-card {
+    padding: 2rem 1.5rem;
+  }
+  .plan-price {
+    font-size: 2.2rem;
+  }
+  .carousel-container {
+    margin: 10px;
+  }
+  .carousel img {
+    height: 200px;
+  }
+  .section {
+    padding: 2rem 1rem;
+  }
+  .section-body {
+    text-align: left;
+    font-size: 0.95rem;
+  }
+}
+
+/* Mantém o subtítulo e o título sempre alinhados em celulares */
+@media (max-width: 580px) {
+  .site-title {
+    font-size: 1.6rem;
+  }
+  .subtitle {
+    font-size: 1.1rem;
+  }
+  .logo-img {
+    height: 38px;
+  }
+  .icons-container {
+    gap: 15px;
   }
 }

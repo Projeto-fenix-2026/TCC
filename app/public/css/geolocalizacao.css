@@ -2,7 +2,8 @@
   --bg-base: #130919;
   --bg-card: rgba(42, 19, 54, 0.4);
   --gold: #e6c27a;
-  --white: #ffffff;
+  --white: #ecdada; /* Sua cor de texto atualizada */
+  --header-height: 80px; /* Alinhado com o seu header2.ejs */
 }
 
 * {
@@ -13,18 +14,34 @@
 }
 
 body {
-  background-color: var(--bg-base);
+  background-color: #f4f4f4; /* MANTIDO: Sua cor de fundo customizada para contraste */
   color: var(--white);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.header-seguranca {
-  background: rgba(42, 19, 54, 0.8);
-  border-bottom: 1px solid rgba(230, 194, 122, 0.15);
-  padding: 1.5rem;
+/* CONTAINER DO CONTEÚDO: Ajustado para centralizar e alinhar blocos em telas gigantes */
+.main-conteudo-seguranca {
+  flex: 1;
+  margin-top: var(--header-height);
+  padding: 1.5rem 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Garante que o conteúdo não mude de eixo em telas maiores */
+  width: 100%;
+}
+
+/* ADAPTAÇÃO DO BANNER DE AVISO: Alinhamento milimétrico com a largura máxima dos cards */
+.banner-rastreamento {
+  background: #2a1336; /* Seu roxo selecionado */
+  border: 1px solid rgba(230, 194, 122, 0.15);
+  border-radius: 1.5rem;
+  padding: 2rem;
   text-align: center;
+  max-width: 1200px;
+  width: 100%; /* Ocupa 100% até atingir o limite do max-width */
+  margin: 0 auto 2rem auto;
 }
 
 .logo-titulo {
@@ -38,13 +55,11 @@ body {
   opacity: 0.8;
 }
 
-/* GRID PRINCIPAL RESPONSIVO (SEM DIV) */
+/* GRID PRINCIPAL RESPONSIVO */
 .container-seguranca {
-  flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
@@ -52,7 +67,7 @@ body {
 
 .mapa-wrapper,
 .contatos-wrapper {
-  background: var(--bg-card);
+  background: #2a1336; /* Seu roxo selecionado */
   backdrop-filter: blur(10px);
   border: 1px solid rgba(230, 194, 122, 0.1);
   border-radius: 1.5rem;
@@ -68,11 +83,10 @@ body {
   color: var(--gold);
 }
 
-/* IFRAME DO GOOGLE MAPS */
 #mapa-google {
   width: 100%;
   height: 100%;
-  min-height: 350px;
+  min-height: 380px;
   border: 1px solid rgba(230, 194, 122, 0.2);
   border-radius: 1rem;
   background: #25162e;
@@ -106,11 +120,28 @@ body {
 
 .card-contato h3 {
   font-size: 1.1rem;
+  color: #f3eef5;
 }
 
 .card-contato p {
   font-size: 0.85rem;
   opacity: 0.6;
+  color: #f3eef5;
+}
+
+.titilo-ctt {
+  font-size: 0.95rem;
+  opacity: 0.7;
+  margin-bottom: 1.5rem;
+  color: #f3eef5;
+}
+
+/* INPUTS DO FORMULÁRIO */
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #f3d08c !important;
+  box-shadow: 0 0 5px rgba(230, 194, 122, 0.4);
 }
 
 /* BOTÕES */
@@ -123,11 +154,12 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: background 0.3s ease;
+  margin-top: 5px;
 }
 
 .btn-alerta {
   background: var(--gold);
-  color: #1a0b22;
+  color: #0e0711;
 }
 
 .btn-alerta:hover {
@@ -135,21 +167,99 @@ body {
 }
 
 .btn-emergencia {
-  background: #ff7675;
+  background: #d81714; /* MANTIDO: Seu vermelho escuro selecionado */
   color: white;
 }
 
 .btn-emergencia:hover {
-  background: #e15f5d;
+  background: #d81714; /* MANTIDO: Seu hover do botão vermelho */
 }
 
-/* MEDIA QUERIES PARA CELULARES */
-@media (max-width: 768px) {
+/* ==========================================================
+   REGRAS ADICIONADAS PARA RESPONSIVIDADE COMPLETA E TELAS MAIORES
+   ========================================================== */
+
+/* Ajustes finos para Notebooks e telas médias */
+@media (max-width: 1024px) {
   .container-seguranca {
-    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .mapa-wrapper,
+  .contatos-wrapper {
+    padding: 1.5rem;
+  }
+}
+
+/* Tablets (Converte o grid de 2 colunas para empilhamento vertical) */
+@media (max-width: 768px) {
+  .main-conteudo-seguranca {
     padding: 1rem;
   }
+  .banner-rastreamento {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+  }
+  .container-seguranca {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0;
+  }
   #mapa-google {
-    min-height: 280px;
+    min-height: 300px;
+  }
+}
+
+/* Celulares pequenos e Telas Médias Mobile (Correção de quebra de layout) */
+@media (max-width: 480px) {
+  .main-conteudo-seguranca {
+    padding: 0.8rem 4%; /* Padding fluido em porcentagem evita estouro horizontal */
+  }
+  .banner-rastreamento {
+    padding: 1.2rem;
+    border-radius: 1rem;
+  }
+  .logo-titulo {
+    font-size: 1.25rem;
+  }
+  .status-conexao {
+    font-size: 0.8rem;
+  }
+  .container-seguranca {
+    gap: 1rem;
+  }
+  .mapa-wrapper,
+  .contatos-wrapper {
+    padding: 1.2rem;
+    border-radius: 1rem;
+  }
+  /* Torna o grid do topo do formulário (Nome e Vínculo) em linha única se a tela for muito estreita */
+  #form-cadastro-contato div {
+    grid-template-columns: 1fr !important;
+  }
+  #mapa-google {
+    min-height: 250px;
+  }
+}
+
+/* Telas Extremamente Pequenas (Celulares antigos ou mini) */
+@media (max-width: 340px) {
+  .main-conteudo-seguranca {
+    padding: 0.5rem 2%;
+  }
+  .banner-rastreamento,
+  .mapa-wrapper,
+  .contatos-wrapper {
+    padding: 0.9rem;
+    border-radius: 0.75rem;
+  }
+  .logo-titulo {
+    font-size: 1.1rem;
+  }
+  #mapa-google {
+    min-height: 200px;
+  }
+  .card-contato {
+    padding: 0.8rem;
   }
 }
