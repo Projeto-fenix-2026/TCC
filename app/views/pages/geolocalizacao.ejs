@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Área de Segurança - Projeto Fênix</title>
+    <link rel="stylesheet" href="/css/geolocalizacao.css" />
+  </head>
+
+  <body>
+    <%- include('../partials/header2.ejs') %>
+
+    <main class="main-conteudo-seguranca">
+      <section class="banner-rastreamento">
+        <h1 class="logo-titulo">Painel de Proteção Fênix</h1>
+        <p class="status-conexao" id="status-texto">
+          Iniciando rastreamento seguro...
+        </p>
+      </section>
+
+      <nav class="container-seguranca">
+        <section class="mapa-wrapper">
+          <header class="mapa-header">
+            <h2>Sua Localização em Tempo Real</h2>
+            <p
+              id="endereco-atual"
+              style="
+                font-size: 0.95rem;
+                color: #e6c27a;
+                margin-bottom: 10px;
+                opacity: 0.9;
+              "
+            >
+              Buscando endereço exato...
+            </p>
+          </header>
+          <iframe
+            id="mapa-google"
+            src=""
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </section>
+
+        <section class="contatos-wrapper">
+          <header class="contatos-header">
+            <h2>Contatos de Emergência</h2>
+            <p class="titilo-ctt">
+              Cadastre pessoas de sua confiança e acione o botão para enviar
+              socorro via WhatsApp.
+            </p>
+          </header>
+
+          <form
+            id="form-cadastro-contato"
+            style="
+              margin-bottom: 2rem;
+              display: flex;
+              flex-direction: column;
+              gap: 0.8rem;
+            "
+          >
+            <nav
+              style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem"
+            >
+              <input
+                type="text"
+                id="cad-nome"
+                placeholder="Nome do contato"
+                required
+                style="
+                  padding: 0.6rem;
+                  border-radius: 6px;
+                  border: 1px solid var(--gold);
+                  background: rgba(255, 255, 255, 0.05);
+                  color: white;
+                "
+              />
+
+              <select
+                id="cad-parentesco"
+                required
+                style="
+                  padding: 0.6rem;
+                  border-radius: 6px;
+                  border: 1px solid var(--gold);
+                  background: #2a1336;
+                  color: white;
+                "
+              >
+                <option value="" disabled selected>Vínculo / O que é?</option>
+                <option value="Mãe">Mãe</option>
+                <option value="Pai">Pai</option>
+                <option value="Irmão(ã)">Irmão(ã)</option>
+                <option value="Tio(a)">Tio(a)</option>
+                <option value="Amigo(a)">Amigo(a)</option>
+                <option value="Outro">Outro de Confiança</option>
+              </select>
+            </nav>
+
+            <input
+              type="tel"
+              id="cad-celular"
+              placeholder="Celular DDD + Número (ex: 11999999999)"
+              required
+              style="
+                padding: 0.6rem;
+                border-radius: 6px;
+                border: 1px solid var(--gold);
+                background: rgba(255, 255, 255, 0.05);
+                color: white;
+              "
+            />
+
+            <button type="submit" class="btn-alerta" style="padding: 0.6rem">
+              + Cadastrar Contato
+            </button>
+          </form>
+
+          <hr
+            style="
+              border: 0;
+              border-top: 1px solid rgba(230, 194, 122, 0.2);
+              margin-bottom: 1.5rem;
+            "
+          />
+
+          <nav class="lista-contatos" id="lista-contatos-container">
+            <article class="card-contato emergência">
+              <h3>Central de Polícia (190)</h3>
+              <p>Vínculo: Segurança Pública (Ligação Direta)</p>
+              <button class="btn-emergencia" onclick="enviarAlerta('190')">
+                Discar 190
+              </button>
+            </article>
+          </nav>
+        </section>
+      </nav>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+
+    <script src="../js/text.js"></script>
+    <script src="../js/geolocalizacao.js"></script>
+  </body>
+</html>

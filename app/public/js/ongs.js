@@ -1,87 +1,47 @@
-
-// Dados ONGs 
-
-const dataOngs = [
-  {title: "Tamo juntas", image: "imgs/tamojuntas.png", description: "Realizamos atendimentos a mulheres em situação de violência de forma gratuita.", link: "/ong_page"},
-  {title: "Recomeçar", image: "imgs/recomecar.png", description: "Oferecemos um serviço de acolhimento institucional sigiloso para mulheres em situação de violência", link: "/ong_page"},
-  {title: "Amac", image: "imgs/amac.png", description: "Realizamos um trabalho de promoção e informação sobre a violência doméstica.", link: "/ong_page"},
-  {title: "Casa da mulher do nordeste", image: "imgs/casadamulher.png", description: "Fortalece a autonomia econômica e política das mulheres.", link: "/ong_page"},
-  {title: "Fala mulher", image: "imgs/falamulher.png", description: "Atua no enfrentamento à violência contra a mulher, na promoção da independência financeira feminina e outros.", link: "/ong_page"},
-  {title: "Ágatha Instituto social", image: "imgs/agatha.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "/ong_page"},
-  {title: "Ágatha Instituto social", image: "imgs/agatha.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "/ong_page"},
-  {title: "Ágatha Instituto social", image: "imgs/agatha.png", description: "Tem a visão de resgatar as mulheres em situação de vulnerabilidade.", link: "/ong_page"}
-];
-
-
-// Dados Profissionais
-
-const dataProfissionais = [
-  {title: "Jaqueline", image: "imgs/jaqueline.png", description: "Psicóloga, Especialidade em atendimento a mulheres vítimas de violência e terapia de reconstrução emcional", link: "/ong_page"},
-  {title: "Jennifer", image: "imgs/jenifer.png", description: "Advogada, Especializada em direito da mulher e violência doméstica. Ofereço orientação jurídica gratuita e acompanhamento em processos de medidas protetivas", link: "/ong_page"},
-  {title: "Jessica", image: "imgs/jessica.png", description: "Psicóloga, Especialidade em atendimento a mulheres vítimas de violência e terapia de reconstrução emcional", link: "/ong_page"},
-  {title: "Carol", image: "imgs/carol.png", description: "Assistente social,Trabalho com encaminhamento e suporte social para mulheres em situação de vulnerabilidade. Auxilio no acesso a serviços públicos, programas de renda e abrigamento, promovendo autonomia e acolhimento.", link: "/ong_page"},
-  {title: "Ângela", image: "imgs/angela.png", description: "Advogada, Especializada em direito da mulher e violência doméstica. Ofereço orientação jurídica gratuita e acompanhamento em processos de medidas protetivas", link: "/ong_page"},
-  {title: "Luiza", image: "imgs/luiza.png", description: "Assistente social, Trabalho com encaminhamento e suporte social para mulheres em situação de vulnerabilidade. Auxilio no acesso a serviços públicos, programas de renda e abrigamento, promovendo autonomia e acolhimento.", link: "/ong_page"},
-  {title: "Luiza", image: "imgs/luiza.png", description: "Psicóloga, Especialidade em atendimento a mulheres vítimas de violência e terapia de reconstrução emcional", link: "/ong_page"},
-  {title: "Luiza", image: "imgs/luiza.png", description: "Advogada, Especializada em direito da mulher e violência doméstica. Ofereço orientação jurídica gratuita e acompanhamento em processos de medidas protetivas", link: "/ong_page"}
-];
-
-
-// Seletores
-
 const cardContainerOngs = document.querySelector(".card-container");
-const cardContainerProfissionais = document.querySelector(".card-container-profissionais");
 const searchInput = document.querySelector("#searchInput");
 
-
-// Função para gerar cards
+let todasOngs = [];
 
 const gerarCards = (container, data) => {
   container.innerHTML = "";
-  data.forEach(item => {
+  if (data.length === 0) {
+    container.innerHTML = "<p style='text-align:center;color:#888;'>Nenhuma ONG encontrada.</p>";
+    return;
+  }
+  data.forEach(ong => {
+    const imagem = ong.imagem
+      ? `<img src="${ong.imagem}" alt="${ong.nome}">`
+      : `<div class="card-sem-imagem"></div>`;
     container.innerHTML += `
-      <section class="${container === cardContainerOngs ? "card" : "card-profissionais"}">
-        <a href="${item.link}">
-          <h3>${item.title}</h3>
-          <img src="${item.image}" alt="${item.title}">
-          <p>${item.description}</p>
+      <section class="card">
+        <a href="/ong_page">
+          ${imagem}
+          <h3>${ong.nome}</h3>
+          <p>${ong.descricao || ""}</p>
         </a>
       </section>
     `;
   });
 };
 
-
-// Função para pesquisa
-
 const pesquisar = (e) => {
-  const value = e.target.value.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-  // Pesquisa ONGs
-  const resultadoOngs = [...new Set([
-    ...dataOngs.filter(i => i.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(value)),
-    ...dataOngs.filter(i => i.description.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(value))
-  ])];
-
-  // Pesquisa Profissionais
-  const resultadoProfissionais = [...new Set([
-    ...dataProfissionais.filter(i => i.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(value)),
-    ...dataProfissionais.filter(i => i.description.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(value))
-  ])];
-
-  gerarCards(cardContainerOngs, resultadoOngs);
-  gerarCards(cardContainerProfissionais, resultadoProfissionais);
+  const value = e.target.value.toLowerCase().trim().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const resultado = todasOngs.filter(ong =>
+    ong.nome.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").includes(value) ||
+    (ong.descricao || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").includes(value)
+  );
+  gerarCards(cardContainerOngs, resultado);
 };
-
-
-// Eventos
 
 searchInput.addEventListener("keyup", pesquisar);
 
-
-// Inicializar cards
-
-window.addEventListener("DOMContentLoaded", () => {
-  gerarCards(cardContainerOngs, dataOngs);
-  gerarCards(cardContainerProfissionais, dataProfissionais);
+window.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const resp = await fetch("/ongs/dados");
+    todasOngs = await resp.json();
+    gerarCards(cardContainerOngs, todasOngs);
+  } catch (e) {
+    cardContainerOngs.innerHTML = "<p style='text-align:center;color:#888;'>Erro ao carregar ONGs.</p>";
+  }
 });

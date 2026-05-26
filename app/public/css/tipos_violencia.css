@@ -1,0 +1,245 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #4b0082;
+    --secondary: #7e57c2;
+    --dark: #1a1a24;
+    --light: #f8f9fa;
+    --accent: #d32f2f;
+    --text: #2d3436;
+    --bg-card: #ffffff;
+}
+
+body {
+    font-family: Abhaya Libre Medium;
+    background-color: #f4f4f4; /* Cor de fundo do site para contraste */
+    color: var(--text);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-size: 14px; /* Base menor para telas pequenas (Mobile First) */
+}
+
+/* Ajuste de tipografia base para telas maiores */
+@media (min-width: 768px) {
+    body { font-size: 16px; }
+}
+
+
+
+/* --- CONTAINER PRINCIPAL (GRID REORGANIZÁVEL) --- */
+main {
+    display: grid;
+    grid-template-columns: 1fr; /* Uma coluna por padrão no mobile */
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+    flex: 1;
+}
+
+/* Transição para Desktop: Conteúdo Principal (3 partes) e Barra Lateral (1 parte) */
+@media (min-width: 992px) {
+    main {
+        grid-template-columns: 3fr 1fr;
+        margin: 3rem auto;
+        gap: 2.5rem;
+        padding: 0 1.5rem;
+    }
+}
+
+/* --- CONTEXTUALIZAÇÃO --- */
+section.introducao {
+    background: none;
+    padding: 0;
+    box-shadow: none;
+}
+
+section.introducao p {
+    font-size: 1.1rem;
+    color: #4a5568;
+    margin-bottom: 1.5rem;
+}
+
+/* --- PAINEL DINÂMICO (ACCORDION RESPONSIVO) --- */
+section.painel-violencias {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+section.violencia-card {
+    background: var(--bg-card);
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+}
+
+section.violencia-card:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 6px 12px rgba(126, 87, 194, 0.1);
+}
+
+/* Botão disparador / Gatilho do clique */
+section.violencia-card button.gatilho {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.2rem 1rem;
+    text-align: left;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--dark);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    section.violencia-card button.gatilho {
+        padding: 1.5rem;
+        font-size: 1.4rem;
+    }
+}
+
+section.violencia-card button.gatilho::after {
+    content: '+';
+    font-size: 1.5rem;
+    color: var(--secondary);
+    font-weight: 400;
+    transition: transform 0.3s;
+    flex-shrink: 0; /* Impede o ícone de quebrar ou achatar em telas pequenas */
+}
+
+section.violencia-card.aberto {
+    border-left: 6px solid var(--secondary);
+}
+
+section.violencia-card.aberto button.gatilho {
+    color: var(--primary);
+    border-bottom: 1px solid #f1f5f9;
+    background-color: #fcfaff;
+}
+
+section.violencia-card.aberto button.gatilho::after {
+    content: '−';
+    transform: rotate(180deg);
+}
+
+/* Conteúdo interno oculto/expansível */
+article.detalhe-conteudo {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease;
+    padding: 0 1rem;
+    background-color: #fff;
+}
+
+section.violencia-card.aberto article.detalhe-conteudo {
+    max-height: 1200px; /* Limite elástico para acomodar textos longos */
+    padding: 1.2rem 1rem;
+}
+
+@media (min-width: 768px) {
+    section.violencia-card.aberto article.detalhe-conteudo {
+        padding: 1.5rem;
+    }
+}
+
+article.detalhe-conteudo p {
+    margin-bottom: 1.2rem;
+    color: #4a5568;
+    font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+    article.detalhe-conteudo p { font-size: 1.05rem; }
+}
+
+/* Lista Descritiva (Exemplos e Leis) Semântica */
+dl.especificacoes {
+    background: #f8fafc;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+@media (min-width: 768px) {
+    dl.especificacoes { padding: 1.5rem; }
+}
+
+dl.especificacoes dt {
+    font-weight: 700;
+    color: var(--dark);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+dl.especificacoes dd {
+    color: #64748b;
+    margin-left: 0;
+    padding-left: 0.8rem;
+    border-left: 3px solid var(--secondary);
+    font-size: 0.95rem;
+}
+
+/* --- BARRA LATERAL (FIXA NO DESKTOP / BLOCO NO MOBILE) --- */
+aside {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    height: fit-content;
+    border-top: 5px solid var(--accent);
+}
+
+@media (min-width: 992px) {
+    aside {
+        position: sticky;
+        top: 2rem; /* Segue a rolagem da página no desktop */
+        padding: 2rem;
+    }
+}
+
+aside h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--dark);
+}
+
+aside ul {
+    list-style: none;
+}
+
+aside li {
+    margin-bottom: 1.2rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+aside li:last-child {
+    border: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+aside strong {
+    display: block;
+    color: var(--accent);
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+}
+

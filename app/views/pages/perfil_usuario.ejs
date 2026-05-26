@@ -1,109 +1,610 @@
 
-<!DOCTYPE html>
+
+      <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Perfil</title>
-  <link rel="stylesheet" href="../css/perfil_usuario.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meu Perfil – Rede de Apoio</title>
+    <link rel="stylesheet" href="../css/perfil.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
- 
          <%- include('../partials/header2.ejs') %>
 
-        <!-- Conteúdo principal -->
-        <main class="main-content">
-            <!-- Seção de Informações do Perfil -->
-            <section class="profile-section">
-                <nav class="profile-header">
-                    <nav class="avatar">
-                        <img src="imgs/mulher.png" alt="Avatar do usuário">
-                    </nav>
-                    <nav class="profile-info">
-                        <h2 id="userName">Eduarda Silva</h2>
-                        <p id="userEmail">eduarda.silva@example.com</p>
-                        <p class="member-since">Membro desde Janeiro de 2024</p>
-                    </nav>
-                </nav>
-            </section>
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <i class="fa-solid fa-heart-pulse"></i>
+    <span>Rede de Apoio</span>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#" class="nav-item active" data-section="perfil">
+      <i class="fa-solid fa-user"></i><span>Perfil</span>
+    </a>
+    <a href="#" class="nav-item" data-section="depoimentos">
+      <i class="fa-solid fa-comment-dots"></i><span>Depoimentos</span>
+    </a>
+    <a href="#" class="nav-item" data-section="socorro">
+      <i class="fa-solid fa-phone-volume"></i><span>Números de Socorro</span>
+    </a>
+    <a href="#" class="nav-item" data-section="privacidade">
+      <i class="fa-solid fa-shield-halved"></i><span>Privacidade</span>
+    </a>
+    <a href="#" class="nav-item" data-section="acessibilidade">
+      <i class="fa-solid fa-universal-access"></i><span>Acessibilidade</span>
+    </a>
+    <a href="#" class="nav-item" data-section="notificacoes">
+      <i class="fa-solid fa-bell"></i><span>Notificações</span>
+    </a>
+    <a href="#" class="nav-item" data-section="plano">
+      <i class="fa-solid fa-crown"></i><span>Plano Plus</span>
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="#" class="nav-item logout">
+      <i class="fa-solid fa-right-from-bracket"></i><span>Sair</span>
+    </a>
+  </div>
+</aside>
 
-            <!-- Seção de Alteração de Senha -->
-            <section class="password-section">
-                <h3>Alterar Senha</h3>
-                <form id="passwordForm" class="password-form">
-                    <nav class="form-group">
-                        <label for="currentPassword">Senha Atual:</label>
-                        <input 
-                            type="password" 
-                            id="currentPassword" 
-                            name="currentPassword" 
-                            placeholder="Digite sua senha atual"
-                            required
-                        >
-                        <span class="error-message" id="currentPasswordError"></span>
-                    </nav>
+<!-- OVERLAY MOBILE -->
+<div class="overlay" id="overlay"></div>
 
-                    <nav class="form-group">
-                        <label for="newPassword">Nova Senha:</label>
-                        <input 
-                            type="password" 
-                            id="newPassword" 
-                            name="newPassword" 
-                            placeholder="Digite sua nova senha"
-                            required
-                        >
-                        <nav class="password-strength" id="passwordStrength"></nav>
-                        <span class="error-message" id="newPasswordError"></span>
-                    </nav>
+<!-- MAIN -->
+<main class="main-content">
 
-                    <nav class="form-group">
-                        <label for="confirmPassword">Confirmar Nova Senha:</label>
-                        <input 
-                            type="password" 
-                            id="confirmPassword" 
-                            name="confirmPassword" 
-                            placeholder="Confirme sua nova senha"
-                            required
-                        >
-                        <span class="error-message" id="confirmPasswordError"></span>
-                    </nav>
+  <!-- TOP BAR -->
+  <header class="top-bar">
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="top-bar-right">
+      <span class="plan-badge free" id="planBadge">Plano Gratuito</span>
+      <div class="avatar-small">
+        <img id="topAvatar" src="https://ui-avatars.com/api/?name=Usuario&background=c49a4a&color=fff" alt="Foto de perfil"/>
+      </div>
+    </div>
+  </header>
 
-                    <nav class="form-actions">
-                        <button type="submit" class="btn-submit">Alterar Senha</button>
-                        <button type="reset" class="btn-cancel">Cancelar</button>
-                    </nav>
-                </form>
-                <nav id="successMessage" class="success-message"></nav>
-            </section>
+  <!-- ===== PERFIL ===== -->
+  <section class="section active" id="section-perfil">
+    <div class="section-header">
+      <h1>Meu Perfil</h1>
+      <p>Gerencie suas informações pessoais</p>
+    </div>
 
-            <!-- Seção de Outras Informações -->
-            <section class="other-info-section">
-                <h3>Informações da Conta</h3>
-                <nav class="info-grid">
-                    <nav class="info-item">
-                        <label>Nome Completo:</label>
-                        <p>João Silva Santos</p>
-                    </nav>
-                    <nav class="info-item">
-                        <label>Email:</label>
-                        <p>joao.silva@example.com</p>
-                    </nav>
-                    <nav class="info-item">
-                        <label>Telefone:</label>
-                        <p>(11) 98765-4321</p>
-                    </nav>
-                    <nav class="info-item">
-                        <label>Data de Cadastro:</label>
-                        <p>15 de Janeiro de 2024</p>
-                    </nav>
-                </nav>
-            </section>
-     </nav>  
-    
-    </main>
-  <%- include('../partials/footer.ejs') %>
-    
+    <!-- FOTO -->
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-camera"></i> Foto de Perfil</h2>
+      <div class="avatar-upload">
+        <div class="avatar-wrap">
+          <img id="avatarPreview"
+               src="https://ui-avatars.com/api/?name=Usuario&background=c49a4a&color=fff&size=120"
+               alt="Foto de perfil"
+               title="Clique para alterar a foto"/>
+          <div class="avatar-edit" id="avatarEditBtn"
+               role="button" tabindex="0"
+               title="Alterar foto de perfil"
+               aria-label="Alterar foto de perfil">
+            <i class="fa-solid fa-pen"></i>
+          </div>
+          <!-- Input acionado via JS — nunca via label -->
+          <input type="file" id="avatarInput"
+                 accept="image/jpeg,image/png,image/webp"
+                 style="display:none"/>
+        </div>
+        <div class="avatar-info">
+          <p>Formatos aceitos: JPG, PNG, WEBP</p>
+          <p>Tamanho máximo: 5 MB</p>
+          <div class="avatar-btn-group">
+            <button type="button" class="btn btn-outline" id="changePhotoBtn">
+              <i class="fa-solid fa-camera"></i> Alterar foto
+            </button>
+            
+            <button type="button" class="btn btn-outline" id="removePhoto">
+              <i class="fa-solid fa-trash"></i> Remover
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <script src="./js/perfil_profissional.js"></script>
+    <!-- DADOS PESSOAIS -->
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-id-card"></i> Dados Pessoais</h2>
+      <form id="formDados">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome completo</label>
+            <input type="text" id="nome" placeholder="Seu nome" value="Maria Silva"/>
+          </div>
+          <div class="form-group">
+            <label>Apelido <span class="optional">(visível no site)</span></label>
+            <input type="text" id="apelido" placeholder="Como deseja ser chamada" value="Mari"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Sobre mim <span class="optional">(opcional)</span></label>
+          <textarea id="sobre" rows="3" placeholder="Conte um pouco sobre você..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar alterações</button>
+      </form>
+    </div>
+
+    <!-- ALTERAR E-MAIL -->
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-envelope"></i> Alterar E-mail</h2>
+      <form id="formEmail">
+        <div class="form-group">
+          <label>E-mail atual</label>
+          <input type="email" id="emailAtual" placeholder="email@atual.com"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Novo e-mail</label>
+            <input type="email" id="emailNovo" placeholder="novo@email.com"/>
+          </div>
+          <div class="form-group">
+            <label>Confirmar novo e-mail</label>
+            <input type="email" id="emailConfirm" placeholder="novo@email.com"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Senha atual <span class="optional">(confirmação)</span></label>
+          <div class="input-icon">
+            <input type="password" id="senhaConfirmEmail" placeholder="••••••••"/>
+            <i class="fa-solid fa-eye toggle-pass" data-target="senhaConfirmEmail"></i>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Atualizar e-mail</button>
+      </form>
+    </div>
+
+    <!-- ALTERAR SENHA -->
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-lock"></i> Alterar Senha</h2>
+      <form id="formSenha">
+        <div class="form-group">
+          <label>Senha atual</label>
+          <div class="input-icon">
+            <input type="password" id="senhaAtual" placeholder="••••••••"/>
+            <i class="fa-solid fa-eye toggle-pass" data-target="senhaAtual"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Nova senha</label>
+          <div class="input-icon">
+            <input type="password" id="senhaNova" placeholder="••••••••"/>
+            <i class="fa-solid fa-eye toggle-pass" data-target="senhaNova"></i>
+          </div>
+          <div class="password-strength">
+            <div class="strength-fill" id="strengthFill"></div>
+          </div>
+          <span class="strength-label" id="strengthLabel"></span>
+        </div>
+        <div class="form-group">
+          <label>Confirmar nova senha</label>
+          <div class="input-icon">
+            <input type="password" id="senhaNovaConfirm" placeholder="••••••••"/>
+            <i class="fa-solid fa-eye toggle-pass" data-target="senhaNovaConfirm"></i>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Alterar senha</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== DEPOIMENTOS ===== -->
+  <section class="section" id="section-depoimentos">
+    <div class="section-header">
+      <h1>Meus Depoimentos</h1>
+      <p>Compartilhe sua história e ajude outras mulheres</p>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-plus-circle"></i> Novo Depoimento</h2>
+      <form id="formDepoimento">
+        <div class="form-group">
+          <label>Título</label>
+          <input type="text" id="depTitulo" placeholder="Um título para sua história..."/>
+        </div>
+        <div class="form-group">
+          <label>Seu depoimento</label>
+          <textarea id="depTexto" rows="6"
+            placeholder="Compartilhe sua experiência. Você pode usar um apelido para preservar sua identidade..."></textarea>
+          <div class="char-count"><span id="charCount">0</span>/1000 caracteres</div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Exibir como</label>
+            <select id="depAnon">
+              <option value="apelido">Meu apelido</option>
+              <option value="anonimo">Anônima</option>
+              <option value="nome">Meu nome completo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Visibilidade</label>
+            <select id="depVis">
+              <option value="publico">Público</option>
+              <option value="comunidade">Apenas comunidade</option>
+              <option value="privado">Privado</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="depConsentimento"/>
+            <span>Autorizo a publicação deste depoimento no site</span>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Publicar depoimento</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-list"></i> Meus Depoimentos Publicados</h2>
+      <div class="testimonials-list" id="testimonialsList">
+        <div class="empty-state">
+          <i class="fa-solid fa-comment-slash"></i>
+          <p>Você ainda não publicou nenhum depoimento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SOCORRO ===== -->
+  <section class="section" id="section-socorro">
+    <div class="section-header">
+      <h1>Números de Socorro</h1>
+      <p>Salve os contatos que podem salvar vidas</p>
+    </div>
+
+    <div class="plan-notice free-notice">
+      <i class="fa-solid fa-info-circle"></i>
+      <span>Plano Gratuito: até <strong>3 números</strong> de socorro.
+        <a href="#" data-section="plano">Upgrade para Plus</a> e adicione até 7.
+      </span>
+    </div>
+
+    <div class="emergency-grid" id="emergencyGrid"></div>
+
+    <div class="card" id="addEmergencyCard">
+      <h2 class="card-title"><i class="fa-solid fa-plus-circle"></i> Adicionar Número</h2>
+      <form id="formSocorro">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome / Instituição</label>
+            <input type="text" id="sNome" placeholder="Ex: Central da Mulher"/>
+          </div>
+          <div class="form-group">
+            <label>Número</label>
+            <input type="tel" id="sNumero" placeholder="Ex: 180"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Categoria</label>
+            <select id="sCat">
+              <option>Central de Atendimento</option>
+              <option>Delegacia</option>
+              <option>Hospital</option>
+              <option>Familiar/Amigo</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Ícone</label>
+            <select id="sIcone">
+              <option value="phone">📞 Telefone</option>
+              <option value="shield">🛡️ Proteção</option>
+              <option value="heart">💜 Apoio</option>
+              <option value="ambulance">🚑 Emergência</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Descrição <span class="optional">(opcional)</span></label>
+          <input type="text" id="sDesc" placeholder="Disponível 24h, gratuito..."/>
+        </div>
+        <button type="submit" class="btn btn-primary" id="btnAddSocorro">Adicionar número</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== PRIVACIDADE ===== -->
+  <section class="section" id="section-privacidade">
+    <div class="section-header">
+      <h1>Privacidade</h1>
+      <p>Controle quem vê suas informações</p>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-eye"></i> Visibilidade do Perfil</h2>
+      <div class="settings-list">
+        <div class="setting-item">
+          <div class="setting-info">
+            <strong>Perfil público</strong>
+            <span>Qualquer pessoa pode ver seu perfil</span>
+          </div>
+          <label class="toggle"><input type="checkbox" id="perfilPublico" checked/><span class="slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info">
+            <strong>Exibir foto de perfil</strong>
+            <span>Mostrar sua foto para outros usuários</span>
+          </div>
+          <label class="toggle"><input type="checkbox" id="exibirFoto" checked/><span class="slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info">
+            <strong>Exibir depoimentos</strong>
+            <span>Seus depoimentos ficam visíveis no perfil público</span>
+          </div>
+          <label class="toggle"><input type="checkbox" id="exibirDep"/><span class="slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info">
+            <strong>Aparecer em buscas</strong>
+            <span>Seu perfil pode ser encontrado por outros usuários</span>
+          </div>
+          <label class="toggle"><input type="checkbox" id="apareceBusca"/><span class="slider"></span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-database"></i> Dados e Cookies</h2>
+      <div class="settings-list">
+        <div class="setting-item">
+          <div class="setting-info">
+            <strong>Cookies de análise</strong>
+            <span>Nos ajudam a melhorar o site (dados anônimos)</span>
+          </div>
+          <label class="toggle"><input type="checkbox" id="cookieAnalise" checked/><span class="slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info">
+            <strong>Cookies de personalização</strong>
+            <span>Personalizam sua experiência no site</span>
+          </div>
+          <label class="toggle"><input type="checkbox" id="cookiePerso"/><span class="slider"></span></label>
+        </div>
+      </div>
+      <div class="action-group">
+        <button class="btn btn-outline" id="btnDownloadDados">
+          <i class="fa-solid fa-download"></i> Baixar meus dados
+        </button>
+        <button class="btn btn-danger" id="btnDeleteAccount">
+          <i class="fa-solid fa-trash"></i> Excluir minha conta
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-lock"></i> Segurança</h2>
+      <div class="settings-list">
+        <div class="setting-item">
+          <div class="setting-info">
+            <strong>Autenticação em dois fatores (2FA)</strong>
+            <span>Adiciona uma camada extra de segurança ao login</span>
+          </div>
+          <label class="toggle"><input type="checkbox" id="toggle2fa"/><span class="slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info">
+            <strong>Alertas de login</strong>
+            <span>Receba e-mail quando uma nova sessão for iniciada</span>
+          </div>
+          <label class="toggle"><input type="checkbox" id="alertaLogin" checked/><span class="slider"></span></label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ACESSIBILIDADE ===== -->
+  <section class="section" id="section-acessibilidade">
+    <div class="section-header">
+      <h1>Acessibilidade</h1>
+      <p>Personalize a experiência de uso</p>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-text-height"></i> Texto e Leitura</h2>
+      <div class="settings-list">
+        <div class="setting-item">
+          <div class="setting-info">
+            <strong>Tamanho da fonte</strong>
+            <span>Ajuste o tamanho do texto exibido</span>
+          </div>
+          <div class="font-size-control">
+            <button class="btn-size" id="fontMinus">A-</button>
+            <span id="fontSizeVal">100%</span>
+            <button class="btn-size" id="fontPlus">A+</button>
+          </div>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info">
+            <strong>Alto contraste</strong>
+            <span>Aumenta o contraste para melhor leitura</span>
+          </div>
+          <label class="toggle"><input type="checkbox" id="altoContraste"/><span class="slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info">
+            <strong>Reduzir animações</strong>
+            <span>Remove efeitos de animação da interface</span>
+          </div>
+          <label class="toggle"><input type="checkbox" id="reduzirAnim"/><span class="slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info">
+            <strong>Fonte para dislexia</strong>
+            <span>Utiliza tipografia adaptada para leitura facilitada</span>
+          </div>
+          <label class="toggle"><input type="checkbox" id="fonteDislexia"/><span class="slider"></span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-moon"></i> Tema</h2>
+      <div class="theme-options">
+        <button class="theme-btn active" data-theme="light">
+          <i class="fa-solid fa-sun"></i> Claro
+        </button>
+        <button class="theme-btn" data-theme="dark">
+          <i class="fa-solid fa-moon"></i> Escuro
+        </button>
+        <button class="theme-btn" data-theme="auto">
+          <i class="fa-solid fa-circle-half-stroke"></i> Automático
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-language"></i> Idioma</h2>
+      <div class="form-group">
+        <label>Idioma do site</label>
+        <select id="idioma">
+          <option value="pt-BR" selected>Português (Brasil)</option>
+          <option value="es">Español</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NOTIFICAÇÕES ===== -->
+  <section class="section" id="section-notificacoes">
+    <div class="section-header">
+      <h1>Notificações</h1>
+      <p>Escolha como e quando ser notificada</p>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-envelope-open-text"></i> E-mail</h2>
+      <div class="settings-list">
+        <div class="setting-item">
+          <div class="setting-info"><strong>Novidades e atualizações</strong><span>Receba informações sobre o site</span></div>
+          <label class="toggle"><input type="checkbox" id="notifNews" checked/><span class="slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info"><strong>Respostas ao meu depoimento</strong><span>Quando alguém comentar sua história</span></div>
+          <label class="toggle"><input type="checkbox" id="notifDep" checked/><span class="slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info"><strong>Alertas de segurança</strong><span>Atividade incomum na conta</span></div>
+          <label class="toggle"><input type="checkbox" id="notifSeg" checked/><span class="slider"></span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-mobile-screen"></i> Push (Aplicativo)</h2>
+      <div class="settings-list">
+        <div class="setting-item">
+          <div class="setting-info"><strong>Notificações push</strong><span>Receba alertas diretamente no dispositivo</span></div>
+          <label class="toggle"><input type="checkbox" id="notifPush"/><span class="slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info"><strong>Sons de notificação</strong><span>Ativar sons ao receber alertas</span></div>
+          <label class="toggle"><input type="checkbox" id="notifSom"/><span class="slider"></span></label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PLANO PLUS ===== -->
+  <section class="section" id="section-plano">
+    <div class="section-header">
+      <h1>Plano Plus</h1>
+      <p>Acesso completo para quem precisa de mais suporte</p>
+    </div>
+
+    <div class="plans-grid">
+      <div class="plan-card">
+        <div class="plan-top">
+          <span class="plan-tag">Gratuito</span>
+          <h2>Básico</h2>
+          <div class="plan-price">R$ 0<span>/mês</span></div>
+        </div>
+        <ul class="plan-features">
+          <li><i class="fa-solid fa-check"></i> Perfil completo</li>
+          <li><i class="fa-solid fa-check"></i> Até 3 números de socorro</li>
+          <li><i class="fa-solid fa-check"></i> 1 depoimento publicado</li>
+          <li><i class="fa-solid fa-check"></i> Acesso ao conteúdo público</li>
+          <li class="disabled"><i class="fa-solid fa-xmark"></i> Atendimento prioritário</li>
+          <li class="disabled"><i class="fa-solid fa-xmark"></i> Chat com especialistas</li>
+          <li class="disabled"><i class="fa-solid fa-xmark"></i> Até 7 números de socorro</li>
+          <li class="disabled"><i class="fa-solid fa-xmark"></i> Depoimentos ilimitados</li>
+          <li class="disabled"><i class="fa-solid fa-xmark"></i> Guia jurídico personalizado</li>
+          <li class="disabled"><i class="fa-solid fa-xmark"></i> Mapa de abrigos próximos</li>
+          <li class="disabled"><i class="fa-solid fa-xmark"></i> SOS silencioso (app)</li>
+        </ul>
+        <button class="btn btn-outline btn-block" disabled>Seu plano atual</button>
+      </div>
+
+      <div class="plan-card featured">
+        <div class="plan-top">
+          <span class="plan-tag">Recomendado</span>
+          <h2>Plus <i class="fa-solid fa-crown"></i></h2>
+          <div class="plan-price">R$ 19,90<span>/mês</span></div>
+          <small>ou R$ 179,90/ano (economize 25%)</small>
+        </div>
+        <ul class="plan-features">
+          <li><i class="fa-solid fa-check"></i> Tudo do plano Básico</li>
+          <li><i class="fa-solid fa-check"></i> Até <strong>7 números de socorro</strong></li>
+          <li><i class="fa-solid fa-check"></i> Depoimentos ilimitados</li>
+          <li><i class="fa-solid fa-check"></i> Atendimento prioritário 24h</li>
+          <li><i class="fa-solid fa-check"></i> Chat com especialistas</li>
+          <li><i class="fa-solid fa-check"></i> Guia jurídico personalizado</li>
+          <li><i class="fa-solid fa-check"></i> Mapa de abrigos próximos</li>
+          <li><i class="fa-solid fa-check"></i> SOS silencioso (app)</li>
+          <li><i class="fa-solid fa-check"></i> Histórico de atendimentos</li>
+          <li><i class="fa-solid fa-check"></i> Comunidade exclusiva</li>
+          <li><i class="fa-solid fa-check"></i> Suporte por WhatsApp</li>
+        </ul>
+        <button class="btn btn-primary btn-block" id="btnAssinarPlus">Assinar Plus agora</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:1.5rem">
+      <h2 class="card-title"><i class="fa-solid fa-credit-card"></i> Gerenciar Assinatura</h2>
+      <p class="card-desc">Você está no plano <strong>Gratuito</strong>. Assine o Plus para desbloquear todos os recursos.</p>
+      <div class="action-group">
+        <button class="btn btn-outline" id="btnHistoricoPag">
+          <i class="fa-solid fa-receipt"></i> Histórico de pagamentos
+        </button>
+        <button class="btn btn-outline" id="btnCancelarPlano">
+          <i class="fa-solid fa-ban"></i> Cancelar assinatura
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="modal-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+    <h3 id="modalTitle">Confirmar ação</h3>
+    <p id="modalMsg">Tem certeza?</p>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="modalCancel">Cancelar</button>
+      <button class="btn btn-danger" id="modalConfirm">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/perfil.js"></script>
+<script src="../js/text.js"></script>
+
 </body>
 </html>

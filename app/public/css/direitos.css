@@ -1,0 +1,381 @@
+/* --- RESET E VARIÁVEIS GERAIS --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #3b1c4a;
+  --secondary: #341f97;
+  --dark: #222f3e;
+  --light: #f5f6fa;
+  --accent: #ee5253;
+  --accent-light: #ff6b6b;
+  --text: #222f3e;
+  --success: #bc63f8;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--light);
+  color: var(--text);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-size: 14px; /* Base menor para celulares (Mobile First) */
+}
+
+/* Ajuste de tipografia para telas médias e grandes */
+@media (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* --- LAYOUT PRINCIPAL (GRID REORGANIZÁVEL) --- */
+main {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 coluna por padrão no mobile */
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+  flex: 1;
+}
+
+/* Passa para duas colunas em telas maiores (Desktop) */
+@media (min-width: 992px) {
+  main {
+    grid-template-columns: 3fr 1fr;
+    margin: 2rem auto;
+    gap: 2.5rem;
+    padding: 0 1.5rem;
+  }
+}
+
+/* --- SEÇÕES E BLOCOS SEMÂNTICOS --- */
+section {
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  section {
+    padding: 2.5rem;
+  }
+}
+
+section h2 {
+  color: var(--dark);
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+  border-bottom: 4px solid var(--primary);
+  padding-bottom: 0.4rem;
+  display: inline-block;
+}
+
+@media (min-width: 768px) {
+  section h2 {
+    font-size: 1.8rem;
+  }
+}
+
+/* --- DESTAQUE CRÍTICO: GRÁFICO RESPONSIVO --- */
+section.destaque-grafico {
+  border: 2px solid var(--accent);
+  background: linear-gradient(to bottom, #ffffff, #fff5f5);
+}
+
+section.destaque-grafico h2 {
+  border-bottom-color: var(--accent);
+  color: var(--accent);
+}
+
+figure {
+  padding: 1rem;
+  background: white;
+  border: 1px solid #ffccd5;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 12px rgba(238, 82, 83, 0.08);
+}
+
+@media (min-width: 768px) {
+  figure {
+    padding: 2rem;
+  }
+}
+
+figcaption {
+  font-size: 0.85rem;
+  text-align: center;
+  color: #57606f;
+  margin-top: 1.5rem;
+  font-style: italic;
+}
+
+ol.chart {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  list-style: none;
+  padding: 1rem 0;
+}
+
+ol.chart li {
+  display: grid;
+  grid-template-columns: 50px 1fr 60px; /* Alinhamento flexível para mobile */
+  align-items: center;
+  gap: 0.8rem;
+}
+
+@media (min-width: 768px) {
+  ol.chart li {
+    grid-template-columns: 70px 1fr 80px;
+    gap: 1rem;
+  }
+}
+
+ol.chart label {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--dark);
+}
+
+ol.chart mark {
+  display: block;
+  height: 35px; /* Altura confortável para mobile */
+  background: linear-gradient(90deg, var(--accent-light), var(--accent));
+  border-radius: 6px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  ol.chart mark {
+    height: 45px;
+  }
+}
+
+/* Definição das larguras simuladas do gráfico */
+ol.chart li:nth-child(1) mark {
+  width: 84%;
+  background: linear-gradient(90deg, #ff9f43, var(--accent-light));
+}
+ol.chart li:nth-child(2) mark {
+  width: 90%;
+}
+ol.chart li:nth-child(3) mark {
+  width: 94%;
+}
+ol.chart li:nth-child(4) mark {
+  width: 100%;
+  background: linear-gradient(90deg, var(--accent), #9b1c1c);
+}
+
+ol.chart span {
+  font-weight: 800;
+  font-size: 1rem;
+  text-align: right;
+  color: var(--accent);
+}
+
+/* --- GUIA DE AÇÃO: MEDIDAS PROTETIVAS --- */
+ol.guia-acao {
+  list-style: none;
+  counter-reset: etapa;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+ol.guia-acao li {
+  counter-increment: etapa;
+  position: relative;
+  background: #f8f9fa;
+  padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--success);
+}
+
+@media (min-width: 768px) {
+  ol.guia-acao li {
+    padding: 1.5rem 1.5rem 1.5rem 4rem;
+  }
+}
+
+ol.guia-acao li::before {
+  content: counter(etapa);
+  position: absolute;
+  left: 0.8rem;
+  top: 1.2rem; /* Mantém alinhado no topo caso o texto cresça no mobile */
+  background: var(--success);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  ol.guia-acao li::before {
+    width: 35px;
+    height: 35px;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+  }
+}
+
+ol.guia-acao h3 {
+  margin-bottom: 0.3rem;
+  color: var(--dark);
+  font-size: 1.1rem;
+}
+
+/* --- ESPAÇO URBANO: TRANSPORTE SEGURO --- */
+section.transporte-seguro {
+  border-left: 8px solid var(--primary);
+}
+
+dl.transporte-lista dt {
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin-top: 1.2rem;
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  dl.transporte-lista dt {
+    font-size: 1.2rem;
+  }
+}
+
+dl.transporte-lista dd {
+  background: #fcfcfd;
+  padding: 1rem;
+  border: 1px dashed #ced6e0;
+  border-radius: 6px;
+  margin-left: 0;
+  margin-top: 0.4rem;
+}
+
+/* --- ABAS DINÂMICAS --- */
+nav[role="tablist"] {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto; /* Garante rolagem horizontal se faltar espaço no celular */
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  -webkit-overflow-scrolling: touch;
+}
+
+nav button {
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #636e72;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 8px 8px 0 0;
+  white-space: nowrap;
+}
+
+nav button.active {
+  color: var(--primary);
+  border-bottom: 3px solid var(--primary);
+  background-color: rgba(108, 92, 231, 0.08);
+}
+
+article[role="tabpanel"] {
+  display: none;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+article[role="tabpanel"].active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- BARRA LATERAL CONTRAÍVEL (ATUALIZADA E PROTEGIDA) --- */
+aside {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  height: fit-content;
+  border-top: 5px solid var(--accent);
+  word-break: break-word; /* Impede que textos longos estourem a largura */
+}
+
+@media (min-width: 992px) {
+  aside {
+    position: sticky;
+    top: 2rem; /* Segue a rolagem da tela no computador */
+    padding: 2rem;
+  }
+}
+
+aside h3 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  color: var(--dark);
+}
+
+aside ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+aside li {
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #f1f2f6;
+  display: flex;
+  flex-direction: column; /* Organiza número em cima e texto embaixo no mobile */
+  align-items: flex-start;
+  gap: 0.3rem;
+}
+
+aside li:last-child {
+  border: none;
+  padding-bottom: 0;
+}
+
+aside strong {
+  display: inline-block;
+  background-color: rgba(
+    238,
+    82,
+    83,
+    0.1
+  ); /* Destaca visualmente o canal de contato */
+  color: var(--accent);
+  font-size: 1.1rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}

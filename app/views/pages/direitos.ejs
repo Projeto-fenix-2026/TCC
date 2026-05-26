@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direitos da Mulher | Proteção, Transporte e Dados</title>
+    <!-- Fonte -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/direitos.css">
+  
+</head>
+<body>
+         <%- include('../partials/header2.ejs') %>
+
+
+    <main>
+        <!-- Conteúdo Principal à Esquerda -->
+        <section>
+            
+            <!-- 1. GRÁFICO ALTAMENTE APARENTE (NO TOPO) -->
+            <section class="destaque-grafico" role="region" aria-label="Estatísticas Urgentes">
+                <h2>Alerta: Crescimento Anual dos Feminicídios</h2>
+                <p>Os indicadores de violência letal baseados em gênero continuam escalando. O gráfico abaixo ilustra o número total de vítimas anuais, reforçando a importância de agir preventivamente.</p>
+                
+                <figure>
+                    <ol class="chart">
+                        <li>
+                            <label>2022</label>
+                            <mark aria-label="1310 casos registrados"></mark>
+                            <span>1.310</span>
+                        </li>
+                        <li>
+                            <label>2023</label>
+                            <mark aria-label="1425 casos registrados"></mark>
+                            <span>1.425</span>
+                        </li>
+                        <li>
+                            <label>2024</label>
+                            <mark aria-label="1492 casos registrados"></mark>
+                            <span>1.492</span>
+                        </li>
+                        <li>
+                            <label>2025</label>
+                            <mark aria-label="1568 casos registrados (Recorde Histórico)"></mark>
+                            <span>1.568</span>
+                        </li>
+                    </ol>
+                    <figcaption>Fonte: Notas técnicas consolidadas do Fórum Brasileiro de Segurança Pública (FBSP) coletadas até 2026.</figcaption>
+                </figure>
+            </section>
+
+            <!-- 2. COMO A VÍTIMA PODE AGIR (MEDIDA PROTETIVA) -->
+            <section role="region" aria-label="Guia de Defesa e Ação">
+                <h2>Como Agir: Guia da Medida Protetiva</h2>
+                <p>A Medida Protetiva de Urgência é um direito legal protetivo que obriga o agressor a se afastar imediatamente da vítima e de seus familiares.</p>
+                
+                <ol class="guia-acao">
+                    <li>
+                        <h3>Onde Solicitar</h3>
+                        <p>Você pode pedir a medida protetiva em qualquer <strong>Delegacia de Polícia (de preferência na DEAM - Delegacia da Mulher)</strong>, pelo portal digital da Polícia Civil do seu Estado, ou diretamente via Ministério Público e Defensoria Pública.</p>
+                    </li>
+                    <li>
+                        <h3>Sem Necessidade de Advogado</h3>
+                        <p>Não é obrigatório estar acompanhada de advogado ou defensora para fazer a petição inicial. O próprio agente policial preenche o pedido a partir do seu relato de risco.</p>
+                    </li>
+                    <li>
+                        <h3>Prazo de Urgência</h3>
+                        <p>Após a denúncia e envio do formulário, o juiz tem o prazo legal rígido de até <strong>48 horas</strong> para analisar, deferir as ordens de restrição e intimar o agressor sob pena de prisão imediata.</p>
+                    </li>
+                    <li>
+                        <h3>Descumprimento é Crime</h3>
+                        <p>Se o agressor tentar telefonar, mandar mensagens em redes sociais ou se aproximar do perímetro proibido, <strong>disque 190 na mesma hora</strong>. O descumprimento da medida gera prisão em flagrante sem direito à fiança delegada.</p>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- 3. TRANSPORTE SEGURO: ÔNIBUS, TRENS E METRÔS -->
+            <section class="transporte-seguro" role="region" aria-label="Segurança nos Transportes">
+                <h2>Direito ao Transporte Seguro</h2>
+                <p>A mobilidade urbana é um espaço crítico de assédio. Diversas legislações estaduais e municipais asseguram direitos específicos de proteção em trens, metrôs e ônibus.</p>
+                
+                <dl class="transporte-lista">
+                    <dt>Vagão Rosa (Trens e Metrô)</dt>
+                    <dd>Em sistemas metropolitanos (como RJ e SP), existem carros exclusivos identificados para mulheres nos horários de pico de circulação (geralmente das 06h às 09h e das 17h às 20h). O acesso de homens nesses vagões é passível de multa e desembarque forçado.</dd>
+                    
+                    <dt>Parada Solicitada (Ônibus Noturnos)</dt>
+                    <dd>A chamada "Lei do Desembarque Noturno" autoriza que mulheres viajando sozinhas em ônibus municipais possam solicitar a descida fora do ponto oficial de parada regulamentar no período da noite (normalmente das 22h às 05h), desde que o trajeto original da linha seja mantido e não comprometa a segurança do tráfego.</dd>
+                    
+                    <dt>Importunação Sexual é Crime</dt>
+                    <dd>Atos libidinosos não consentidos dentro de transportes (toques, encoxadas, palavras invasivas) configuram crime sob a Lei 13.718/18. O motorista ou operador do trem tem o dever de conduzir o veículo até o posto policial mais próximo ou travar as portas até a chegada da autoridade.</dd>
+                </dl>
+            </section>
+
+            <!-- 4. PAINEL DE PESQUISAS ADICIONAIS -->
+            <section role="region" aria-label="Pesquisas Interativas Adicionais">
+                <h2>Pesquisas Consolidadas</h2>
+                <nav role="tablist">
+                    <button class="tab-btn active" data-target="pesquisa-fbsp-aba">Anuário FBSP</button>
+                    <button class="tab-btn" data-target="pesquisa-senado-aba">DataSenado</button>
+                </nav>
+
+                <article id="pesquisa-fbsp-aba" class="active" role="tabpanel">
+                    <h3>Subnotificação Estrutural</h3>
+                    <p>Mesmo com o aumento dos registros no gráfico acima, analistas alertam para uma vasta margem de subnotificação gerada pelo isolamento geográfico de mulheres em zonas rurais brasileiras.</p>
+                </article>
+
+                <article id="pesquisa-senado-aba" role="tabpanel">
+                    <h3>Insegurança Coletiva</h3>
+                    <p>O levantamento do DataSenado mostra que o medo da agressão física ou verbal molda o comportamento de locomoção de 8 em cada 10 brasileiras nas capitais.</p>
+                </article>
+            </section>
+
+        </section>
+
+        <!-- Barra Lateral de Emergência (Mantida à Direita no Desktop) -->
+        <aside>
+            <h3>Canais de Socorro</h3>
+            <p>Não hesite em buscar proteção governamental e social:</p>
+            <ul>
+                <li>
+                    <strong>Ligue 180</strong>
+                    Central de Atendimento à Mulher. Registro de queixas e acolhida nacional.
+                </li>
+                <li>
+                    <strong>Ligue 190</strong>
+                    Polícia Militar. Use imediatamente caso o agressor esteja descumprindo a Medida Protetiva.
+                </li>
+                <li>
+                    <strong>Ligue 193</strong>
+                    Corpo de Bombeiros. Para socorros de lesões decorrentes de traumas de agressão física imediata.
+                </li>
+            </ul>
+        </aside>
+    </main>
+
+
+   
+      <%- include('../partials/footer.ejs') %>
+      <script src="../js/text.js"></script>
+        <script src="../js/direitos.js"></script>
+</body>
+</html>

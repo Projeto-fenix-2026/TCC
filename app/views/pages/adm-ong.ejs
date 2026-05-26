@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Gerenciar ONGs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="../css/index-adm.css">
+    <link rel="stylesheet" href="../css/adm-ong.css">
+</head>
+
+<body>
+    <input type="checkbox" id="sidebare-toggle">
+    <section class="sidebar">
+        <section class="sidebar-header">
+            <h3 class="brand"><span class="ti-unlink"></span>
+                <span>Fenix</span>
+            </h3>
+            <label for="sidebare-toggle" class="ti-menu-alt"></label>
+        </section>
+
+        <section class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="/adm">
+                        <span class="ti-home"></span>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/adm/adm-cliente">
+                        <span class="ti-face-smile"></span>
+                        <span>Usuários</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/adm/adm-ong">
+                        <span class="ti-world"></span>
+                        <span>ONGs</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </section>
+
+    <section class="main-content">
+
+        <header>
+            <section class="search-wrapper">
+                <span class="ti-search"></span>
+                <input type="search" id="searchInput" placeholder="Buscar ONG..." oninput="filtrarTabela()">
+            </section>
+            <section class="social-icons">
+                <span class="ti-bell"></span>
+                <span class="ti-comment"></span>
+                <section></section>
+            </section>
+        </header>
+
+        <main>
+            <h2 class="dash-title">Gerenciar ONGs</h2>
+
+            <% if (locals.mensagem) { %>
+                <div class="alerta alerta-sucesso"><%= mensagem %></div>
+            <% } %>
+            <% if (locals.erro) { %>
+                <div class="alerta alerta-erro"><%= erro %></div>
+            <% } %>
+
+            <button class="btn-add" onclick="abrirModalCadastro()">
+                <span class="ti-plus"></span> Adicionar ONG
+            </button>
+
+            <section class="recent">
+                <section class="activity-grid">
+                    <section class="activity-card">
+
+                        <section class="table-responsive">
+                            <table id="tabelaOngs">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Capa</th>
+                                        <th>Nome</th>
+                                        <th>E-mail</th>
+                                        <th>Telefone</th>
+                                        <th>CNPJ</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (ongs.length === 0) { %>
+                                        <tr>
+                                            <td colspan="6" style="text-align:center;">Nenhuma ONG cadastrada.</td>
+                                        </tr>
+                                    <% } else { %>
+                                        <% ongs.forEach(function(ong) { %>
+                                            <tr>
+                                                <td><%= ong.id_ong %></td>
+                                                <td>
+                                                    <% if (ong.imagem) { %>
+                                                        <img src="<%= ong.imagem %>" alt="capa" class="thumb-ong">
+                                                    <% } else { %>
+                                                        <span class="sem-imagem">—</span>
+                                                    <% } %>
+                                                </td>
+                                                <td><%= ong.nome %></td>
+                                                <td><%= ong.email %></td>
+                                                <td><%= ong.telefone %></td>
+                                                <td><%= ong.CNPJ %></td>
+                                                <td>
+                                                    <button class="btn-acao btn-editar"
+                                                        data-id="<%= ong.id_ong %>"
+                                                        data-nome="<%= ong.nome %>"
+                                                        data-email="<%= ong.email %>"
+                                                        data-telefone="<%= ong.telefone %>"
+                                                        data-cnpj="<%= ong.CNPJ %>"
+                                                        data-descricao="<%= ong.descricao || '' %>"
+                                                        data-imagem="<%= ong.imagem || '' %>"
+                                                        onclick="abrirModalEditar(this)">
+                                                        <span class="ti-pencil"></span> Editar
+                                                    </button>
+                                                    <form method="post" action="/adm/adm-ong/excluir" style="display:inline;"
+                                                        onsubmit="return confirm('Excluir a ONG <%= ong.nome %>?')">
+                                                        <input type="hidden" name="id" value="<%= ong.id_ong %>">
+                                                        <button type="submit" class="btn-acao btn-excluir">
+                                                            <span class="ti-trash"></span> Excluir
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <% }); %>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </section>
+
+                    </section>
+                </section>
+            </section>
+        </main>
+
+    </section>
+
+    <!-- Modal Cadastro / Edição -->
+    <div class="modal-overlay" id="modalOng">
+        <div class="modal">
+            <h3 id="modalTitulo">Adicionar ONG</h3>
+            <form id="formOng" method="post" enctype="multipart/form-data" onsubmit="return validarFormOng(event)">
+                <input type="hidden" name="id" id="ongId">
+
+                <div class="modal-form-group">
+                    <label for="ongNome">Nome</label>
+                    <input type="text" id="ongNome" name="nome" maxlength="50" placeholder="Nome da ONG">
+                    <span class="erro-campo" id="erro-nome"></span>
+                </div>
+
+                <div class="modal-form-group">
+                    <label for="ongEmail">E-mail</label>
+                    <input type="email" id="ongEmail" name="email" maxlength="70" placeholder="contato@ong.org">
+                    <span class="erro-campo" id="erro-email"></span>
+                </div>
+
+                <div class="modal-form-group">
+                    <label for="ongTelefone">Telefone <small>(somente números, 11 dígitos)</small></label>
+                    <input type="text" id="ongTelefone" name="telefone" maxlength="15" placeholder="(11) 99999-9999">
+                    <span class="erro-campo" id="erro-telefone"></span>
+                </div>
+
+                <div class="modal-form-group">
+                    <label for="ongCnpj">CNPJ <small>(somente números, 14 dígitos)</small></label>
+                    <input type="text" id="ongCnpj" name="cnpj" maxlength="18" placeholder="00.000.000/0001-00">
+                    <span class="erro-campo" id="erro-cnpj"></span>
+                </div>
+
+                <div class="modal-form-group">
+                    <label for="ongDescricao">Descrição</label>
+                    <textarea id="ongDescricao" name="descricao" maxlength="500" rows="4"
+                        placeholder="Descreva a ONG..."></textarea>
+                    <span class="erro-campo" id="erro-descricao"></span>
+                </div>
+
+                <div class="modal-form-group">
+                    <label for="ongImagem">Imagem de capa</label>
+                    <img id="ongImagemPreview" src="" alt="preview" class="imagem-preview" style="display:none;">
+                    <input type="file" id="ongImagem" name="imagem" accept="image/*">
+                    <span class="erro-campo" id="erro-imagem"></span>
+                    <input type="hidden" id="ongImagemAtual" name="imagemAtual">
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+                    <button type="submit" class="btn-salvar">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/adm-ong.js"></script>
+</body>
+
+</html>
