@@ -149,6 +149,10 @@ router.get("/text", function (req, res) {
   res.render("pages/text");
 });
 
+router.get("/forum", function (req, res) {
+  res.render("pages/forum");
+});
+
 // rotas protegidas — exigem login
 router.get("/home2", autenticado, function (req, res) {
   res.render("pages/home2");
