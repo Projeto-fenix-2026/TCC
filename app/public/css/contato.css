@@ -1,53 +1,403 @@
+/* ============================================================
+   VARIÁVEIS E IDENTIDADE VISUAL (PROJETO FÊNIX)
+   ============================================================ */
+:root {
+  --primary-color: #c49a4a;
+  --primary-hover: #b3883b;
+  --bg-main: #fcf9f5;
+  --bg-card: #ffffff;
+  --text-main: #333333;
+  --text-muted: #666666;
+  --border-color: #e2d9cd;
+  --danger-color: #e57373;
+  --success-color: #4caf50;
+  --toast-success: #4caf50;
+  --shadow: 0 4px 12px rgba(196, 154, 74, 0.08);
+}
+
+body.dark {
+  --bg-main: #121212;
+  --bg-card: #1e1e1e;
+  --text-main: #e0e0e0;
+  --text-muted: #aaaaaa;
+  --border-color: #333333;
+}
+
+body.high-contrast {
+  --primary-color: #ffff00;
+  --primary-hover: #ffff00;
+  --bg-main: #000000;
+  --bg-card: #000000;
+  --text-main: #ffffff;
+  --text-muted: #ffffff;
+  --border-color: #ffffff;
+}
+
+/* ============================================================
+   ESTILIZAÇÃO BASE & MOBILE-FIRST (Telas pequenas < 480px)
+   ============================================================ */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
- 
-body {
-  font-family: Arial, sans-serif;
-  background: #f7eefc;
-  color: #000;
-}
- 
- 
 
-/* ---------- FORMULÁRIO ---------- */
-form
-{
-  max-width:500px;margin:40px auto;
-  background:#fff;
-  padding:20px;
-  border-radius:10px ;
-     box-shadow:0 4px 16px rgba(0,0,0,0.05)
-     ;}
-form input, form textarea{width:100%
-  ;padding:10px
-  ;margin-bottom:10px
-  ;border:1px solid #ccc
-  ;border-radius:6px
-  ;}
-form button
-{
-  background:#3f2645;
-  color:#fff;
-  padding:10px 16px;
-  border:0;
-  border-radius:6px;
-  cursor:pointer;
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  margin: 0;
+  padding: 10px;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  -webkit-font-smoothing: antialiased;
 }
-.error
-{
-    color: #3f2645;
-    font-size:14px  ;
-    margin-bottom:8px;
+
+.support-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 15px auto;
+  padding: 0 5px;
 }
-.success
-{
-    color:green;
-    font-weight:600;
-}
-.planos-doacao{
+
+.support-header {
   text-align: center;
-  margin-top:30px ;
+  margin-bottom: 30px;
+  margin-top: 80px;
+}
+
+.support-header h1 {
+  font-size: 1.6rem;
+  color: var(--primary-color);
+  margin: 0 0 10px 0;
+}
+
+.support-header p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.support-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+/* CARDS DE INFORMAÇÃO */
+.contact-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.info-card i {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.info-card .icon-emergency {
+  color: var(--danger-color);
+}
+.info-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+}
+.info-card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0 0 12px 0;
+}
+
+.btn-link {
+  display: inline-block;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+/* REGRAS DO FORMULÁRIO & VALIDAÇÃO DINÂMICA */
+.support-form-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.support-form-wrapper h2 {
+  font-size: 1.3rem;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+fieldset.form-field {
+  border: none;
+  padding: 0;
+  margin: 0 0 18px 0;
+}
+
+header.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.char-counter {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* CLASSES DE FEEDBACK VISUAL EMBAIXO DO CAMPO */
+.validator-msg {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-top: 5px;
+  min-height: 16px;
+}
+
+/* Estado Vermelho: Erro */
+.form-field.error input,
+.form-field.error select,
+.form-field.error textarea {
+  border: 2px solid var(--danger-color) !important;
+  background-color: rgba(229, 115, 115, 0.02);
+}
+.form-field.error .validator-msg {
+  color: var(--danger-color);
+}
+
+/* Estado Verde: Sucesso */
+.form-field.success input,
+.form-field.success select,
+.form-field.success textarea {
+  border: 2px solid var(--success-color) !important;
+  background-color: rgba(76, 175, 80, 0.02);
+}
+.form-field.success .validator-msg {
+  color: var(--success-color);
+}
+
+.btn-submit {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.btn-submit:hover {
+  background-color: var(--primary-hover);
+}
+
+/* FAQ ACCORDION */
+.support-faq h2 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 8px;
+}
+
+.faq-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 12px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+p.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  transition:
+    max-height 0.2s ease-out,
+    padding 0.2s ease-out;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+article.faq-item.open p.faq-content {
+  max-height: 250px;
+  padding-bottom: 12px;
+}
+article.faq-item.open i {
+  transform: rotate(180deg);
+  transition: transform 0.2s;
+}
+
+/* TOAST/DIALOG NOTIFICATION */
+.toast-alert {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+  background-color: #333;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: none;
+  z-index: 10000;
+  font-size: 0.9rem;
+  text-align: center;
+}
+.toast-alert.show {
+  display: block;
+  animation: slideUp 0.3s forwards;
+}
+.toast-alert.success {
+  background-color: var(--toast-success);
+}
+.toast-alert.error {
+  background-color: var(--danger-color);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ============================================================
+   MEDIA QUERIES - RESPONSIVIDADE ADAPTATIVA
+   ============================================================ */
+@media (min-width: 480px) {
+  body {
+    padding: 20px;
+  }
+  .support-container {
+    padding: 0 15px;
+  }
+  .support-header h1 {
+    font-size: 1.9rem;
+  }
+  .info-card i {
+    font-size: 1.7rem;
+  }
+  .btn-link {
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .support-header {
+    margin-bottom: 40px;
+  }
+  .support-header h1 {
+    font-size: 2.2rem;
+  }
+  .support-header p {
+    font-size: 1rem;
+  }
+  .contact-channels {
+    flex-direction: row;
+    gap: 20px;
+  }
+  .info-card {
+    flex: 1;
+  }
+  .support-form-wrapper {
+    padding: 30px;
+  }
+  .toast-alert {
+    left: auto;
+    right: 20px;
+    width: max-content;
+    max-width: 380px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .support-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .contact-channels {
+    flex-direction: column;
+  }
+  .support-container {
+    margin: 40px auto;
+  }
+}
+
+@media (min-width: 1400px) {
+  .support-grid {
+    gap: 60px;
+  }
 }

@@ -1,0 +1,62 @@
+<main class="adm-container">
+  <header class="adm-header">
+    <h1>Painel de Controle Administrador</h1>
+    <p>
+      Monitoramento em tempo real de mensagens recebidas pela Central de
+      Suporte.
+    </p>
+  </header>
+
+  <section class="adm-content" aria-label="Lista de mensagens recebidas">
+    <h2>Recados Recentes</h2>
+
+    <table class="adm-table">
+      <thead>
+        <tr>
+          <th scope="col">Remetente (E-mail)</th>
+          <th scope="col">Assunto</th>
+          <th scope="col">Mensagem / Recado</th>
+        </tr>
+      </thead>
+      <tbody id="tabelaChamados"></tbody>
+    </table>
+  </section>
+</main>
+
+<script>
+  // Consome a rota que criamos no back-end assim que a página carrega
+  async function carregarMensagens() {
+    try {
+      const resposta = await fetch("/api/suporte");
+      if (!resposta.ok) throw new Error("Falha ao buscar dados.");
+
+      const chamados = await resposta.json();
+      const containerTabela = document.getElementById("tabelaChamados");
+      containerTabela.innerHTML = ""; // Limpa o carregamento inicial
+
+      if (chamados.length === 0) {
+        containerTabela.innerHTML =
+          '<tr><td colspan="3" style="text-align:center;">Nenhum recado cadastrado.</td></tr>';
+        return;
+      }
+
+      // Mapeia e renderiza as postagens trazendo e-mail, assunto e a mensagem/recado
+      chamados.forEach((item) => {
+        const linha = document.createElement("tr");
+
+        linha.innerHTML = `
+          <td data-label="E-mail"><strong>${item.email}</strong><br><small>${item.nome}</small></td>
+          <td data-label="Assunto"><span>${item.assunto.toUpperCase()}</span></td>
+          <td data-label="Mensagem">${item.mensagem}</td>
+        `;
+
+        containerTabela.appendChild(linha);
+      });
+    } catch (erro) {
+      console.error("Erro na requisição da ADM:", erro);
+    }
+  }
+
+  // Inicializa o processo
+  document.addEventListener("DOMContentLoaded", carregarMensagens);
+</script>
