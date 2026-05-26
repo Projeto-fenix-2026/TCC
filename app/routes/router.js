@@ -4,6 +4,8 @@ const pool = require("../../config/pool_conexoes");
 const { body, validationResult } = require("express-validator");
 var { validarCNPJ, validarCPF } = require("../helpers/validacoes");
 const { usuarioModel } = require("../models/usuarioModel");
+const { ongModel } = require("../models/ongModel");
+const { autenticado } = require("../helpers/autenticado");
 
 /* ============================================================
    ROTAS DE AUTENTICAÇÃO: LOGIN
@@ -18,11 +20,9 @@ router.get("/login", function (req, res) {
 
 router.post(
   "/login",
-  body("email").isEmail().withMessage("Digite um e-mail válido!"),
-  body("password")
-    .isLength({ min: 6 })
-    .withMessage("A senha deve ter pelo menos 6 caracteres!"),
-  function (req, res) {
+  body("email").isEmail().withMessage('Digite um e-mail válido!'),
+  body("password").isLength({ min: 6 }).withMessage('A senha deve ter pelo menos 6 caracteres!'),
+  async function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.render("pages/login", {
@@ -31,8 +31,19 @@ router.post(
         retorno: null,
       });
     }
-    return res.redirect("/home2");
-  },
+
+    const usuario = await usuarioModel.findByEmail(req.body.email);
+    if (!usuario || usuario.senha !== req.body.password) {
+      return res.render("pages/login", {
+        "erros": null,
+        "valores": req.body,
+        "retorno": { tipo: "erro", msg: "E-mail ou senha incorretos." }
+      });
+    }
+
+    req.session.usuario = { id: usuario.id_usuario, nome: usuario.nome, email: usuario.email };
+    return res.redirect("/text");
+  }
 );
 
 /* ============================================================
@@ -140,29 +151,43 @@ router.get("/usuarios", async function (req, res) {
   res.json(usuarios);
 });
 
-router.get("/planos", function (req, res) {
-  res.render("pages/planos");
-});
-router.get("/forms_doacao", function (req, res) {
-  res.render("pages/forms_doacao");
-});
-router.get("/ongs", function (req, res) {
-  res.render("pages/ongs");
-});
-router.get("/ong_page", function (req, res) {
-  res.render("pages/ong_page");
-});
+// rotas públicas
 router.get("/", function (req, res) {
   res.render("pages/text");
 });
-router.get("/home2", function (req, res) {
-  res.render("pages/home2");
-});
-router.get("/login_profissionais", function (req, res) {
-  res.render("pages/login_profissionais");
+router.get("/text", function (req, res) {
+  res.render("pages/text");
 });
 
-router.get("/perfil_profissional", function (req, res) {
+router.get("/forum", function (req, res) {
+  res.render("pages/forum");
+});
+
+// rotas protegidas — exigem login
+router.get("/home2", autenticado, function (req, res) {
+  res.render("pages/home2");
+});
+router.get("/planos", autenticado, function (req, res) {
+  res.render("pages/planos");
+});
+router.get("/forms_doacao", autenticado, function (req, res) {
+  res.render("pages/forms_doacao");
+});
+router.get("/ongs", autenticado, function (req, res) {
+  res.render("pages/ongs");
+});
+
+router.get("/ongs/dados", autenticado, async function (req, res) {
+  const ongs = await ongModel.findAll();
+  res.json(ongs);
+});
+router.get("/ong_page", autenticado, function (req, res) {
+  res.render("pages/ong_page");
+});
+router.get("/login_profissionais", autenticado, function (req, res) {
+  res.render("pages/login_profissionais");
+});
+router.get("/perfil_profissional", autenticado, function (req, res) {
   res.render("pages/perfil_profissional");
 });
 
@@ -196,7 +221,7 @@ router.get("/text", function (req, res) {
 router.get("/geolocalizacao", function (req, res) {
   res.render("pages/geolocalizacao");
 });
-router.get("/tipos_violencia", function (req, res) {
+router.get("/tipos_violencia", autenticado, function (req, res) {
   res.render("pages/tipos_violencia");
 });
 
@@ -299,6 +324,11 @@ router.get("/api/suporte", async function (req, res) {
     console.error("Erro ao buscar chamados no painel ADM:", err);
     return res.status(500).json({ erro: "Erro ao ler dados do banco." });
   }
+});
+
+router.get("/logout", function (req, res) {
+  req.session.destroy();
+  res.redirect("/login");
 });
 
 module.exports = router;

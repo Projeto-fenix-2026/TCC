@@ -74,6 +74,17 @@ const usuarioModel = {
         } catch (erro) {
             return erro;
         }
+    },
+
+    findByEmail: async (email) => {
+        try {
+            const [linhas] = await pool.query(
+                "SELECT * FROM usuario WHERE email = ? LIMIT 1",
+                [email]);
+            return linhas[0] || null;
+        } catch (erro) {
+            return null;
+        }
     }
 
 }
