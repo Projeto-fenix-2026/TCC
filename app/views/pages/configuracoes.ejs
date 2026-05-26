@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configurações e Suporte - Projeto Fênix</title>
+    <link rel="stylesheet" href="/css/geolocalizacao.css" />
+    <style>
+      .Abas-config {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        width: 100%;
+        max-width: 1200px;
+        border-bottom: 1px solid rgba(230, 194, 122, 0.2);
+        padding-bottom: 0.5rem;
+      }
+      .aba-link {
+        color: var(--white);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        opacity: 0.7;
+      }
+      .aba-link.ativa {
+        background: var(--gold);
+        color: #0e0711;
+        font-weight: bold;
+        opacity: 1;
+      }
+      .secao-config {
+        display: none;
+        width: 100%;
+      }
+      .secao-config.ativa {
+        display: block;
+      }
+      .texto-politica {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(230, 194, 122, 0.1);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        max-height: 400px;
+        overflow-y: auto;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: #f3eef5;
+        margin-bottom: 1.5rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <%- include('../partials/header2.ejs') %>
+
+    <main class="main-conteudo-seguranca">
+      <section class="banner-rastreamento">
+        <h1 class="logo-titulo">Painel de Configurações • Fênix</h1>
+        <p class="status-conexao">
+          Gerencie sua conta, privacidade e acesse o suporte técnico.
+        </p>
+      </section>
+
+      <div class="Abas-config">
+        <span class="aba-link ativa" onclick="mudarAba('suporte')"
+          >Suporte Técnico</span
+        >
+        <span class="aba-link" onclick="mudarAba('privacidade')"
+          >Privacidade e LGPD</span
+        >
+        <span class="aba-link" onclick="mudarAba('conta')"
+          >Exclusão de Dados</span
+        >
+      </div>
+
+      <div class="container-seguranca">
+        <section
+          id="secao-suporte"
+          class="secao-config contatos-wrapper ativa"
+          style="grid-column: span 2"
+        >
+          <header class="contatos-header">
+            <h2>Central de Ajuda e Suporte</h2>
+            <p class="titilo-ctt">
+              Encontrou algum problema ou tem dúvidas? Envie uma mensagem direta
+              para a nossa equipe técnica.
+            </p>
+          </header>
+
+          <form
+            id="form-suporte"
+            style="display: flex; flex-direction: column; gap: 0.8rem"
+          >
+            <input
+              type="text"
+              id="sup-assunto"
+              placeholder="Assunto do chamado"
+              required
+              style="
+                padding: 0.6rem;
+                border-radius: 6px;
+                border: 1px solid var(--gold);
+                background: rgba(255, 255, 255, 0.05);
+                color: white;
+              "
+            />
+            <textarea
+              id="sup-mensagem"
+              placeholder="Descreva detalhadamente o seu problema ou sugestão..."
+              rows="6"
+              required
+              style="
+                padding: 0.6rem;
+                border-radius: 6px;
+                border: 1px solid var(--gold);
+                background: rgba(255, 255, 255, 0.05);
+                color: white;
+                font-family: inherit;
+                resize: vertical;
+              "
+            ></textarea>
+            <button type="submit" class="btn-alerta" style="padding: 0.6rem">
+              Abrir Chamado de Suporte
+            </button>
+          </form>
+        </section>
+
+        <section
+          id="secao-privacidade"
+          class="secao-config mapa-wrapper"
+          style="grid-column: span 2"
+        >
+          <header class="mapa-header">
+            <h2>Termos de Uso e Política de Privacidade (LGPD)</h2>
+          </header>
+          <div class="texto-politica">
+            <h3>1. Coleta de Dados de Localização</h3>
+            <p>
+              O Projeto Fênix coleta coordenadas de GPS (latitude e longitude)
+              em tempo real apenas quando a tela de monitoramento de segurança
+              está ativa. Esses dados são fundamentais para o envio de alertas
+              automatizados aos seus guardiões via WhatsApp.
+            </p>
+            <br />
+            <h3>2. Armazenamento Seguro</h3>
+            <p>
+              Seu histórico de rotas e coordenadas é persistido de maneira
+              criptografada em nosso banco de dados relacional e nunca será
+              compartilhado com terceiros para fins comerciais, em estrita
+              conformidade com a Lei Geral de Proteção de Dados (Lei nº
+              13.709/2018).
+            </p>
+            <br />
+            <h3>3. Seus Direitos</h3>
+            <p>
+              Como titular dos dados, você tem o direito de consultar, retificar
+              ou exigir a exclusão definitiva dos registros de localização
+              armazenados nos nossos servidores a qualquer momento.
+            </p>
+          </div>
+        </section>
+
+        <section
+          id="secao-conta"
+          class="secao-config contatos-wrapper"
+          style="grid-column: span 2"
+        >
+          <header class="contatos-header">
+            <h2>Gerenciamento e Limpeza de Dados</h2>
+            <p class="titilo-ctt">
+              De acordo com as diretrizes da LGPD, você possui controle total
+              sobre suas informações armazenadas.
+            </p>
+          </header>
+
+          <div class="card-contato emergência" style="margin-bottom: 1rem">
+            <h3>Excluir Histórico de Localização</h3>
+            <p>
+              Apaga permanentemente todas as suas coordenadas de geolocalização
+              salvas no banco de dados. Esta ação não afetará seus contatos
+              salvos.
+            </p>
+            <button class="btn-emergencia" onclick="limparHistoricoBanco()">
+              Excluir Histórico do Banco
+            </button>
+          </div>
+
+          <div class="card-contato emergência">
+            <h3>Excluir Conta Definitivamente</h3>
+            <p>
+              Remove seus dados do servidor, limpa o armazenamento local do
+              navegador (localStorage) e encerra sua conta no Projeto Fênix.
+            </p>
+            <button class="btn-emergencia" onclick="excluirContaTotal()">
+              Limpar Tudo e Excluir Conta
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+
+    <script src="../js/configuracoes.js"></script>
+  </body>
+</html>
