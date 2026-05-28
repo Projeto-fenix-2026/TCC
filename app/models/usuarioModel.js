@@ -76,6 +76,28 @@ const usuarioModel = {
         }
     },
 
+    updateFoto: async (dados) => {
+        try {
+            const [resultado] = await pool.query(
+                "UPDATE usuario SET foto_url = ? WHERE id_usuario = ?",
+                [dados.foto_url, dados.id]);
+            return resultado;
+        } catch (erro) {
+            return erro;
+        }
+    },
+
+    updateSenha: async (dados) => {
+        try {
+            const [resultado] = await pool.query(
+                "UPDATE usuario SET senha = ? WHERE id_usuario = ?",
+                [dados.senha, dados.id]);
+            return resultado;
+        } catch (erro) {
+            return erro;
+        }
+    },
+
     findByEmail: async (email) => {
         try {
             const [linhas] = await pool.query(

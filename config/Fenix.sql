@@ -6,8 +6,12 @@ CREATE TABLE IF NOT EXISTS usuario (
   telefone    CHAR(11)     NOT NULL,
   senha       VARCHAR(255) NOT NULL,
   genero      VARCHAR(20),
+  foto_url    VARCHAR(255) NULL,
   CONSTRAINT pk_usuario PRIMARY KEY (id_usuario)
 );
+
+-- Se a tabela já existir, rode manualmente:
+-- ALTER TABLE usuario ADD COLUMN foto_url VARCHAR(255) NULL;
 
 CREATE TABLE IF NOT EXISTS doacoes (
   id_doacoes       INT            NOT NULL,
