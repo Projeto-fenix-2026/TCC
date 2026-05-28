@@ -91,6 +91,34 @@ const avatarInput = document.getElementById("avatarInput");
 const avatarPreview = document.getElementById("avatarPreview");
 const topAvatar = document.getElementById("topAvatar");
 
+function updateHeaderAvatar(fotoUrl) {
+  const headerIcon = document.querySelector('.header-icon');
+  if (!headerIcon) return;
+  const existing = headerIcon.querySelector('.header-avatar');
+  if (fotoUrl) {
+    if (existing) {
+      existing.src = fotoUrl;
+    } else {
+      const svg = headerIcon.querySelector('svg');
+      const img = document.createElement('img');
+      img.src = fotoUrl;
+      img.alt = 'Foto de perfil';
+      img.className = 'header-avatar';
+      if (svg) headerIcon.replaceChild(img, svg);
+      else headerIcon.appendChild(img);
+    }
+  } else {
+    if (existing) {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p.setAttribute('d', 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z');
+      svg.appendChild(p);
+      headerIcon.replaceChild(svg, existing);
+    }
+  }
+}
+
 // Abre o seletor de arquivo — limpa o valor antes para
 // permitir re-selecionar o mesmo arquivo
 function openFilePicker() {
@@ -159,6 +187,7 @@ avatarInput.addEventListener("change", async () => {
       if (data.foto_url) {
         avatarPreview.src = data.foto_url;
         if (topAvatar) topAvatar.src = data.foto_url;
+        updateHeaderAvatar(data.foto_url);
       }
       showToast("Foto atualizada com sucesso!");
     } else {
@@ -178,6 +207,7 @@ document.getElementById("removePhoto").addEventListener("click", () => {
     avatarPreview.src = def;
     if (topAvatar) topAvatar.src = def;
     await apiFetch("/perfil/foto", "DELETE");
+    updateHeaderAvatar(null);
     showToast("Foto removida.");
   });
 });
@@ -754,6 +784,8 @@ async function init() {
     document.getElementById("nome").value = userData.nome || "";
     document.getElementById("apelido").value = userData.apelido || "";
     document.getElementById("sobre").value = userData.sobre || "";
+    const emailAtualEl = document.getElementById("emailAtual");
+    if (emailAtualEl && userData.email) emailAtualEl.value = userData.email;
     if (userData.foto_url) {
       avatarPreview.src = userData.foto_url;
       if (topAvatar) topAvatar.src = userData.foto_url;

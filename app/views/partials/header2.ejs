@@ -26,9 +26,13 @@
 
     <div class="icons-container">
         <a href="<%= locals.usuario ? '/perfil_usuario' : '/cadastro' %>" class="header-icon">
+          <% if (locals.usuario && locals.usuario.foto_url) { %>
+            <img src="<%= locals.usuario.foto_url %>" alt="Foto de perfil" class="header-avatar"/>
+          <% } else { %>
             <svg viewBox="0 0 24 24">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
             </svg>
+          <% } %>
         </a>
 
         <button class="hamburger" id="hamburger" aria-label="Menu">
