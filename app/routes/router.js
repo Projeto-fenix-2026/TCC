@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const path = require("path");
 const multer = require("multer");
+var bcrypt = require("bcryptjs");
 const pool = require("../../config/pool_conexoes");
 const { body, validationResult } = require("express-validator");
 var { validarCNPJ, validarCPF } = require("../helpers/validacoes");
@@ -48,7 +49,8 @@ router.post(
     }
 
     const usuario = await usuarioModel.findByEmail(req.body.email);
-    if (!usuario || usuario.senha !== req.body.password) {
+    const senhaCorreta = usuario && bcrypt.compareSync(req.body.password, usuario.senha);
+    if (!senhaCorreta) {
       return res.render("pages/login", {
         "erros": null,
         "valores": req.body,
@@ -140,7 +142,7 @@ router.post(
       cpf: req.body.cpf,
       email: req.body.email,
       telefone: req.body.number,
-      senha: req.body.password,
+      senha: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10)),
       genero: req.body.gender,
     });
 
