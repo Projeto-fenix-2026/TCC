@@ -61,6 +61,9 @@ router.post(
   }
 );
 
+/* ============================================================
+   ROTAS DE AUTENTICAÇÃO: CADASTRO
+   ============================================================ */
 router.get("/cadastro", function (req, res) {
   res.render("pages/cadastro", {
     listaErros: null,
@@ -76,6 +79,7 @@ router.get("/cadastro", function (req, res) {
     retorno: null,
   });
 });
+
 router.post(
   "/cadastro",
   body("firstname")
@@ -154,6 +158,9 @@ router.post(
   },
 );
 
+/* ============================================================
+   ROTAS DE CONSULTA E RENDERIZAÇÃO DE PÁGINAS SEMÂNTICAS
+   ============================================================ */
 router.get("/usuarios", async function (req, res) {
   const usuarios = await usuarioModel.findAll();
   res.json(usuarios);
@@ -198,7 +205,8 @@ router.get("/login_profissionais", autenticado, function (req, res) {
 router.get("/perfil_profissional", autenticado, function (req, res) {
   res.render("pages/perfil_profissional");
 });
-router.get("/perfil_ong", autenticado, function (req, res) {
+
+router.get("/perfil_ong", function (req, res) {
   res.render("pages/perfil_ong");
 });
 router.get("/perfil_usuario", autenticado, async function (req, res) {
@@ -284,39 +292,132 @@ router.put("/api/perfil/senha", autenticado, async function (req, res) {
   await usuarioModel.updateSenha({ id: req.session.usuario.id, senha: senha_nova });
   res.json({ ok: true });
 });
-router.get("/direitos", autenticado, function (req, res) {
+
+router.get("/direitos", function (req, res) {
   res.render("pages/direitos");
 });
-router.get("/sobre_nos", autenticado, function (req, res) {
+
+router.get("/sobre_nos", function (req, res) {
   res.render("pages/sobre_nos");
 });
-router.get("/carrossel", autenticado, function (req, res) {
+
+router.get("/carrossel", function (req, res) {
   res.render("pages/carrossel");
 });
-router.get("/contato", autenticado, function (req, res) {
+
+router.get("/contato", function (req, res) {
   res.render("pages/contato");
 });
-router.get("/geolocalizacao", autenticado, function (req, res) {
+
+router.get("/text", function (req, res) {
+  res.render("pages/text");
+});
+router.get("/geolocalizacao", function (req, res) {
   res.render("pages/geolocalizacao");
 });
 router.get("/tipos_violencia", autenticado, function (req, res) {
   res.render("pages/tipos_violencia");
 });
 
+router.get("/configuracoes", function (req, res) {
+  res.render("pages/configuracoes");
+});
 
-// Rota para salvar a localização atual da vítima no banco
-router.post("/api/salvar-localizacao", (req, res) => {
+/* ============================================================
+   FUNCIONALIDADE SEGURANÇA: GEOLOCALIZAÇÃO (Corrigido para Promises)
+   ============================================================ */
+router.post("/api/salvar-localizacao", async (req, res) => {
   const { latitude, longitude } = req.body;
-
   const query =
     "INSERT INTO historico_localizacao (latitude, longitude) VALUES (?, ?)";
-  db.query(query, [latitude, longitude], (err, result) => {
-    if (err) {
-      console.error("Erro ao salvar localização:", err);
-      return res.status(500).json({ erro: "Erro interno ao salvar." });
-    }
+
+  try {
+    const [result] = await pool.query(query, [latitude, longitude]);
     res.status(200).json({ sucesso: true, id: result.insertId });
-  });
+  } catch (err) {
+    console.error("Erro ao salvar localização:", err);
+    return res.status(500).json({ erro: "Erro interno ao salvar." });
+  }
+});
+
+/* ============================================================
+   FUNCIONALIDADE: CENTRAL DE CONTATO E SUPORTE (Corrigido para Promises)
+   ============================================================ */
+router.post(
+  "/api/suporte",
+  [
+    body("nome")
+      .trim()
+      .notEmpty()
+      .withMessage("O nome completo é obrigatório.")
+      .isLength({ min: 3, max: 60 })
+      .withMessage("O nome deve ter entre 3 e 60 caracteres."),
+    body("email")
+      .trim()
+      .notEmpty()
+      .withMessage("O e-mail é obrigatório.")
+      .isEmail()
+      .withMessage("Informe um endereço de e-mail válido."),
+    body("assunto")
+      .trim()
+      .notEmpty()
+      .withMessage("O assunto é obrigatório.")
+      .isIn(["duvida", "tecnico", "ong", "denuncia", "outro"])
+      .withMessage("Assunto selecionado inválido."),
+    body("mensagem")
+      .trim()
+      .notEmpty()
+      .withMessage("A mensagem não pode estar vazia.")
+      .isLength({ min: 15, max: 1000 })
+      .withMessage("A mensagem deve conter entre 15 e 1000 caracteres."),
+  ],
+  async function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        mensagem: errors.array()[0].msg,
+      });
+    }
+
+    const { nome, email, assunto, mensagem } = req.body;
+    const query =
+      "INSERT INTO chamados_suporte (nome, email, assunto, mensagem, data_envio) VALUES (?, ?, ?, ?, NOW())";
+
+    try {
+      await pool.query(query, [nome, email, assunto, mensagem]);
+      return res
+        .status(200)
+        .json({ mensagem: "Mensagem enviada com sucesso!" });
+    } catch (err) {
+      console.error("Erro ao salvar chamado de suporte:", err);
+      return res.status(500).json({
+        mensagem: "Erro interno do servidor ao processar o chamado.",
+      });
+    }
+  },
+);
+
+/* ============================================================
+   FUNCIONALIDADE CONTROLE: PAINEL ADMINISTRATIVO (Corrigido para Promises)
+   ============================================================ */
+
+// 1. Rota visual para renderizar a view do Painel ADM
+router.get("/painel_adm", function (req, res) {
+  res.render("pages/painel_adm");
+});
+
+// 2. API de dados que alimenta a tabela do Painel ADM exibindo E-mail e Recado
+router.get("/api/suporte", async function (req, res) {
+  const query =
+    "SELECT id, nome, email, assunto, mensagem, data_envio FROM chamados_suporte ORDER BY data_envio DESC";
+
+  try {
+    const [resultados] = await pool.query(query);
+    res.status(200).json(resultados);
+  } catch (err) {
+    console.error("Erro ao buscar chamados no painel ADM:", err);
+    return res.status(500).json({ erro: "Erro ao ler dados do banco." });
+  }
 });
 
 router.get("/logout", function (req, res) {
