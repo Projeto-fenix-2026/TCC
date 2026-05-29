@@ -1,12 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
 /*:root{
     --main-color: #027581;
     --color-dark: #1D2231;
     --text-grey: #8390A2;
 }*/
 *{
-    font-family: 'Poppins', sans-serif;
+    font-family: "Segoe UI", system-ui, sans-serif;
     margin: 0;
     padding: 0;
     text-decoration: none;
