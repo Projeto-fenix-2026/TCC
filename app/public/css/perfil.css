@@ -4,8 +4,6 @@
    Responsivo: 320px → 2560px
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
-
 /* ── VARIÁVEIS ────────────────────────────────────────── */
 :root {
   --gold:          #c49a4a;
@@ -62,7 +60,7 @@ body.dyslexia * {
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: "Segoe UI", system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -96,7 +94,7 @@ body {
   gap: .65rem;
   padding: 1.5rem 1.35rem 1.1rem;
   border-bottom: 1px solid var(--sidebar-border);
-  font-family: 'Playfair Display', serif;
+  font-family: "Segoe UI", system-ui, sans-serif;
   font-size: 1rem;
   font-weight: 600;
   color: #f5dfa8;
@@ -259,7 +257,7 @@ body {
 
 .section-header { margin-bottom: 1.6rem; }
 .section-header h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: "Segoe UI", system-ui, sans-serif;
   font-size: clamp(1.4rem, 3vw, 1.9rem);
   color: var(--text);
   line-height: 1.15;
@@ -277,7 +275,7 @@ body {
 }
 
 .card-title {
-  font-family: 'Playfair Display', serif;
+  font-family: "Segoe UI", system-ui, sans-serif;
   font-size: 1.05rem;
   color: var(--text);
   margin-bottom: 1.2rem;
@@ -351,7 +349,7 @@ body {
   border-radius: var(--radius-sm);
   background: var(--surface);
   color: var(--text);
-  font-family: 'DM Sans', sans-serif;
+  font-family: "Segoe UI", system-ui, sans-serif;
   font-size: .875rem;
   outline: none;
   transition: border var(--transition), box-shadow var(--transition);
@@ -404,7 +402,7 @@ body {
   gap: .4rem;
   padding: .6rem 1.25rem;
   border-radius: var(--radius-sm);
-  font-family: 'DM Sans', sans-serif;
+  font-family: "Segoe UI", system-ui, sans-serif;
   font-size: .85rem;
   font-weight: 500;
   cursor: pointer;
@@ -462,10 +460,10 @@ body {
 .emergency-card:hover { border-color: var(--gold-border); transform: translateY(-2px); }
 .emergency-card .ec-cat { font-size: .65rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--gold); }
 .emergency-card .ec-name { font-weight: 600; font-size: .9rem; }
-.emergency-card .ec-number { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; color: var(--gold-dark); }
+.emergency-card .ec-number { font-family: "Segoe UI", system-ui, sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--gold-dark); }
 .emergency-card .ec-desc { font-size: .75rem; color: var(--text-muted); }
 .emergency-card .ec-actions { display: flex; gap: .4rem; margin-top: .4rem; }
-.ec-btn { flex: 1; padding: .38rem; border-radius: 6px; border: none; cursor: pointer; font-size: .73rem; font-weight: 500; font-family: 'DM Sans', sans-serif; transition: all var(--transition); }
+.ec-btn { flex: 1; padding: .38rem; border-radius: 6px; border: none; cursor: pointer; font-size: .73rem; font-weight: 500; font-family: "Segoe UI", system-ui, sans-serif; transition: all var(--transition); }
 .ec-btn-call { background: var(--gold); color: #fff; }
 .ec-btn-call:hover { background: var(--gold-dark); }
 .ec-btn-del { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-border); }
@@ -506,7 +504,7 @@ body {
   width: 30px; height: 30px;
   border-radius: 6px; border: 1px solid var(--border);
   background: var(--surface); color: var(--text);
-  cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .78rem;
+  cursor: pointer; font-family: "Segoe UI", system-ui, sans-serif; font-weight: 600; font-size: .78rem;
   transition: all var(--transition); display: flex; align-items: center; justify-content: center;
 }
 .btn-size:hover { border-color: var(--gold); color: var(--gold); }
@@ -518,7 +516,7 @@ body {
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--surface); color: var(--text-muted);
-  cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: .85rem;
+  cursor: pointer; font-family: "Segoe UI", system-ui, sans-serif; font-size: .85rem;
   transition: all var(--transition);
 }
 .theme-btn.active,
@@ -547,7 +545,7 @@ body {
   border: 1px solid var(--gold-border); margin-bottom: .6rem;
 }
 .plan-card.featured .plan-tag { background: var(--gold); color: #fff; border-color: transparent; }
-.plan-top h2 { font-family: 'Playfair Display', serif; font-size: 1.45rem; margin-bottom: .4rem; }
+.plan-top h2 { font-family: "Segoe UI", system-ui, sans-serif; font-size: 1.45rem; margin-bottom: .4rem; }
 .plan-price { font-size: 2.1rem; font-weight: 600; line-height: 1; }
 .plan-price span { font-size: .9rem; font-weight: 400; color: var(--text-muted); }
 .plan-top small { display: block; font-size: .76rem; color: var(--text-muted); margin-top: .25rem; }
@@ -617,7 +615,7 @@ body {
     -webkit-box-orient: vertical;
      overflow: hidden;}
 .test-actions { display: flex; gap: .4rem; margin-top: .6rem; }
-.test-btn { padding: .26rem .7rem; border-radius: 6px; border: none; cursor: pointer; font-size: .75rem; font-weight: 500; font-family: 'DM Sans', sans-serif; transition: all var(--transition); }
+.test-btn { padding: .26rem .7rem; border-radius: 6px; border: none; cursor: pointer; font-size: .75rem; font-weight: 500; font-family: "Segoe UI", system-ui, sans-serif; transition: all var(--transition); }
 .test-btn-edit { background: var(--gold-dim); color: var(--gold-dark); border: 1px solid var(--gold-border); }
 .test-btn-edit:hover { background: var(--gold); color: #fff; }
 .test-btn-del { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-border); }
@@ -657,7 +655,7 @@ body {
   animation: fadeUp .22s ease;
 }
 .modal-icon { font-size: 2rem; color: var(--danger); margin-bottom: .85rem; }
-.modal h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: .4rem; }
+.modal h3 { font-family: "Segoe UI", system-ui, sans-serif; font-size: 1.2rem; margin-bottom: .4rem; }
 .modal p { color: var(--text-muted); font-size: .86rem; margin-bottom: 1.35rem; }
 .modal-actions { display: flex; gap: .85rem; justify-content: center; flex-wrap: wrap; }
 

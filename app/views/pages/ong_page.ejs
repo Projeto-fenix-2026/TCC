@@ -13,14 +13,18 @@
     <main>
         <nav class="profile-card shadow-sm">
             <!-- Foto -->
-            <img src="../imgs/luiza.png" alt="Foto de perfil" class="avatar">
+            <% if (ong.imagem) { %>
+                <img src="<%= ong.imagem %>" alt="<%= ong.nome %>" class="avatar">
+            <% } else { %>
+                <div class="avatar card-sem-imagem"></div>
+            <% } %>
 
             <!-- Nome -->
             <nav class="info-item">
                 <i class="bi bi-person"></i>
                 <section class="info-text">
                     <strong>Nome</strong>
-                    <span>Ágatha instituto social</span>
+                    <span><%= ong.nome %></span>
                 </section>
             </nav>
 
@@ -29,7 +33,7 @@
                 <i class="bi bi-info-circle"></i>
                 <section class="info-text">
                     <strong>Descrição</strong>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                    <span><%= ong.descricao || "Sem descrição." %></span>
                 </section>
             </nav>
 
@@ -38,7 +42,7 @@
                 <i class="bi bi-telephone"></i>
                 <section class="info-text">
                     <strong>Telefone</strong>
-                    <span>+55 99 99999 - 9999</span>
+                    <span><%= ong.telefone %></span>
                 </section>
             </nav>
 
@@ -47,7 +51,7 @@
                 <i class="bi bi-envelope"></i>
                 <section class="info-text">
                     <strong>Email</strong>
-                    <span>Agatha99999@gmail.com</span>
+                    <span><%= ong.email %></span>
                 </section>
             </nav>  
 

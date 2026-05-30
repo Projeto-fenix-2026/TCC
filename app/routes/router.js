@@ -176,18 +176,18 @@ router.get("/text", function (req, res) {
   res.render("pages/text");
 });
 
-router.get("/forum", function (req, res) {
+router.get("/forum", autenticado, function (req, res) {
   res.render("pages/forum");
 });
 
 // rotas protegidas — exigem login
-router.get("/home2", autenticado, function (req, res) {
+router.get("/home2", function (req, res) {
   res.render("pages/home2");
 });
-router.get("/planos", autenticado, function (req, res) {
+router.get("/planos", function (req, res) {
   res.render("pages/planos");
 });
-router.get("/forms_doacao", autenticado, function (req, res) {
+router.get("/forms_doacao", function (req, res) {
   res.render("pages/forms_doacao");
 });
 router.get("/ongs", autenticado, function (req, res) {
@@ -198,13 +198,15 @@ router.get("/ongs/dados", autenticado, async function (req, res) {
   const ongs = await ongModel.findAll();
   res.json(ongs);
 });
-router.get("/ong_page", autenticado, function (req, res) {
-  res.render("pages/ong_page");
+router.get("/ong_page", autenticado, async function (req, res) {
+  const ong = await ongModel.findById(req.query.id);
+  if (!ong) return res.redirect("/ongs");
+  res.render("pages/ong_page", { ong });
 });
-router.get("/login_profissionais", autenticado, function (req, res) {
+router.get("/login_profissionais", function (req, res) {
   res.render("pages/login_profissionais");
 });
-router.get("/perfil_profissional", autenticado, function (req, res) {
+router.get("/perfil_profissional", function (req, res) {
   res.render("pages/perfil_profissional");
 });
 
@@ -290,8 +292,8 @@ router.put("/api/perfil/senha", autenticado, async function (req, res) {
   const linhas = await usuarioModel.findById(req.session.usuario.id);
   const u = linhas[0];
   if (!u) return res.status(404).json({ mensagem: "Usuário não encontrado." });
-  if (u.senha !== senha_atual) return res.status(400).json({ mensagem: "Senha atual incorreta." });
-  await usuarioModel.updateSenha({ id: req.session.usuario.id, senha: senha_nova });
+  if (!bcrypt.compareSync(senha_atual, u.senha)) return res.status(400).json({ mensagem: "Senha atual incorreta." });
+  await usuarioModel.updateSenha({ id: req.session.usuario.id, senha: bcrypt.hashSync(senha_nova, bcrypt.genSaltSync(10)) });
   res.json({ ok: true });
 });
 
@@ -314,10 +316,10 @@ router.get("/contato", function (req, res) {
 router.get("/text", function (req, res) {
   res.render("pages/text");
 });
-router.get("/geolocalizacao", function (req, res) {
+router.get("/geolocalizacao", autenticado, function (req, res) {
   res.render("pages/geolocalizacao");
 });
-router.get("/tipos_violencia", autenticado, function (req, res) {
+router.get("/tipos_violencia", function (req, res) {
   res.render("pages/tipos_violencia");
 });
 
