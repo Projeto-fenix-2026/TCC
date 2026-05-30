@@ -185,8 +185,8 @@ main {
     width: 100%;
     padding: 0.8rem;
     border: none;
-    background-color: #5b366a;
-    color: #ffffff;
+    background-color: #59415c;
+    color: #f7d6e0;
     font-size: 0.95rem;
     font-weight: 600;
     border-radius: 10px;
@@ -197,7 +197,7 @@ main {
 .continue-button button:hover {
     background-color: #6a4c70;
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(91, 54, 106, 0.3);
+    box-shadow: 0 4px 10px rgba(89, 65, 92, 0.3);
 }
 
 .continue-button button:active {

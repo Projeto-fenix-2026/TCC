@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acesso Administrativo — Fênix</title>
+  <link rel="stylesheet" href="../css/login-adm.css">
+</head>
+<body>
+  <main class="card">
+    <header class="logo">
+      <img src="../imgs/logo.png" alt="Logo Fênix">
+      <span>Fênix</span>
+    </header>
+    <span class="badge">Área Administrativa</span>
+
+    <% if (locals.erro) { %>
+      <p class="erro"><%= erro %></p>
+    <% } %>
+
+    <form method="POST" action="/adm/login">
+      <p class="field">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="admin@email.com" required autocomplete="email">
+      </p>
+      <p class="field">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" placeholder="••••••••" required autocomplete="current-password">
+      </p>
+      <button type="submit" class="btn">Entrar</button>
+    </form>
+
+    <a class="voltar" href="/">← Voltar ao site</a>
+  </main>
+</body>
+</html>

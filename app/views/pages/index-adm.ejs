@@ -15,7 +15,8 @@
     <input type="checkbox" id="sidebare-toggle">
     <section class="sidebar">
         <section class="sidebar-header">
-            <h3 class="brand"><span class="ti-unlink"></span>
+            <h3 class="brand">
+                <img src="../imgs/logo.png" alt="Logo Fênix" class="sidebar-logo">
                 <span>Fenix</span>
             </h3>
             <label for="sidebare-toggle" class="ti-menu-alt"></label>
@@ -67,40 +68,40 @@
             <section class="dash-cards">
                 <section class="card-single">
                     <section class="card-body">
-                        <span class="ti-briefcase"></span>
+                        <span class="ti-id-badge"></span>
                         <section>
-                            <h5>Saldo em Conta</h5>
-                            <h4>230</h4>
+                            <h5>Usuários cadastrados</h5>
+                            <h4><%= totalUsuarios %></h4>
                         </section>
                     </section>
                     <section class="card-footer">
-                        <a href="#">Ver tudo</a>
+                        <a href="/adm/adm-cliente">Ver todos</a>
                     </section>
                 </section>
 
                 <section class="card-single">
                     <section class="card-body">
-                        <span class="ti-reload"></span>
+                        <span class="ti-world"></span>
                         <section>
-                            <h5>Pendentes</h5>
-                            <h4>20</h4>
+                            <h5>ONGs cadastradas</h5>
+                            <h4><%= totalOngs %></h4>
                         </section>
                     </section>
                     <section class="card-footer">
-                        <a href="#">Ver tudo</a>
+                        <a href="/adm/adm-ong">Ver todas</a>
                     </section>
                 </section>
 
                 <section class="card-single">
                     <section class="card-body">
-                        <span class="ti-check-box"></span>
+                        <span class="ti-image"></span>
                         <section>
-                            <h5>Processados</h5>
-                            <h4>185</h4>
+                            <h5>Perfis sem foto</h5>
+                            <h4><%= semFoto %></h4>
                         </section>
                     </section>
                     <section class="card-footer">
-                        <a href="#">Ver tudo</a>
+                        <a href="/adm/adm-cliente">Ver usuários</a>
                     </section>
                 </section>
             </section>
@@ -109,75 +110,33 @@
             <section class="recent">
                 <section class="activity-grid">
                     <section class="activity-card">
-                        <h3>Atividade Recente</h3>
+                        <h3>Usuários Recentes</h3>
 
                         <section class="table-responsive">
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Projeto</th>
-                                        <th>Data Início</th>
-                                        <th>Data Fim</th>
-                                        <th>Equipe</th>
-                                        <th>Status</th>
+                                        <th>Nome</th>
+                                        <th>E-mail</th>
+                                        <th>Gênero</th>
+                                        <th>Telefone</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Desenvolvimento do App</td>
-                                        <td>15 Ago, 2020</td>
-                                        <td>22 Ago, 2020</td>
-                                        <td class="td-team">
-                                            <section class="img-1"></section>
-                                            <section class="img-2"></section>
-                                            <section class="img-3"></section>
-                                        </td>
-                                        <td><span class="badge success">Concluído</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Design do Logo</td>
-                                        <td>15 Ago, 2020</td>
-                                        <td>22 Ago, 2020</td>
-                                        <td class="td-team">
-                                            <section class="img-1"></section>
-                                            <section class="img-2"></section>
-                                            <section class="img-3"></section>
-                                        </td>
-                                        <td><span class="badge warning">Em andamento</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Configuração do Servidor</td>
-                                        <td>15 Ago, 2020</td>
-                                        <td>22 Ago, 2020</td>
-                                        <td class="td-team">
-                                            <section class="img-1"></section>
-                                            <section class="img-2"></section>
-                                            <section class="img-3"></section>
-                                        </td>
-                                        <td><span class="badge success">Concluído</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Design Front-End</td>
-                                        <td>15 Ago, 2020</td>
-                                        <td>22 Ago, 2020</td>
-                                        <td class="td-team">
-                                            <section class="img-1"></section>
-                                            <section class="img-2"></section>
-                                            <section class="img-3"></section>
-                                        </td>
-                                        <td><span class="badge warning">Em andamento</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Desenvolvimento Web</td>
-                                        <td>15 Ago, 2020</td>
-                                        <td>22 Ago, 2020</td>
-                                        <td class="td-team">
-                                            <section class="img-1"></section>
-                                            <section class="img-2"></section>
-                                            <section class="img-3"></section>
-                                        </td>
-                                        <td><span class="badge success">Concluído</span></td>
-                                    </tr>
+                                    <% if (recentes.length === 0) { %>
+                                        <tr>
+                                            <td colspan="4" style="text-align:center;">Nenhum usuário cadastrado.</td>
+                                        </tr>
+                                    <% } else { %>
+                                        <% recentes.forEach(function(u) { %>
+                                            <tr>
+                                                <td><%= u.nome %></td>
+                                                <td><%= u.email %></td>
+                                                <td><%= u.genero || '—' %></td>
+                                                <td><%= u.telefone || '—' %></td>
+                                            </tr>
+                                        <% }); %>
+                                    <% } %>
                                 </tbody>
                             </table>
                         </section>
@@ -189,45 +148,27 @@
                             <section class="summary-single">
                                 <span class="ti-id-badge"></span>
                                 <section>
-                                    <h5>196</h5>
-                                    <small>Número de usuários</small>
+                                    <h5><%= totalUsuarios %></h5>
+                                    <small>Usuários cadastrados</small>
                                 </section>
                             </section>
 
                             <section class="summary-single">
-                                <span class="ti-calendar"></span>
+                                <span class="ti-world"></span>
                                 <section>
-                                    <h5>16</h5>
-                                    <small>Ausências</small>
+                                    <h5><%= totalOngs %></h5>
+                                    <small>ONGs cadastradas</small>
                                 </section>
                             </section>
 
                             <section class="summary-single">
-                                <span class="ti-face-smile"></span>
+                                <span class="ti-image"></span>
                                 <section>
-                                    <h5>11</h5>
-                                    <small>Atualizações de perfil</small>
+                                    <h5><%= semFoto %></h5>
+                                    <small>Perfis sem foto</small>
                                 </section>
                             </section>
                         </section>
-
-                        <section class="bday-card">
-                            <section class="bday-flex">
-                                <section class="bday-img"></section>
-                                <section class="bday-info">
-                                    <h5>Jessica</h5>
-                                    <small>Aniversário hoje</small>
-                                </section>
-                            </section>
-
-                            <section class="text-center">
-                                <button>
-                                    <span class="ti-gift"></span>
-                                    Parabenizar
-                                </button>
-                            </section>
-                        </section>
-
                     </section>
 
                 </section>
