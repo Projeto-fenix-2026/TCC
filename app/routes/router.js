@@ -36,8 +36,10 @@ router.get("/login", function (req, res) {
 
 router.post(
   "/login",
-  body("email").isEmail().withMessage('Digite um e-mail válido!'),
-  body("password").isLength({ min: 6 }).withMessage('A senha deve ter pelo menos 6 caracteres!'),
+  body("email").isEmail().withMessage("Digite um e-mail válido!"),
+  body("password")
+    .isLength({ min: 6 })
+    .withMessage("A senha deve ter pelo menos 6 caracteres!"),
   async function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -52,15 +54,20 @@ router.post(
     const senhaCorreta = usuario && bcrypt.compareSync(req.body.password, usuario.senha);
     if (!senhaCorreta) {
       return res.render("pages/login", {
-        "erros": null,
-        "valores": req.body,
-        "retorno": { tipo: "erro", msg: "E-mail ou senha incorretos." }
+        erros: null,
+        valores: req.body,
+        retorno: { tipo: "erro", msg: "E-mail ou senha incorretos." },
       });
     }
 
+    req.session.usuario = {
+      id: usuario.id_usuario,
+      nome: usuario.nome,
+      email: usuario.email,
+    };
     req.session.usuario = { id: usuario.id_usuario, nome: usuario.nome, email: usuario.email, foto_url: usuario.foto_url || null };
     return res.redirect("/text");
-  }
+  },
 );
 
 /* ============================================================
@@ -428,5 +435,75 @@ router.get("/logout", function (req, res) {
   req.session.destroy();
   res.redirect("/login");
 });
+
+/* ============================================================
+   FUNCIONALIDADE: FORMULÁRIO DE DOAÇÃO
+   ============================================================ */
+router.post(
+  "/doacao",
+  [
+    body("nome")
+      .trim()
+      .optional({ checkFalsy: true })
+      .isLength({ min: 2, max: 100 })
+      .withMessage("O nome deve ter entre 2 e 100 caracteres.")
+      .escape(),
+    body("email")
+      .trim()
+      .notEmpty()
+      .withMessage("O e-mail é obrigatório.")
+      .isEmail()
+      .withMessage("Informe um e-mail válido (ex: voce@email.com).")
+      .normalizeEmail(),
+    body("valor")
+      .notEmpty()
+      .withMessage("O valor da doação é obrigatório.")
+      .isFloat({ min: 5 })
+      .withMessage("O valor mínimo para doação é R$ 5,00.")
+      .toFloat(),
+    body("formaPagamento")
+      .notEmpty()
+      .withMessage("Selecione uma forma de pagamento.")
+      .isIn(["pix", "credito", "boleto"])
+      .withMessage("Forma de pagamento inválida."),
+  ],
+  async function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).render("pages/text", {
+        errors: errors.array(),
+        old: req.body,
+        success: false,
+      });
+    }
+
+    const { nome, email, valor, formaPagamento } = req.body;
+    const query =
+      "INSERT INTO doacoes (nome, email, valor, forma_pagamento, data_doacao) VALUES (?, ?, ?, ?, NOW())";
+
+    try {
+      await pool.query(query, [
+        nome || "Anônimo",
+        email,
+        valor,
+        formaPagamento,
+      ]);
+      return res.render("pages/text", {
+        errors: [],
+        old: {},
+        success: true,
+      });
+    } catch (err) {
+      console.error("Erro ao salvar doação:", err);
+      return res.status(500).render("pages/text", {
+        errors: [
+          { path: "geral", msg: "Erro interno. Tente novamente em instantes." },
+        ],
+        old: req.body,
+        success: false,
+      });
+    }
+  },
+);
 
 module.exports = router;

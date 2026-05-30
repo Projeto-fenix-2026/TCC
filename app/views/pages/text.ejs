@@ -1,277 +1,580 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!doctype html>
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fênix - Reerguendo Mulheres</title>
-
-    <!-- Fonte -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Fenix - Conscientização e Apoio à Mulher</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Allura&display=swap"
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css"
     />
     <link rel="stylesheet" href="../css/text.css" />
+
+    <style>
+      /*
+        Correção de ícones: o reset global aplica font-family: "Poppins" em *,
+        o que sobrescreve a font-family dos icon fonts (themify-icons usa 'themify').
+      */
+      [class^="ti-"],
+      [class*=" ti-"] {
+        font-family: "themify" !important;
+        speak: never;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .icon-circle [class^="ti-"],
+      .icon-circle [class*=" ti-"] {
+        font-size: 1.2rem;
+      }
+
+      .floating-badge [class^="ti-"],
+      .floating-badge [class*=" ti-"] {
+        font-size: 1.8rem;
+      }
+
+      /* ── Validação: estado de erro no campo ── */
+      .input-error input,
+      .input-error select {
+        border-color: var(--color-danger) !important;
+        background-color: #fff5f5 !important;
+      }
+      .input-error input:focus,
+      .input-error select:focus {
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+        outline: none;
+      }
+
+      /* Mensagem de erro por campo */
+      .field-error-msg {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.78rem;
+        color: var(--color-danger);
+        font-style: normal;
+        margin-top: 0.25rem;
+      }
+
+      /* Banner de erro geral */
+      .form-error-banner {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #fff5f5;
+        border: 1px solid #fca5a5;
+        border-left: 4px solid var(--color-danger);
+        color: #b91c1c;
+        padding: 0.75rem 1rem;
+        border-radius: var(--radius-md);
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-bottom: 1.2rem;
+      }
+
+      /* Banner de sucesso */
+      .form-success-banner {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #f0fdf4;
+        border: 1px solid #86efac;
+        border-left: 4px solid #16a34a;
+        color: #15803d;
+        padding: 0.75rem 1rem;
+        border-radius: var(--radius-md);
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-bottom: 1.2rem;
+      }
+
+      /* Acessibilidade: esconde visualmente mas mantém para leitores de tela */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* Reset de fieldset */
+      fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+        min-width: 0;
+      }
+    </style>
   </head>
 
   <body>
+
     <%- include('../partials/header2.ejs') %>
 
-    <main>
-      <!-- CARROSSEL -->
-      <nav class="carousel-container">
-        <section class="carousel" id="carousel">
-          <img src="../imgs/falamulher.png" alt="Fala Mulher" />
-          <img src="../imgs/pecaajuda.png" alt="Peça Ajuda" />
-        </section>
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="landing-container">
 
-        <button class="btn prev" onclick="prevSlide()">❮</button>
-        <button class="btn next" onclick="nextSlide()">❯</button>
-      </nav>
-
-      <section class="section" id="violencia">
-        <section class="section-inner">
-          <h2 class="section-title">O que é violência contra a mulher?</h2>
-          <p class="section-body">
-            A violência contra a mulher é qualquer ação ou conduta, baseada no
-            gênero, que cause morte, dano ou sofrimento físico, sexual ou
-            psicológico. É um problema grave que afeta milhões de mulheres em
-            todo o mundo. Pode ocorrer no âmbito doméstico, nas relações
-            afetivas, no trabalho ou em espaços públicos. Reconhecer e nomear
-            essa violência é o primeiro passo para combatê-la.
+      <!-- 1. SEÇÃO HERO -->
+      <section id="inicio" class="hero-container" aria-labelledby="hero-titulo">
+        <header class="hero-text">
+          <h1 id="hero-titulo">
+            Você não está sozinha. <br />
+            <span class="text-highlight">Nós somos o seu ponto de apoio.</span>
+          </h1>
+          <p>
+            O Fenix é um ecossistema seguro projetado para informar, conectar e
+            proteger mulheres através da informação, comunidade e redes de apoio
+            locais.
           </p>
-        </section>
-      </section>
+          <nav class="hero-buttons" aria-label="Ações principais">
+            <a href="/geolocalizacao" class="btn-hero-primary">
+              <i class="ti-location-pin" aria-hidden="true"></i> Acessar geolocalização
+            </a>
+            <a href="/ongs" class="btn-hero-secondary">Conhecer ONGs</a>
+          </nav>
+        </header>
 
-      <hr class="divider" />
-
-      <!-- ══ GEOLOCALIZAÇÃO ══════════════════════════ -->
-      <section class="geo-section" id="geo">
-        <section class="geo-inner">
-          <h2 class="section-title">Geolocalização em tempo real</h2>
-
-          <!-- ✅ SOMENTE UM MAPA -->
-          <figure class="map-placeholder">
-            <iframe id="mapFrame" title="Mapa em tempo real"></iframe>
+        <aside class="hero-badge-container" aria-label="Garantia de segurança">
+          <figure class="floating-badge">
+            <i class="ti-shield" aria-hidden="true"></i>
+            <figcaption>
+              <strong>Ambiente 100% Seguro</strong><br />Anonimato garantido no fórum
+            </figcaption>
           </figure>
-
-          <button onclick="getLocation()" class="saiba-mais-btn">
-            Ativar localização
-          </button>
-
-          <p id="statusGeo"></p>
-
-          <p class="geo-text">
-            Sua segurança não pode esperar. Com a geolocalização em tempo real,
-            sua localização é atualizada automaticamente para facilitar o acesso
-            a ajuda próxima. 💜
-          </p>
-        </section>
+        </aside>
       </section>
 
-      <!-- ══ PLANOS ══════════════════════════════════ -->
-      <section class="planos-section" id="planos">
-        <section class="planos-inner">
-          <h2 class="section-title">Escolha seu Plano</h2>
-          <p class="planos-subtitle">
-            Acesso à rede de apoio que você merece, no ritmo que funciona para
-            você.
+      <!-- 2. SEÇÃO: TIPOS DE VIOLÊNCIA -->
+      <section id="violencia" class="section-block" aria-labelledby="violencia-titulo">
+        <header class="section-header-marketing">
+          <span class="tag-marketing">Conscientização</span>
+          <h2 id="violencia-titulo">Tipos de Violência Doméstica</h2>
+          <p>
+            A Lei Maria da Penha identifica cinco formas de violência.
+            Identificar o problema é o primeiro passo para rompê-lo.
           </p>
+        </header>
 
-          <section class="planos-grid">
-            <!-- Plano Gratuito -->
-            <article class="plan-card">
-              <header class="plano-gratuito">Gratuito</header>
-              <p class="plano-valor">
-                <span class="cifrao">R$</span>0<span class="periodo">/mês</span>
-              </p>
-              <p class="plan-desc">Para quem está começando a buscar apoio.</p>
-              <ul class="plano-faturas">
-                <li>✔ Acesso ao fórum da comunidade</li>
-                <li>✔ Informações sobre tipos de violência</li>
-                <li>✔ Mapa básico de serviços</li>
-                <li class="desativado">✖ Geolocalização em tempo real</li>
-                <li class="desativado">✖ Chat com profissionais</li>
-                <li class="desativado">✖ Alerta de emergência</li>
-              </ul>
-              <a href="/planos" class="planos-botao planos-botao-outline"
-                >Começar grátis</a
-              >
-            </article>
+        <ul class="dash-cards animation-fade">
+          <li class="card-single-violencia">
+            <figure class="icon-circle physics" aria-hidden="true">
+              <i class="ti-hand-stop"></i>
+            </figure>
+            <h3>Física</h3>
+            <p>
+              Qualquer conduta que ofenda a integridade ou a saúde corporal da
+              mulher (socos, empurrões, lesões).
+            </p>
+          </li>
+          <li class="card-single-violencia">
+            <figure class="icon-circle psychological" aria-hidden="true">
+              <i class="ti-eye"></i>
+            </figure>
+            <h3>Psicológica</h3>
+            <p>
+              Dano emocional, diminuição da autoestima, controle de ações,
+              comportamentos, crenças e decisões mediante ameaça ou humilhação.
+            </p>
+          </li>
+          <li class="card-single-violencia">
+            <figure class="icon-circle sexual" aria-hidden="true">
+              <i class="ti-lock"></i>
+            </figure>
+            <h3>Sexual</h3>
+            <p>
+              Presenciar, manter ou participar de relação sexual não desejada
+              mediante coerção, força ou intimidação.
+            </p>
+          </li>
+          <li class="card-single-violencia">
+            <figure class="icon-circle patrimonial" aria-hidden="true">
+              <i class="ti-wallet"></i>
+            </figure>
+            <h3>Patrimonial</h3>
+            <p>
+              Retenção, subtração, destruição parcial ou total de seus objetos,
+              instrumentos de trabalho, documentos pessoais ou bens.
+            </p>
+          </li>
+        </ul>
+      </section>
 
-            <!-- Plano Essencial (destaque) -->
-            <article class="plan-card plan-principal">
-              <header class="plano-gratuito badge-principal">
-                Mais Popular
-              </header>
-              <p class="plano-valor">
-                <span class="cifrao">R$</span>19<span class="periodo"
-                  >/mês</span
-                >
-              </p>
-              <p class="plan-desc">Proteção e suporte no dia a dia.</p>
-              <ul class="plano-faturas">
-                <li>✔ Tudo do plano Gratuito</li>
-                <li>✔ Geolocalização em tempo real</li>
-                <li>✔ Chat com voluntárias treinadas</li>
-                <li>✔ Alerta de emergência</li>
-                <li>✔ Acesso a ONGs parceiras</li>
-                <li class="desativado">✖ Atendimento psicológico</li>
-              </ul>
-              <a href="/planos" class="planos-botao planos-botao-solid"
-                >Assinar agora</a
-              >
-            </article>
+      <!-- 3. SEÇÃO: FÓRUM -->
+      <section id="forum" class="section-block forum-bg" aria-labelledby="forum-titulo">
+        <article class="activity-grid">
 
-            <!-- Plano Premium -->
-            <article class="plan-card">
-              <header class="plano-gratuito">Premium</header>
-              <p class="plano-valor">
-                <span class="cifrao">R$</span>49<span class="periodo"
-                  >/mês</span
-                >
-              </p>
-              <p class="plan-desc">Suporte completo para sua reconstrução.</p>
-              <ul class="plano-faturas">
-                <li>✔ Tudo do plano Essencial</li>
-                <li>✔ Sessões de apoio psicológico</li>
-                <li>✔ Consultoria jurídica online</li>
-                <li>✔ Grupo de apoio exclusivo</li>
-                <li>✔ Linha direta 24h</li>
-                <li>✔ Acompanhamento personalizado</li>
-              </ul>
-              <a href="/planos" class="planos-botao planos-botao-outline"
-                >Escolher Premium</a
-              >
-            </article>
+          <section class="main-card-block" aria-labelledby="forum-titulo">
+            <header class="block-header">
+              <hgroup>
+                <span class="tag-marketing">Espaço Seguro</span>
+                <h3 id="forum-titulo" style="font-size: 1.4rem; margin-top: 5px">
+                  Discussões Recentes no Fórum
+                </h3>
+              </hgroup>
+              <a href="/forum" class="btn-hero-primary">
+                <i class="ti-comments" aria-hidden="true"></i> Acessar Fórum
+              </a>
+            </header>
+
+            <ul class="forum-topics">
+              <li class="topic-item">
+                <article class="topic-info">
+                  <h4>
+                    <i class="ti-comments" aria-hidden="true"></i>
+                    Como solicitar uma medida protetiva online em 2026?
+                  </h4>
+                  <p>
+                    Discussão sobre os novos portais da Delegacia da Mulher e
+                    prazos de aprovação...
+                  </p>
+                </article>
+                <span class="badge-forum">42 Respostas</span>
+              </li>
+              <li class="topic-item">
+                <article class="topic-info">
+                  <h4>
+                    <i class="ti-comments" aria-hidden="true"></i>
+                    Grupos de apoio psicológico gratuito na região metropolitana
+                  </h4>
+                  <p>
+                    Compartilhamento de clínicas-escola de psicologia que
+                    oferecem atendimento gratuito...
+                  </p>
+                </article>
+                <span class="badge-forum">18 Respostas</span>
+              </li>
+            </ul>
           </section>
-        </section>
+
+          <aside class="side-card-block" aria-label="Estatísticas da comunidade">
+            <section class="forum-stats-card">
+              <h4>Comunidade Fenix</h4>
+              <dl>
+                <article class="stat-row">
+                  <dt>Mulheres Apoiadas</dt>
+                  <dd><strong>+1,200</strong></dd>
+                </article>
+                <article class="stat-row">
+                  <dt>Relatos Anônimos</dt>
+                  <dd><strong>340</strong></dd>
+                </article>
+              </dl>
+              <p class="stat-disclaimer">
+                <i class="ti-info-alt" aria-hidden="true"></i>
+                Suas informações e IP nunca são armazenados ou exibidos em nosso fórum público.
+              </p>
+            </section>
+          </aside>
+
+        </article>
       </section>
 
-      <hr class="divider" />
+      <!-- 4. SEÇÃO: GEOLOCALIZAÇÃO -->
+      <section id="geolocalizacao" class="section-block" aria-labelledby="geo-titulo">
+        <header class="section-header-marketing">
+          <span class="tag-marketing">Rede de Atendimento</span>
+          <h2 id="geo-titulo">Apoio simultâneo de localização</h2>
+          <p>
+            Conheça nossos serviços de geolocalização,
+            nós oferecemos localização em tempo real
+            e mensagem imediata para seu contato guardião.
+          </p>
+        </header>
 
-      <!-- Tipos de Violência -->
-      <section id="ajuda" class="professional-help">
-        <nav class="help-container">
-          <h2>Tipos de Violência</h2>
-
-          <nav class="help-grid">
-            <article class="help-card">
-              <header class="help-icon">⚠</header>
-              <h3>Violência Física</h3>
-              <p>
-                É qualquer agressão ao corpo. <br />Exemplos: <br />Socos,
-                tapas, chutes <br />Empurrões <br />Queimaduras
-              </p>
-              <a href="/tipos_violencia" class="help-link"> Saiba Mais →</a>
-            </article>
-
-            <article class="help-card">
-              <header class="help-icon">🧠</header>
-              <h3>Violência Psicológica</h3>
-              <p>
-                Afeta o emotional, a autoestima e a saúde mental.
-                <br /><br />Exemplos: <br />Ameaças <br />Humilhações e
-                xingamentos <br />Controle excessivo (ciúmes, proibir
-                amizades)Manipulação e chantagem
-              </p>
-              <br />
-              <a href="/tipos_violencia" class="help-link"> Saiba Mais →</a>
-            </article>
-
-            <article class="help-card">
-              <header class="help-icon">💰</header>
-              <h3>Violência Patrimonial</h3>
-              <p>
-                Relacionada à retenção, destruição ou subtração de bens e
-                recursos econômicos. <br /><br />Exemplos: <br />Reter cartões
-                ou documentos <br />Destruir instrumentos de trabalho
-                <br />Controlar ou reter o salário da parceira
-              </p>
-              <a href="/tipos_violencia" class="help-link"> Saiba Mais →</a>
-            </article>
-
-            <article class="help-card">
-              <header class="help-icon">🗣️</header>
-              <h3>Violência Moral</h3>
-              <p>
-                Relacionada à honra e à reputação. <br /><br />Exemplos:
-                <br />Calúnia (acusar de algo que não fez) <br />Difamação
-                (falar mal para outras pessoas) <br />Injúria (ofensas diretas)
-              </p>
-              <a href="/tipos_violencia" class="help-link"> Saiba Mais →</a>
-            </article>
-
-            <article class="help-card">
-              <header class="help-icon">🚫</header>
-              <h3>Violência Sexual</h3>
-              <p>
-                Qualquer ato sexual sem consentimento. <br /><br />Exemplos:
-                <br />Forçar relações sexuais <br />Impedir uso de métodos
-                contraceptivos <br />Obrigar a práticas que a mulher não quer
-                <br />Estupro dentro ou fora do relacionamento
-              </p>
-              <a href="/tipos_violencia" class="help-link"> Saiba Mais →</a>
-            </article>
-
-            <article class="help-card">
-              <header class="help-icon">🌐</header>
-              <h3>Violência Digital (ou Cibernética)</h3>
-              <p>
-                É a violência praticada por meio da internet, redes sociais ou
-                celular. <br /><br />Exemplos: <br />Divulgação de fotos ou
-                vídeos íntimos sem consentimento <br />Ameaças e perseguição
-                online (cyberstalking) <br />Ofensas, humilhações ou exposição
-                nas redes sociais <br />Controle de redes sociais ou senhas
-                <br />Criação de perfis falsos para prejudicar a vítima
-              </p>
-
-              <a href="/tipos_violencia" class="help-link"> Saiba Mais →</a>
-            </article>
-          </nav>
-        </nav>
+        <figure class="map-wrapper" aria-label="Mapa de rastreamento">
+          <section class="map-container-mock">
+            <aside class="map-overlay">
+              <i class="ti-location-pin map-pin-main" aria-hidden="true"></i>
+              <article class="map-card-info">
+                <h5>Sistema de rastreamento simultâneo!</h5>
+                <p>
+                  <i class="ti-direction" aria-hidden="true"></i>
+                  Compartilhe sua localização em tempo real com contatos de confiança
+                  e receba ajuda imediata quando necessário.
+                </p>
+                <small>Faça seu cadastro para saber mais</small>
+                <a href="/geolocalizacao" class="btn-map-call">Saiba mais -&gt;</a>
+              </article>
+            </aside>
+          </section>
+        </figure>
       </section>
 
-      <!-- Seção de Recursos Importantes -->
-      <section class="resources">
-        <nav class="resources-container">
-          <h2>Recursos Importantes</h2>
+      <!-- 5. SEÇÃO: PLANOS -->
+      <section id="planos" class="section-block separator-top" aria-labelledby="planos-titulo">
+        <header class="section-header-marketing text-center-marketing">
+          <span class="tag-marketing">Nossos Planos</span>
+          <h2 id="planos-titulo">Escolha sua forma de navegar</h2>
+          <p>
+            Oferecemos suporte gratuito para todas as mulheres e uma assinatura
+            opcional para quem deseja acelerar mentorias e projetos de
+            independência financeira.
+          </p>
+        </header>
 
-          <nav class="resources-grid">
-            <article class="resource-card">
-              <h3>Lei Maria da Penha</h3>
-              <p>
-                Conheça a legislação que protege as mulheres vítimas de
-                violência doméstica e familiar.
-              </p>
-              <a
-                href="https://www.institutomariadapenha.org.br/lei-11340/tipos-de-violencia.html"
-                class="resource-link"
-                >Saiba Mais →</a
-              >
-            </article>
+        <ul class="planos-grid">
 
-            <article class="resource-card">
-              <h3>Números de Emergência</h3>
-              <p>
-                190 - Polícia Militar | 180 - Central de Atendimento à Mulher |
-                192 - SAMU
-              </p>
-              <a href="#" class="resource-link">Mais Informações →</a>
-            </article>
+          <li class="card-plano">
+            <header class="plano-header">
+              <h3>Plano Essencial</h3>
+              <p class="price">R$ 0<span>/sempre</span></p>
+              <p>Acesso total às ferramentas de proteção emergencial.</p>
+            </header>
+            <ul class="plano-features">
+              <li>
+                <i class="ti-check" aria-hidden="true"></i> Geolocalização Simultânea
+              </li>
+              <li>
+                <i class="ti-check" aria-hidden="true"></i> Publicação Anônima no Fórum,
+                porém com limites de postagens e navegação.
+              </li>
+              <li>
+                <i class="ti-check" aria-hidden="true"></i> Guia Jurídico Maria da Penha
+              </li>
+              <li class="disabled">
+                <i class="ti-close" aria-hidden="true"></i> Mentoria de Carreira Individual
+              </li>
+            </ul>
+            <a href="/planos" class="btn-plano">Conhecer plano -&gt;</a>
+          </li>
 
-            <article class="resource-card">
-              <h3>Direitos das Mulheres</h3>
-              <p>
-                Conheça seus direitos e como protegê-los em caso de violência.
-              </p>
-              <a href="/direitos" class="resource-link">Explorar →</a>
-            </article>
-          </nav>
-        </nav>
+          <li class="card-plano premium">
+            <mark class="plano-tag">Mais Apoiado</mark>
+            <header class="plano-header">
+              <h3>Fenix Premium</h3>
+              <p class="price">R$ 14,90<span>/mês</span></p>
+              <p>Ideal para reestruturação financeira e psicológica.</p>
+            </header>
+            <ul class="plano-features">
+              <li><i class="ti-check" aria-hidden="true"></i> Tudo do Plano Essencial</li>
+              <li>
+                <i class="ti-check" aria-hidden="true"></i> Acesso a Cursos Profissionalizantes
+              </li>
+              <li>
+                <i class="ti-check" aria-hidden="true"></i> Workshops de Autodefesa e Direito
+              </li>
+              <li>
+                <i class="ti-check" aria-hidden="true"></i> Atendimento Psicológico Prioritário
+              </li>
+            </ul>
+            <a href="/planos" class="btn-plano btn-premium">Conhecer plano -&gt;</a>
+          </li>
+
+        </ul>
       </section>
+
+      <!-- 6. SEÇÃO: FORMULÁRIO DE DOAÇÃO -->
+      <section id="doacao" class="section-block separator-top" aria-labelledby="doacao-titulo">
+        <article class="activity-grid">
+
+          <section class="main-card-block" aria-labelledby="doacao-titulo">
+            <span class="tag-marketing">Faça a Diferença</span>
+            <h3 id="doacao-titulo" style="font-size: 1.6rem; margin: 0.5rem 0 1rem 0">
+              Apoie o Projeto Fenix
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+              Sua doação ajuda a manter os servidores ativos e financia
+              atendimento jurídico voluntário.
+            </p>
+
+            <%
+              /*
+                Helpers injetados pela rota:
+                  - errors : array de { path, msg } do express-validator (ou [])
+                  - old    : objeto com os valores anteriores do form (ou {})
+                  - success: boolean true após salvar com sucesso
+              */
+              const _errors = typeof errors !== 'undefined' ? errors : [];
+              const _old    = typeof old    !== 'undefined' ? old    : {};
+
+              /* Transforma o array em map { campo: mensagem } */
+              const _errMap = _errors.reduce((acc, e) => {
+                acc[e.path] = e.msg;
+                return acc;
+              }, {});
+
+              /* Retorna a classe CSS do label com ou sem erro */
+              function fieldClass(campo) {
+                return _errMap[campo] ? 'form-group input-error' : 'form-group';
+              }
+            %>
+
+            <% if (_errors.length > 0) { %>
+              <output class="form-error-banner" role="alert" aria-live="polite">
+                <i class="ti-alert" aria-hidden="true"></i>
+                Por favor, corrija os campos destacados antes de continuar.
+              </output>
+            <% } %>
+
+            <% if (typeof success !== 'undefined' && success) { %>
+              <output class="form-success-banner" role="status" aria-live="polite">
+                <i class="ti-check" aria-hidden="true"></i>
+                Obrigada! Sua contribuição foi registrada com sucesso.
+              </output>
+            <% } %>
+
+            <form
+              action="/doacao"
+              method="POST"
+              class="donation-form"
+              novalidate
+              aria-label="Formulário de doação"
+            >
+
+              <fieldset class="form-group-row">
+                <legend class="sr-only">Dados pessoais</legend>
+
+                <label class="<%= fieldClass('nome') %>" for="nome">
+                  <span>Nome Completo</span>
+                  <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    placeholder="Seu nome ou 'Anônimo'"
+                    autocomplete="name"
+                    value="<%= _old.nome || '' %>"
+                    aria-describedby="<%= _errMap.nome ? 'erro-nome' : '' %>"
+                    aria-invalid="<%= _errMap.nome ? 'true' : 'false' %>"
+                  />
+                  <% if (_errMap.nome) { %>
+                    <em id="erro-nome" class="field-error-msg" role="alert">
+                      <i class="ti-alert" aria-hidden="true"></i> <%= _errMap.nome %>
+                    </em>
+                  <% } %>
+                </label>
+
+                <label class="<%= fieldClass('email') %>" for="email">
+                  <span>E-mail</span>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="seu@email.com"
+                    autocomplete="email"
+                    value="<%= _old.email || '' %>"
+                    aria-describedby="<%= _errMap.email ? 'erro-email' : '' %>"
+                    aria-invalid="<%= _errMap.email ? 'true' : 'false' %>"
+                  />
+                  <% if (_errMap.email) { %>
+                    <em id="erro-email" class="field-error-msg" role="alert">
+                      <i class="ti-alert" aria-hidden="true"></i> <%= _errMap.email %>
+                    </em>
+                  <% } %>
+                </label>
+              </fieldset>
+
+              <fieldset class="form-group-row">
+                <legend class="sr-only">Dados da doação</legend>
+
+                <label class="<%= fieldClass('valor') %>" for="valor">
+                  <span>Valor da Doação (R$)</span>
+                  <input
+                    type="number"
+                    id="valor"
+                    name="valor"
+                    min="5"
+                    step="0.01"
+                    placeholder="Mínimo R$ 5,00"
+                    value="<%= _old.valor || '' %>"
+                    aria-describedby="<%= _errMap.valor ? 'erro-valor' : '' %>"
+                    aria-invalid="<%= _errMap.valor ? 'true' : 'false' %>"
+                  />
+                  <% if (_errMap.valor) { %>
+                    <em id="erro-valor" class="field-error-msg" role="alert">
+                      <i class="ti-alert" aria-hidden="true"></i> <%= _errMap.valor %>
+                    </em>
+                  <% } %>
+                </label>
+
+                <label class="<%= fieldClass('formaPagamento') %>" for="formaPagamento">
+                  <span>Forma de Pagamento</span>
+                  <select
+                    id="formaPagamento"
+                    name="formaPagamento"
+                    aria-describedby="<%= _errMap.formaPagamento ? 'erro-pagamento' : '' %>"
+                    aria-invalid="<%= _errMap.formaPagamento ? 'true' : 'false' %>"
+                  >
+                    <option value="" disabled <%= !_old.formaPagamento ? 'selected' : '' %>>
+                      Selecione…
+                    </option>
+                    <option value="pix"     <%= _old.formaPagamento === 'pix'     ? 'selected' : '' %>>Pix (Imediato)</option>
+                    <option value="credito" <%= _old.formaPagamento === 'credito' ? 'selected' : '' %>>Cartão de Crédito</option>
+                    <option value="boleto"  <%= _old.formaPagamento === 'boleto'  ? 'selected' : '' %>>Boleto Bancário</option>
+                  </select>
+                  <% if (_errMap.formaPagamento) { %>
+                    <em id="erro-pagamento" class="field-error-msg" role="alert">
+                      <i class="ti-alert" aria-hidden="true"></i> <%= _errMap.formaPagamento %>
+                    </em>
+                  <% } %>
+                </label>
+              </fieldset>
+
+              <button type="submit" class="btn-donation-submit">
+                <i class="ti-heart" aria-hidden="true"></i> Confirmar Contribuição
+              </button>
+            </form>
+          </section>
+
+          <aside class="side-card-block display-flex-center" aria-label="Transparência">
+            <section class="transparency-card">
+              <h4><i class="ti-shield" aria-hidden="true"></i> Transparência</h4>
+              <p>
+                Prestação de contas mensal enviada diretamente ao e-mail dos
+                doadores cadastrados.
+              </p>
+            </section>
+          </aside>
+
+        </article>
+      </section>
+
+      <!-- 7. SEÇÃO: RECURSOS -->
+      <section id="/recursos" class="section-block separator-top" aria-labelledby="recursos-titulo">
+        <header class="section-header-marketing text-center-marketing">
+          <span class="tag-marketing">Recursos de Emergência</span>
+          <h2 id="recursos-titulo">Canais de Denúncia e Suporte Imediato</h2>
+        </header>
+
+        <ul class="recursos-grid">
+          <li class="card-recurso text-center">
+            <figure class="recurso-icon emergency" aria-hidden="true">
+              <i class="ti-headphone-alt"></i>
+            </figure>
+            <h3>Ligue 180</h3>
+            <p>
+              Central de Atendimento à Mulher. Registro de denúncias,
+              orientações jurídicas e acolhimento imediato. Gratuito e 24 horas.
+            </p>
+            <a href="tel:180" class="btn-recurso-action">Discar 180</a>
+          </li>
+          <li class="card-recurso text-center">
+            <figure class="recurso-icon emergency" aria-hidden="true">
+              <i class="ti-shield"></i>
+            </figure>
+            <h3>Ligue 190</h3>
+            <p>
+              Polícia Militar. Utilize em situações de ameaça iminente ou
+              flagrante de agressão doméstica. Atendimento emergencial rápido.
+            </p>
+            <a href="tel:190" class="btn-recurso-action">Discar 190</a>
+          </li>
+        </ul>
+      </section>
+
     </main>
+
     <%- include('../partials/footer.ejs') %>
 
     <script src="../js/text.js"></script>
