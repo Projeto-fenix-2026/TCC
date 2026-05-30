@@ -2,10 +2,12 @@ var express = require("express");
 var router = express.Router();
 const path = require("path");
 const multer = require("multer");
+const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 const { usuarioModel } = require("../models/usuarioModel");
 const { ongModel } = require("../models/ongModel");
 const { validarCNPJ } = require("../helpers/validacoes");
+const { autenticadoAdm } = require("../helpers/autenticadoAdm");
 
 const storage = multer.diskStorage({
     destination: path.join(__dirname, "../../app/public/uploads/ongs"),
@@ -30,25 +32,59 @@ const validacoesOng = [
         .isLength({ max: 500 }).withMessage("Descrição deve ter no máximo 500 caracteres.")
 ];
 
-router.get("/", (req, res) => {
-    res.render("pages/index-adm");
+// ── LOGIN ADMIN ──────────────────────────────────────────────────
+router.get("/login", (req, res) => {
+    if (req.session.admin) return res.redirect("/adm");
+    res.render("pages/login-adm", { erro: null });
 });
 
-router.get("/adm-cliente", async (req, res) => {
+router.post("/login", async (req, res) => {
+    const { email, senha } = req.body;
+    const usuario = await usuarioModel.findByEmail(email);
+    if (!usuario || !usuario.is_admin) {
+        return res.render("pages/login-adm", { erro: "E-mail ou senha incorretos." });
+    }
+    const senhaCorreta = bcrypt.compareSync(senha, usuario.senha);
+    if (!senhaCorreta) {
+        return res.render("pages/login-adm", { erro: "E-mail ou senha incorretos." });
+    }
+    req.session.admin = { id: usuario.id_usuario, nome: usuario.nome, email: usuario.email, foto_url: usuario.foto_url || null };
+    req.session.usuario = { id: usuario.id_usuario, nome: usuario.nome, email: usuario.email, foto_url: usuario.foto_url || null };
+    res.redirect("/adm");
+});
+
+router.get("/logout", (req, res) => {
+    req.session.admin = null;
+    res.redirect("/adm/login");
+});
+
+// ── ROTAS PROTEGIDAS ─────────────────────────────────────────────
+router.get("/", autenticadoAdm, async (req, res) => {
     const usuarios = await usuarioModel.findAll();
-    res.render("pages/adm-cliente", { usuarios });
+    const ongs = await ongModel.findAll();
+    const totalUsuarios = usuarios.length;
+    const totalOngs = ongs.length;
+    const semFoto = usuarios.filter(u => !u.foto_url).length;
+    const recentes = [...usuarios].reverse().slice(0, 5);
+    res.render("pages/index-adm", { totalUsuarios, totalOngs, semFoto, recentes, admin: req.session.admin });
 });
 
-router.get("/adm-ong", async (req, res) => {
+router.get("/adm-cliente", autenticadoAdm, async (req, res) => {
+    const usuarios = await usuarioModel.findAll();
+    res.render("pages/adm-cliente", { usuarios, admin: req.session.admin });
+});
+
+router.get("/adm-ong", autenticadoAdm, async (req, res) => {
     const ongs = await ongModel.findAll();
     res.render("pages/adm-ong", {
         ongs,
         erro: req.query.erro || null,
-        mensagem: req.query.mensagem || null
+        mensagem: req.query.mensagem || null,
+        admin: req.session.admin
     });
 });
 
-router.post("/adm-ong/cadastrar", upload.single("imagem"), validacoesOng, async (req, res) => {
+router.post("/adm-ong/cadastrar", autenticadoAdm, upload.single("imagem"), validacoesOng, async (req, res) => {
     const erros = validationResult(req);
     if (!erros.isEmpty()) {
         const msg = erros.array()[0].msg;
@@ -60,7 +96,7 @@ router.post("/adm-ong/cadastrar", upload.single("imagem"), validacoesOng, async 
     res.redirect("/adm/adm-ong");
 });
 
-router.post("/adm-ong/editar", upload.single("imagem"), validacoesOng, async (req, res) => {
+router.post("/adm-ong/editar", autenticadoAdm, upload.single("imagem"), validacoesOng, async (req, res) => {
     const erros = validationResult(req);
     if (!erros.isEmpty()) {
         const msg = erros.array()[0].msg;
@@ -72,7 +108,7 @@ router.post("/adm-ong/editar", upload.single("imagem"), validacoesOng, async (re
     res.redirect("/adm/adm-ong");
 });
 
-router.post("/adm-ong/excluir", async (req, res) => {
+router.post("/adm-ong/excluir", autenticadoAdm, async (req, res) => {
     const { id } = req.body;
     await ongModel.deleteById(id);
     res.redirect("/adm/adm-ong");

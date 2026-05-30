@@ -6,7 +6,7 @@ header{
     background-color: #3f2645;
 }
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Segoe UI", system-ui, sans-serif;
     margin: 0;
     padding: 0;
     background-color:#eee8ed;
@@ -31,7 +31,7 @@ a:hover {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Segoe UI", system-ui, sans-serif;
     height: 8vh;
 
 }

@@ -4,10 +4,15 @@ CREATE TABLE IF NOT EXISTS usuario (
   CPF         CHAR(11)     NOT NULL UNIQUE,
   email       VARCHAR(100) NOT NULL UNIQUE,
   telefone    CHAR(11)     NOT NULL,
-  senha       VARCHAR(255) NOT NULL,
+  senha       CHAR(60)     NOT NULL,
   genero      VARCHAR(20),
+  foto_url    VARCHAR(255) NULL,
   CONSTRAINT pk_usuario PRIMARY KEY (id_usuario)
 );
+
+-- Se a tabela já existir, rode manualmente:
+-- ALTER TABLE usuario ADD COLUMN foto_url VARCHAR(255) NULL;
+-- ALTER TABLE usuario MODIFY COLUMN senha CHAR(60) NOT NULL;
 
 CREATE TABLE IF NOT EXISTS doacoes (
   id_doacoes       INT            NOT NULL,

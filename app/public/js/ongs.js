@@ -15,7 +15,7 @@ const gerarCards = (container, data) => {
       : `<div class="card-sem-imagem"></div>`;
     container.innerHTML += `
       <section class="card">
-        <a href="/ong_page">
+        <a href="/ong_page?id=${ong.id_ong}">
           ${imagem}
           <h3>${ong.nome}</h3>
           <p>${ong.descricao || ""}</p>

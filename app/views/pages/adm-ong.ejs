@@ -14,7 +14,8 @@
     <input type="checkbox" id="sidebare-toggle">
     <section class="sidebar">
         <section class="sidebar-header">
-            <h3 class="brand"><span class="ti-unlink"></span>
+            <h3 class="brand">
+                <a href="/"><img src="../imgs/logo.png" alt="Logo Fênix" class="sidebar-logo"></a>
                 <span>Fenix</span>
             </h3>
             <label for="sidebare-toggle" class="ti-menu-alt"></label>
@@ -25,7 +26,7 @@
                 <li>
                     <a href="/adm">
                         <span class="ti-home"></span>
-                        <span>Home</span>
+                        <span>Início</span>
                     </a>
                 </li>
                 <li>
@@ -54,7 +55,9 @@
             <section class="social-icons">
                 <span class="ti-bell"></span>
                 <span class="ti-comment"></span>
-                <section></section>
+                <a href="/perfil_usuario" class="admin-avatar-link">
+                    <img src="<%= admin.foto_url || '../imgs/perfil.png' %>" class="admin-avatar" alt="Perfil">
+                </a>
             </section>
         </header>
 

@@ -1,12 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
 /*:root{
     --main-color: #027581;
     --color-dark: #1D2231;
     --text-grey: #8390A2;
 }*/
 *{
-    font-family: 'Poppins', sans-serif;
+    font-family: "Segoe UI", system-ui, sans-serif;
     margin: 0;
     padding: 0;
     text-decoration: none;
@@ -39,6 +37,19 @@
     padding: 0rem 1rem;
 }
 
+.sidebar-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+}
+
 .sidebar-menu{
     padding: 1rem;
 }
@@ -60,10 +71,11 @@
     width: 60px;
 }
 
-#sidebare-toggle:checked ~ .sidebar .sidebar-header h3 span, 
-#sidebare-toggle:checked ~ .sidebar li span:last-child {
+#sidebare-toggle:checked ~ .sidebar .sidebar-header h3 span,
+#sidebare-toggle:checked ~ .sidebar li span:last-child,
+#sidebare-toggle:checked ~ .sidebar .sidebar-logo {
     display: none;
-    
+
 }
 
 #sidebare-toggle:checked ~ .sidebar .sidebar-header  , 
@@ -100,7 +112,7 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #e8d5ec;
     transition:left 500ms ;
 }
 
@@ -121,28 +133,28 @@ header{
     align-items: center;
 }
 .social-icons span,
-.social-icons section{
+.social-icons .admin-avatar-link {
     margin-left: 1.2rem;
 }
 
-.social-icons section{
+.admin-avatar {
     height: 38px;
     width: 38px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(../imgs/luiza.png);
     border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
 }
 
 main{
     margin-top: 60px;
-    background: #f1f5f9;
+    background: #F6EEF8;
     min-height: 90vh;
     padding: 1rem 3rem;
 }
 
 .dash-title{
-    color: #1D2231;
+    color: #59415c;
     margin-bottom: 1rem;
 }
 
@@ -186,8 +198,7 @@ main{
 }
 
 .card-footer a{
-    color: #291033;
-    
+    color: #59415c;
 }
 
 .recent{
@@ -206,12 +217,12 @@ main{
 .bday-card{
     background: #fff;
     border-radius: 7px;
-    
+
 }
 
 .activity-card h3{
     margin: 1rem;
-    color: #8390A2;
+    color: #59415c;
 }
 
 .activity-card table{
@@ -220,14 +231,14 @@ main{
 }
 
 .activity-card thead{
-    background: #efefef;
+    background: #f7d6e0;
     text-align: left;
 }
 
 th, td{
     font-size: .9rem;
     padding: 1rem 1rem;
-    color: #1D2231;
+    color: #59415c;
 }
 
 td{
@@ -235,7 +246,7 @@ td{
 }
 
 tbody tr:nth-child(even){
-    background: #f9fafc;
+    background: #F6EEF8;
 }
 
 .badge{
@@ -334,9 +345,9 @@ tbody tr:nth-child(even){
 }
 
 .text-center button{
-    background: #291033;
+    background: #59415c;
     color: #fff;
-    border: 1px solid #291033;
+    border: 1px solid #59415c;
     border-radius: 4px;
     padding: .4rem 1rem;
 }
@@ -351,10 +362,11 @@ tbody tr:nth-child(even){
     z-index:150 ;
 }
 
-.sidebar .sidebar-header h3 span, 
- .sidebar li span:last-child {
+.sidebar .sidebar-header h3 span,
+.sidebar li span:last-child,
+.sidebar .sidebar-logo {
     display: none;
-    
+
 }
  .sidebar .sidebar-header  , 
  .sidebar li  {
@@ -374,10 +386,11 @@ tbody tr:nth-child(even){
     width: 240px;
 }
 
-#sidebare-toggle:checked ~ .sidebar .sidebar-header h3 span, 
-#sidebare-toggle:checked ~ .sidebar li span:last-child {
+#sidebare-toggle:checked ~ .sidebar .sidebar-header h3 span,
+#sidebare-toggle:checked ~ .sidebar li span:last-child,
+#sidebare-toggle:checked ~ .sidebar .sidebar-logo {
     display: inline;
-    
+
 }
 
 #sidebare-toggle:checked ~ .sidebar .sidebar-header   {

@@ -15,7 +15,7 @@
 }
 
 body {
-    font-family: Abhaya Libre Medium;
+    font-family: "Segoe UI", system-ui, sans-serif;
     background-color: #f4f4f4; /* Cor de fundo do site para contraste */
     color: var(--text);
     line-height: 1.6;
