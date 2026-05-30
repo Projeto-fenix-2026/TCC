@@ -290,8 +290,8 @@ router.put("/api/perfil/senha", autenticado, async function (req, res) {
   const linhas = await usuarioModel.findById(req.session.usuario.id);
   const u = linhas[0];
   if (!u) return res.status(404).json({ mensagem: "Usuário não encontrado." });
-  if (u.senha !== senha_atual) return res.status(400).json({ mensagem: "Senha atual incorreta." });
-  await usuarioModel.updateSenha({ id: req.session.usuario.id, senha: senha_nova });
+  if (!bcrypt.compareSync(senha_atual, u.senha)) return res.status(400).json({ mensagem: "Senha atual incorreta." });
+  await usuarioModel.updateSenha({ id: req.session.usuario.id, senha: bcrypt.hashSync(senha_nova, bcrypt.genSaltSync(10)) });
   res.json({ ok: true });
 });
 
