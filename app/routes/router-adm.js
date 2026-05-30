@@ -48,7 +48,8 @@ router.post("/login", async (req, res) => {
     if (!senhaCorreta) {
         return res.render("pages/login-adm", { erro: "E-mail ou senha incorretos." });
     }
-    req.session.admin = { id: usuario.id_usuario, nome: usuario.nome, email: usuario.email };
+    req.session.admin = { id: usuario.id_usuario, nome: usuario.nome, email: usuario.email, foto_url: usuario.foto_url || null };
+    req.session.usuario = { id: usuario.id_usuario, nome: usuario.nome, email: usuario.email, foto_url: usuario.foto_url || null };
     res.redirect("/adm");
 });
 
@@ -65,12 +66,12 @@ router.get("/", autenticadoAdm, async (req, res) => {
     const totalOngs = ongs.length;
     const semFoto = usuarios.filter(u => !u.foto_url).length;
     const recentes = [...usuarios].reverse().slice(0, 5);
-    res.render("pages/index-adm", { totalUsuarios, totalOngs, semFoto, recentes });
+    res.render("pages/index-adm", { totalUsuarios, totalOngs, semFoto, recentes, admin: req.session.admin });
 });
 
 router.get("/adm-cliente", autenticadoAdm, async (req, res) => {
     const usuarios = await usuarioModel.findAll();
-    res.render("pages/adm-cliente", { usuarios });
+    res.render("pages/adm-cliente", { usuarios, admin: req.session.admin });
 });
 
 router.get("/adm-ong", autenticadoAdm, async (req, res) => {
@@ -78,7 +79,8 @@ router.get("/adm-ong", autenticadoAdm, async (req, res) => {
     res.render("pages/adm-ong", {
         ongs,
         erro: req.query.erro || null,
-        mensagem: req.query.mensagem || null
+        mensagem: req.query.mensagem || null,
+        admin: req.session.admin
     });
 });
 

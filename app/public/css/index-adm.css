@@ -71,10 +71,11 @@
     width: 60px;
 }
 
-#sidebare-toggle:checked ~ .sidebar .sidebar-header h3 span, 
-#sidebare-toggle:checked ~ .sidebar li span:last-child {
+#sidebare-toggle:checked ~ .sidebar .sidebar-header h3 span,
+#sidebare-toggle:checked ~ .sidebar li span:last-child,
+#sidebare-toggle:checked ~ .sidebar .sidebar-logo {
     display: none;
-    
+
 }
 
 #sidebare-toggle:checked ~ .sidebar .sidebar-header  , 
@@ -132,17 +133,17 @@ header{
     align-items: center;
 }
 .social-icons span,
-.social-icons section{
+.social-icons .admin-avatar-link {
     margin-left: 1.2rem;
 }
 
-.social-icons section{
+.admin-avatar {
     height: 38px;
     width: 38px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(../imgs/luiza.png);
     border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
 }
 
 main{
@@ -361,10 +362,11 @@ tbody tr:nth-child(even){
     z-index:150 ;
 }
 
-.sidebar .sidebar-header h3 span, 
- .sidebar li span:last-child {
+.sidebar .sidebar-header h3 span,
+.sidebar li span:last-child,
+.sidebar .sidebar-logo {
     display: none;
-    
+
 }
  .sidebar .sidebar-header  , 
  .sidebar li  {
@@ -384,10 +386,11 @@ tbody tr:nth-child(even){
     width: 240px;
 }
 
-#sidebare-toggle:checked ~ .sidebar .sidebar-header h3 span, 
-#sidebare-toggle:checked ~ .sidebar li span:last-child {
+#sidebare-toggle:checked ~ .sidebar .sidebar-header h3 span,
+#sidebare-toggle:checked ~ .sidebar li span:last-child,
+#sidebare-toggle:checked ~ .sidebar .sidebar-logo {
     display: inline;
-    
+
 }
 
 #sidebare-toggle:checked ~ .sidebar .sidebar-header   {
