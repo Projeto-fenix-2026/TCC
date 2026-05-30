@@ -6,11 +6,7 @@ header {
   background-color: #3f2645;
 }
 body {
-  font-family:
-    "Segoe UI",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: "Segoe UI", system-ui, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #eee8ed;
