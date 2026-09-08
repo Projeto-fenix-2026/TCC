@@ -60,6 +60,20 @@ navItems.forEach((item) => {
   });
 });
 
+const logoutLinks = document.querySelectorAll('[data-logout="true"]');
+logoutLinks.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    openModal(
+      "Sair da conta",
+      "Tem certeza que deseja sair da sua conta?",
+      () => {
+        window.location.href = "/logout";
+      }
+    );
+  });
+});
+
 // Links internos (ex.: "Upgrade para Plus")
 document.querySelectorAll("[data-section]").forEach((el) => {
   if (!el.classList.contains("nav-item")) {
