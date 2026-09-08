@@ -330,8 +330,10 @@ router.get("/tipos_violencia", function (req, res) {
   res.render("pages/tipos_violencia");
 });
 
-router.get("/configuracoes", function (req, res) {
-  res.render("pages/configuracoes");
+router.get("/configuracoes", autenticado, async function (req, res) {
+  const linhas = await usuarioModel.findById(req.session.usuario.id);
+  const usuario = linhas[0] || null;
+  res.render("pages/configuracoes", { usuario });
 });
 
 /* ============================================================
