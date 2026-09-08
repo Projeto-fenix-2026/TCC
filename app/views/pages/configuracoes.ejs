@@ -1,462 +1,683 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Configurações – Rede de Apoio</title>
-  <link rel="stylesheet" href="../css/perfil.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-</head>
-<body>
-  <%- include('../partials/header2.ejs') %>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configurações – Rede de Apoio</title>
+    <link rel="stylesheet" href="../css/perfil.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <%- include('../partials/header2.ejs') %>
 
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-logo">
-      <i class="fa-solid fa-heart-pulse"></i>
-      <span>Rede de Apoio</span>
-    </div>
-    <nav class="sidebar-nav">
-      <a href="#" class="nav-item active" data-section="perfil">
-        <i class="fa-solid fa-user"></i><span>Perfil</span>
-      </a>
-      <a href="#" class="nav-item" data-section="seguranca">
-        <i class="fa-solid fa-lock"></i><span>Segurança</span>
-      </a>
-      <a href="#" class="nav-item" data-section="privacidade">
-        <i class="fa-solid fa-shield-halved"></i><span>Privacidade</span>
-      </a>
-      <a href="#" class="nav-item" data-section="acessibilidade">
-        <i class="fa-solid fa-universal-access"></i><span>Acessibilidade</span>
-      </a>
-      <a href="#" class="nav-item" data-section="notificacoes">
-        <i class="fa-solid fa-bell"></i><span>Notificações</span>
-      </a>
-      <a href="#" class="nav-item" data-section="termos">
-        <i class="fa-solid fa-file-contract"></i><span>Termos</span>
-      </a>
-      <a href="#" class="nav-item" data-section="suporte">
-        <i class="fa-solid fa-headset"></i><span>Suporte</span>
-      </a>
-    </nav>
-    <div class="sidebar-footer">
-      <a href="/logout" class="nav-item logout" data-logout="true">
-        <i class="fa-solid fa-right-from-bracket"></i><span>Sair</span>
-      </a>
-    </div>
-  </aside>
-
-  <div class="overlay" id="overlay"></div>
-
-  <main class="main-content">
-    <header class="top-bar">
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-      <div class="top-bar-right">
-        <span class="plan-badge free" id="planBadge">Plano Gratuito</span>
-        <div class="avatar-small">
-          <img id="topAvatar" src="<%= usuario && usuario.foto_url ? usuario.foto_url : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(usuario ? usuario.nome : 'Usuario') + '&background=c49a4a&color=fff' %>" alt="Foto de perfil"/>
-        </div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <i class="fa-solid fa-heart-pulse"></i>
+        <span>Rede de Apoio</span>
       </div>
-    </header>
-
-    <section class="section active" id="section-perfil">
-      <div class="section-header">
-        <h1>Configurações da Conta</h1>
-        <p>Atualize seus dados pessoais, privacidade e preferências.</p>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-section="perfil">
+          <i class="fa-solid fa-user"></i><span>Perfil</span>
+        </a>
+        <a href="#" class="nav-item" data-section="seguranca">
+          <i class="fa-solid fa-lock"></i><span>Segurança</span>
+        </a>
+        <a href="#" class="nav-item" data-section="privacidade">
+          <i class="fa-solid fa-shield-halved"></i><span>Privacidade</span>
+        </a>
+        <a href="#" class="nav-item" data-section="acessibilidade">
+          <i class="fa-solid fa-universal-access"></i
+          ><span>Acessibilidade</span>
+        </a>
+        <a href="#" class="nav-item" data-section="notificacoes">
+          <i class="fa-solid fa-bell"></i><span>Notificações</span>
+        </a>
+        <a href="#" class="nav-item" data-section="termos">
+          <i class="fa-solid fa-file-contract"></i><span>Termos</span>
+        </a>
+        <a href="#" class="nav-item" data-section="suporte">
+          <i class="fa-solid fa-headset"></i><span>Suporte</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="/logout" class="nav-item logout" data-logout="true">
+          <i class="fa-solid fa-right-from-bracket"></i><span>Sair</span>
+        </a>
       </div>
+    </aside>
 
-      <div class="card">
-        <h2 class="card-title"><i class="fa-solid fa-camera"></i> Foto de Perfil</h2>
-        <div class="avatar-upload">
-          <div class="avatar-wrap">
-            <img id="avatarPreview"
-                 src="<%= usuario && usuario.foto_url ? usuario.foto_url : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(usuario ? usuario.nome : 'Usuario') + '&background=c49a4a&color=fff&size=120' %>"
-                 alt="Foto de perfil"
-                 title="Clique para alterar a foto"/>
-            <div class="avatar-edit" id="avatarEditBtn" role="button" tabindex="0" title="Alterar foto de perfil" aria-label="Alterar foto de perfil">
-              <i class="fa-solid fa-pen"></i>
-            </div>
-            <input type="file" id="avatarInput" accept="image/jpeg,image/png,image/webp" style="display:none"/>
-          </div>
-          <div class="avatar-info">
-            <p>Formatos aceitos: JPG, PNG, WEBP</p>
-            <p>Tamanho máximo: 5 MB</p>
-            <div class="avatar-btn-group">
-              <button type="button" class="btn btn-outline" id="changePhotoBtn">
-                <i class="fa-solid fa-camera"></i> Alterar foto
-              </button>
-              <button type="button" class="btn btn-outline" id="removePhoto">
-                <i class="fa-solid fa-trash"></i> Remover
-              </button>
-            </div>
+    <div class="overlay" id="overlay"></div>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="top-bar-right">
+          <span class="plan-badge free" id="planBadge">Plano Gratuito</span>
+          <div class="avatar-small">
+            <img
+              id="topAvatar"
+              src="<%= usuario && usuario.foto_url ? usuario.foto_url : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(usuario ? usuario.nome : 'Usuario') + '&background=c49a4a&color=fff' %>"
+              alt="Foto de perfil"
+            />
           </div>
         </div>
-      </div>
+      </header>
 
-      <div class="card">
-        <h2 class="card-title"><i class="fa-solid fa-id-card"></i> Dados Pessoais</h2>
-        <form id="formDados">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Nome completo</label>
-              <input type="text" id="nome" placeholder="Seu nome" value="<%= usuario ? usuario.nome : '' %>"/>
-            </div>
-            <div class="form-group">
-              <label>Apelido <span class="optional">(visível no site)</span></label>
-              <input type="text" id="apelido" placeholder="Como deseja ser chamada" value="<%= usuario && usuario.apelido ? usuario.apelido : '' %>"/>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Sobre mim <span class="optional">(opcional)</span></label>
-            <textarea id="sobre" rows="3" placeholder="Conte um pouco sobre você..."><%= usuario && usuario.sobre ? usuario.sobre : '' %></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Salvar alterações</button>
-        </form>
-      </div>
+      <section class="section active" id="section-perfil">
+        <div class="section-header">
+          <h1>Configurações da Conta</h1>
+          <p>Atualize seus dados pessoais, privacidade e preferências.</p>
+        </div>
 
-      <div class="card">
-        <h2 class="card-title"><i class="fa-solid fa-envelope"></i> Alterar E-mail</h2>
-        <form id="formEmail">
-          <div class="form-group">
-            <label>E-mail atual</label>
-            <input type="email" id="emailAtual" placeholder="email@atual.com" value="<%= usuario ? usuario.email : '' %>"/>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Novo e-mail</label>
-              <input type="email" id="emailNovo" placeholder="novo@email.com"/>
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-camera"></i> Foto de Perfil
+          </h2>
+          <div class="avatar-upload">
+            <div class="avatar-wrap">
+              <img
+                id="avatarPreview"
+                src="<%= usuario && usuario.foto_url ? usuario.foto_url : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(usuario ? usuario.nome : 'Usuario') + '&background=c49a4a&color=fff&size=120' %>"
+                alt="Foto de perfil"
+                title="Clique para alterar a foto"
+              />
+              <div
+                class="avatar-edit"
+                id="avatarEditBtn"
+                role="button"
+                tabindex="0"
+                title="Alterar foto de perfil"
+                aria-label="Alterar foto de perfil"
+              >
+                <i class="fa-solid fa-pen"></i>
+              </div>
+              <input
+                type="file"
+                id="avatarInput"
+                accept="image/jpeg,image/png,image/webp"
+                style="display: none"
+              />
             </div>
-            <div class="form-group">
-              <label>Confirmar novo e-mail</label>
-              <input type="email" id="emailConfirm" placeholder="novo@email.com"/>
+            <div class="avatar-info">
+              <p>Formatos aceitos: JPG, PNG, WEBP</p>
+              <p>Tamanho máximo: 5 MB</p>
+              <div class="avatar-btn-group">
+                <button
+                  type="button"
+                  class="btn btn-outline"
+                  id="changePhotoBtn"
+                >
+                  <i class="fa-solid fa-camera"></i> Alterar foto
+                </button>
+                <button type="button" class="btn btn-outline" id="removePhoto">
+                  <i class="fa-solid fa-trash"></i> Remover
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label>Senha atual <span class="optional">(confirmação)</span></label>
-            <div class="input-icon">
-              <input type="password" id="senhaConfirmEmail" placeholder="••••••••"/>
-              <i class="fa-solid fa-eye toggle-pass" data-target="senhaConfirmEmail"></i>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">Atualizar e-mail</button>
-        </form>
-      </div>
-
-      <div class="card">
-        <h2 class="card-title"><i class="fa-solid fa-lock"></i> Alterar Senha</h2>
-        <form id="formSenha">
-          <div class="form-group">
-            <label>Senha atual</label>
-            <div class="input-icon">
-              <input type="password" id="senhaAtual" placeholder="••••••••"/>
-              <i class="fa-solid fa-eye toggle-pass" data-target="senhaAtual"></i>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Nova senha</label>
-            <div class="input-icon">
-              <input type="password" id="senhaNova" placeholder="••••••••"/>
-              <i class="fa-solid fa-eye toggle-pass" data-target="senhaNova"></i>
-            </div>
-            <div class="password-strength">
-              <div class="strength-fill" id="strengthFill"></div>
-            </div>
-            <span class="strength-label" id="strengthLabel"></span>
-          </div>
-          <div class="form-group">
-            <label>Confirmar nova senha</label>
-            <div class="input-icon">
-              <input type="password" id="senhaNovaConfirm" placeholder="••••••••"/>
-              <i class="fa-solid fa-eye toggle-pass" data-target="senhaNovaConfirm"></i>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">Alterar senha</button>
-        </form>
-      </div>
-    </section>
-
-    <section class="section" id="section-seguranca">
-      <div class="section-header">
-        <h1>Segurança da Conta</h1>
-        <p>Proteja seus dados e controle o acesso à sua conta.</p>
-      </div>
-
-      <div class="card">
-        <h2 class="card-title"><i class="fa-solid fa-user-shield"></i> Autenticação e acesso</h2>
-        <div class="settings-list">
-          <div class="setting-item">
-            <div class="setting-info">
-              <strong>Autenticação de dois fatores</strong>
-              <span>Exige código extra ao entrar em novos dispositivos</span>
-            </div>
-            <label class="toggle"><input type="checkbox" id="twoFactor" checked/><span class="slider"></span></label>
-          </div>
-          <div class="setting-item">
-            <div class="setting-info">
-              <strong>Dispositivos confiáveis</strong>
-              <span>Permite acesso rápido em computadores e celulares registrados</span>
-            </div>
-            <label class="toggle"><input type="checkbox" id="trustedDevice" checked/><span class="slider"></span></label>
-          </div>
-          <div class="setting-item">
-            <div class="setting-info">
-              <strong>Notificar logins em novos aparelhos</strong>
-              <span>Receba alerta quando alguém entrar na sua conta</span>
-            </div>
-            <label class="toggle"><input type="checkbox" id="loginAlert" checked/><span class="slider"></span></label>
           </div>
         </div>
-      </div>
 
-      <div class="card">
-        <h2 class="card-title"><i class="fa-solid fa-desktop"></i> Sessões ativas</h2>
-        <div class="sessions-list">
-          <div class="session-item">
-            <div>
-              <strong>Chrome • Notebook</strong>
-              <span>São Paulo • Ativo agora</span>
-            </div>
-            <span class="session-tag active">Atual</span>
-          </div>
-          <div class="session-item">
-            <div>
-              <strong>Safari • iPhone</strong>
-              <span>Rio de Janeiro • Há 2 horas</span>
-            </div>
-            <button class="btn btn-outline btn-small">Encerrar</button>
-          </div>
-          <div class="session-item">
-            <div>
-              <strong>Android • Samsung</strong>
-              <span>Recife • Há 5 dias</span>
-            </div>
-            <button class="btn btn-outline btn-small">Encerrar</button>
-          </div>
-        </div>
-        <div class="action-group">
-          <button class="btn btn-outline">Encerrar outras sessões</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="section-privacidade">
-      <div class="section-header">
-        <h1>Privacidade</h1>
-        <p>Controle quem vê suas informações</p>
-      </div>
-
-      <div class="card">
-        <h2 class="card-title"><i class="fa-solid fa-eye"></i> Visibilidade do Perfil</h2>
-        <div class="settings-list">
-          <div class="setting-item">
-            <div class="setting-info">
-              <strong>Perfil público</strong>
-              <span>Qualquer pessoa pode ver seu perfil</span>
-            </div>
-            <label class="toggle"><input type="checkbox" id="perfilPublico" checked/><span class="slider"></span></label>
-          </div>
-          <div class="setting-item">
-            <div class="setting-info">
-              <strong>Exibir foto de perfil</strong>
-              <span>Mostrar sua foto para outros usuários</span>
-            </div>
-            <label class="toggle"><input type="checkbox" id="exibirFoto" checked/><span class="slider"></span></label>
-          </div>
-          <div class="setting-item">
-            <div class="setting-info">
-              <strong>Exibir depoimentos</strong>
-              <span>Seus depoimentos ficam visíveis no perfil público</span>
-            </div>
-            <label class="toggle"><input type="checkbox" id="exibirDep"/><span class="slider"></span></label>
-          </div>
-          <div class="setting-item">
-            <div class="setting-info">
-              <strong>Aparecer em buscas</strong>
-              <span>Seu perfil pode ser encontrado por outros usuários</span>
-            </div>
-            <label class="toggle"><input type="checkbox" id="apareceBusca"/><span class="slider"></span></label>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2 class="card-title"><i class="fa-solid fa-database"></i> Dados e Cookies</h2>
-        <div class="settings-list">
-          <div class="setting-item">
-            <div class="setting-info">
-              <strong>Cookies de análise</strong>
-              <span>Nos ajudam a melhorar o site (dados anônimos)</span>
-            </div>
-            <label class="toggle"><input type="checkbox" id="cookieAnalise" checked/><span class="slider"></span></label>
-          </div>
-          <div class="setting-item">
-            <div class="setting-info">
-              <strong>Cookies de personalização</strong>
-              <span>Personalizam sua experiência no site</span>
-            </div>
-            <label class="toggle"><input type="checkbox" id="cookiePerso"/><span class="slider"></span></label>
-          </div>
-        </div>
-        <div class="action-group">
-          <button class="btn btn-outline" id="btnDownloadDados">
-            <i class="fa-solid fa-download"></i> Baixar meus dados
-          </button>
-          <button class="btn btn-danger" id="btnDeleteAccount">
-            <i class="fa-solid fa-trash"></i> Excluir minha conta
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="section-acessibilidade">
-      <div class="section-header">
-        <h1>Acessibilidade</h1>
-        <p>Personalize a experiência de uso</p>
-      </div>
-
-      <div class="card">
-        <h2 class="card-title"><i class="fa-solid fa-text-height"></i> Texto e Leitura</h2>
-        <div class="settings-list">
-          <div class="setting-item">
-            <div class="setting-info">
-              <strong>Tamanho da fonte</strong>
-              <span>Ajuste o tamanho do texto exibido</span>
-            </div>
-            <div class="font-size-control">
-              <button class="btn-size" id="fontMinus">A-</button>
-              <span id="fontSizeVal">100%</span>
-              <button class="btn-size" id="fontPlus">A+</button>
-            </div>
-          </div>
-          <div class="setting-item">
-            <div class="setting-info">
-              <strong>Alto contraste</strong>
-              <span>Aumenta o contraste para melhor leitura</span>
-            </div>
-            <label class="toggle"><input type="checkbox" id="altoContraste"/><span class="slider"></span></label>
-          </div>
-          <div class="setting-item">
-            <div class="setting-info">
-              <strong>Reduzir animações</strong>
-              <span>Remove efeitos de animação da interface</span>
-            </div>
-            <label class="toggle"><input type="checkbox" id="reduzirAnim"/><span class="slider"></span></label>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="section-notificacoes">
-      <div class="section-header">
-        <h1>Notificações</h1>
-        <p>Escolha como e quando ser notificada</p>
-      </div>
-
-      <div class="card">
-        <h2 class="card-title"><i class="fa-solid fa-envelope-open-text"></i> E-mail</h2>
-        <div class="settings-list">
-          <div class="setting-item">
-            <div class="setting-info"><strong>Novidades e atualizações</strong><span>Receba informações sobre o site</span></div>
-            <label class="toggle"><input type="checkbox" id="notifNews" checked/><span class="slider"></span></label>
-          </div>
-          <div class="setting-item">
-            <div class="setting-info"><strong>Respostas ao meu depoimento</strong><span>Quando alguém comentar sua história</span></div>
-            <label class="toggle"><input type="checkbox" id="notifDep" checked/><span class="slider"></span></label>
-          </div>
-          <div class="setting-item">
-            <div class="setting-info"><strong>Alertas de segurança</strong><span>Atividade incomum na conta</span></div>
-            <label class="toggle"><input type="checkbox" id="notifSeg" checked/><span class="slider"></span></label>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="section-termos">
-      <div class="section-header">
-        <h1>Termos e Política</h1>
-        <p>Entenda como seus dados são tratados e quais direitos você possui.</p>
-      </div>
-
-      <div class="card">
-        <h2 class="card-title"><i class="fa-solid fa-file-lines"></i> Termos de uso</h2>
-        <div class="policy-box">
-          <h3>1. Uso da plataforma</h3>
-          <p>Ao usar a Rede de Apoio, você concorda em manter informações verdadeiras, respeitar outros usuários e utilizar a plataforma para fins de apoio, cuidado e segurança.</p>
-          <h3>2. Proteção de dados</h3>
-          <p>Seus dados pessoais e de localização são protegidos e usados apenas para proporcionar segurança, comunicação e serviços da plataforma.</p>
-          <h3>3. Direitos do usuário</h3>
-          <p>Você pode solicitar acesso, correção, limitação, portabilidade ou exclusão dos seus dados conforme a LGPD e a política interna da plataforma.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2 class="card-title"><i class="fa-solid fa-shield-heart"></i> LGPD e privacidade</h2>
-        <div class="policy-box">
-          <p>O Projeto Fênix coleta apenas os dados necessários para ativar seu perfil, permitir contatos, reforçar a segurança e oferecer suporte ao usuário.</p>
-          <ul>
-            <li>Dados cadastrais e contatos</li>
-            <li>Preferências de notificação e acessibilidade</li>
-            <li>Dados de segurança, como login e dispositivos reconhecidos</li>
-            <li>Informações de uso para melhorar a experiência</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="section-suporte">
-      <div class="section-header">
-        <h1>Suporte</h1>
-        <p>Entre em contato com nossa equipe e envie uma mensagem sobre sua conta ou acesso.</p>
-      </div>
-
-      <div class="card">
-        <h2 class="card-title"><i class="fa-solid fa-circle-question"></i> Central de ajuda</h2>
-        <form class="support-form">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Tipo de suporte</label>
-              <select>
-                <option>Problema de acesso</option>
-                <option>Privacidade e dados</option>
-                <option>Conta e perfil</option>
-                <option>Financeiro ou plano</option>
-                <option>Outros</option>
-              </select>
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-id-card"></i> Dados Pessoais
+          </h2>
+          <form id="formDados">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nome completo</label>
+                <input
+                  type="text"
+                  id="nome"
+                  placeholder="Seu nome"
+                  value="<%= usuario ? usuario.nome : '' %>"
+                />
+              </div>
+              <div class="form-group">
+                <label>Telefone</label>
+                <input
+                  type="tel"
+                  id="telefone"
+                  placeholder="(11) 99999-9999"
+                  value="<%= usuario && usuario.telefone ? usuario.telefone : '' %>"
+                />
+              </div>
             </div>
             <div class="form-group">
-              <label>Assunto</label>
-              <input type="text" placeholder="Ex.: Problema ao trocar a senha"/>
+              <label
+                >Apelido <span class="optional">(visível no site)</span></label
+              >
+              <input
+                type="text"
+                id="apelido"
+                placeholder="Como deseja ser chamada"
+                value="<%= usuario && usuario.apelido ? usuario.apelido : '' %>"
+              />
+            </div>
+            <div class="form-group">
+              <label>Sobre mim <span class="optional">(opcional)</span></label>
+              <textarea
+                id="sobre"
+                rows="3"
+                placeholder="Conte um pouco sobre você..."
+              >
+<%= usuario && usuario.sobre ? usuario.sobre : '' %></textarea
+              >
+            </div>
+            <button type="submit" class="btn btn-primary">
+              Salvar alterações
+            </button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-envelope"></i> Alterar E-mail
+          </h2>
+          <form id="formEmail">
+            <div class="form-group">
+              <label>E-mail atual</label>
+              <input
+                type="email"
+                id="emailAtual"
+                placeholder="email@atual.com"
+                value="<%= usuario ? usuario.email : '' %>"
+              />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Novo e-mail</label>
+                <input
+                  type="email"
+                  id="emailNovo"
+                  placeholder="novo@email.com"
+                />
+              </div>
+              <div class="form-group">
+                <label>Confirmar novo e-mail</label>
+                <input
+                  type="email"
+                  id="emailConfirm"
+                  placeholder="novo@email.com"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label
+                >Senha atual <span class="optional">(confirmação)</span></label
+              >
+              <div class="input-icon">
+                <input
+                  type="password"
+                  id="senhaConfirmEmail"
+                  placeholder="••••••••"
+                />
+                <i
+                  class="fa-solid fa-eye toggle-pass"
+                  data-target="senhaConfirmEmail"
+                ></i>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              Atualizar e-mail
+            </button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-lock"></i> Alterar Senha
+          </h2>
+          <form id="formSenha">
+            <div class="form-group">
+              <label>Senha atual</label>
+              <div class="input-icon">
+                <input type="password" id="senhaAtual" placeholder="••••••••" />
+                <i
+                  class="fa-solid fa-eye toggle-pass"
+                  data-target="senhaAtual"
+                ></i>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Nova senha</label>
+              <div class="input-icon">
+                <input type="password" id="senhaNova" placeholder="••••••••" />
+                <i
+                  class="fa-solid fa-eye toggle-pass"
+                  data-target="senhaNova"
+                ></i>
+              </div>
+              <div class="password-strength">
+                <div class="strength-fill" id="strengthFill"></div>
+              </div>
+              <span class="strength-label" id="strengthLabel"></span>
+            </div>
+            <div class="form-group">
+              <label>Confirmar nova senha</label>
+              <div class="input-icon">
+                <input
+                  type="password"
+                  id="senhaNovaConfirm"
+                  placeholder="••••••••"
+                />
+                <i
+                  class="fa-solid fa-eye toggle-pass"
+                  data-target="senhaNovaConfirm"
+                ></i>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Alterar senha</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="section" id="section-seguranca">
+        <div class="section-header">
+          <h1>Segurança da Conta</h1>
+          <p>Proteja seus dados e controle o acesso à sua conta.</p>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-user-shield"></i> Autenticação e acesso
+          </h2>
+          <div class="settings-list">
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Autenticação de dois fatores</strong>
+                <span>Exige código extra ao entrar em novos dispositivos</span>
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="twoFactor" checked /><span
+                  class="slider"
+                ></span
+              ></label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Dispositivos confiáveis</strong>
+                <span
+                  >Permite acesso rápido em computadores e celulares
+                  registrados</span
+                >
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="trustedDevice" checked /><span
+                  class="slider"
+                ></span
+              ></label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Notificar logins em novos aparelhos</strong>
+                <span>Receba alerta quando alguém entrar na sua conta</span>
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="loginAlert" checked /><span
+                  class="slider"
+                ></span
+              ></label>
             </div>
           </div>
-          <div class="form-group">
-            <label>Mensagem</label>
-            <textarea rows="6" placeholder="Descreva detalhadamente o problema, o que aconteceu e qual ação você tentou realizar..."></textarea>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-desktop"></i> Sessões ativas
+          </h2>
+          <div class="sessions-list">
+            <div class="session-item">
+              <div>
+                <strong>Chrome • Notebook</strong>
+                <span>São Paulo • Ativo agora</span>
+              </div>
+              <span class="session-tag active">Atual</span>
+            </div>
+            <div class="session-item">
+              <div>
+                <strong>Safari • iPhone</strong>
+                <span>Rio de Janeiro • Há 2 horas</span>
+              </div>
+              <button class="btn btn-outline btn-small">Encerrar</button>
+            </div>
+            <div class="session-item">
+              <div>
+                <strong>Android • Samsung</strong>
+                <span>Recife • Há 5 dias</span>
+              </div>
+              <button class="btn btn-outline btn-small">Encerrar</button>
+            </div>
           </div>
           <div class="action-group">
-            <button type="submit" class="btn btn-primary">Enviar mensagem</button>
-            <button type="button" class="btn btn-outline">Baixar log da conta</button>
+            <button class="btn btn-outline">Encerrar outras sessões</button>
           </div>
-        </form>
-      </div>
-    </section>
-  </main>
+        </div>
+      </section>
 
-  <div class="toast" id="toast"></div>
+      <section class="section" id="section-privacidade">
+        <div class="section-header">
+          <h1>Privacidade</h1>
+          <p>Controle quem vê suas informações</p>
+        </div>
 
-  <div class="modal-bg" id="modalBg">
-    <div class="modal">
-      <div class="modal-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-      <h3 id="modalTitle">Confirmar ação</h3>
-      <p id="modalMsg">Tem certeza?</p>
-      <div class="modal-actions">
-        <button class="btn btn-outline" id="modalCancel">Cancelar</button>
-        <button class="btn btn-danger" id="modalConfirm">Confirmar</button>
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-eye"></i> Visibilidade do Perfil
+          </h2>
+          <div class="settings-list">
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Perfil público</strong>
+                <span>Qualquer pessoa pode ver seu perfil</span>
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="perfilPublico" checked /><span
+                  class="slider"
+                ></span
+              ></label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Exibir foto de perfil</strong>
+                <span>Mostrar sua foto para outros usuários</span>
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="exibirFoto" checked /><span
+                  class="slider"
+                ></span
+              ></label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Exibir depoimentos</strong>
+                <span>Seus depoimentos ficam visíveis no perfil público</span>
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="exibirDep" /><span
+                  class="slider"
+                ></span
+              ></label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Aparecer em buscas</strong>
+                <span>Seu perfil pode ser encontrado por outros usuários</span>
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="apareceBusca" /><span
+                  class="slider"
+                ></span
+              ></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-database"></i> Dados e Cookies
+          </h2>
+          <div class="settings-list">
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Cookies de análise</strong>
+                <span>Nos ajudam a melhorar o site (dados anônimos)</span>
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="cookieAnalise" checked /><span
+                  class="slider"
+                ></span
+              ></label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Cookies de personalização</strong>
+                <span>Personalizam sua experiência no site</span>
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="cookiePerso" /><span
+                  class="slider"
+                ></span
+              ></label>
+            </div>
+          </div>
+          <div class="action-group">
+            <button class="btn btn-outline" id="btnDownloadDados">
+              <i class="fa-solid fa-download"></i> Baixar meus dados
+            </button>
+            <button class="btn btn-danger" id="btnDeleteAccount">
+              <i class="fa-solid fa-trash"></i> Excluir minha conta
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="section-acessibilidade">
+        <div class="section-header">
+          <h1>Acessibilidade</h1>
+          <p>Personalize a experiência de uso</p>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-text-height"></i> Texto e Leitura
+          </h2>
+          <div class="settings-list">
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Tamanho da fonte</strong>
+                <span>Ajuste o tamanho do texto exibido</span>
+              </div>
+              <div class="font-size-control">
+                <button class="btn-size" id="fontMinus">A-</button>
+                <span id="fontSizeVal">100%</span>
+                <button class="btn-size" id="fontPlus">A+</button>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Alto contraste</strong>
+                <span>Aumenta o contraste para melhor leitura</span>
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="altoContraste" /><span
+                  class="slider"
+                ></span
+              ></label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Reduzir animações</strong>
+                <span>Remove efeitos de animação da interface</span>
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="reduzirAnim" /><span
+                  class="slider"
+                ></span
+              ></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="section-notificacoes">
+        <div class="section-header">
+          <h1>Notificações</h1>
+          <p>Escolha como e quando ser notificada</p>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-envelope-open-text"></i> E-mail
+          </h2>
+          <div class="settings-list">
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Novidades e atualizações</strong
+                ><span>Receba informações sobre o site</span>
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="notifNews" checked /><span
+                  class="slider"
+                ></span
+              ></label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Respostas ao meu depoimento</strong
+                ><span>Quando alguém comentar sua história</span>
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="notifDep" checked /><span
+                  class="slider"
+                ></span
+              ></label>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <strong>Alertas de segurança</strong
+                ><span>Atividade incomum na conta</span>
+              </div>
+              <label class="toggle"
+                ><input type="checkbox" id="notifSeg" checked /><span
+                  class="slider"
+                ></span
+              ></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="section-termos">
+        <div class="section-header">
+          <h1>Termos e Política</h1>
+          <p>
+            Entenda como seus dados são tratados e quais direitos você possui.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-file-lines"></i> Termos de uso
+          </h2>
+          <div class="policy-box">
+            <h3>1. Uso da plataforma</h3>
+            <p>
+              Ao usar a Rede de Apoio, você concorda em manter informações
+              verdadeiras, respeitar outros usuários e utilizar a plataforma
+              para fins de apoio, cuidado e segurança.
+            </p>
+            <h3>2. Proteção de dados</h3>
+            <p>
+              Seus dados pessoais e de localização são protegidos e usados
+              apenas para proporcionar segurança, comunicação e serviços da
+              plataforma.
+            </p>
+            <h3>3. Direitos do usuário</h3>
+            <p>
+              Você pode solicitar acesso, correção, limitação, portabilidade ou
+              exclusão dos seus dados conforme a LGPD e a política interna da
+              plataforma.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-shield-heart"></i> LGPD e privacidade
+          </h2>
+          <div class="policy-box">
+            <p>
+              O Projeto Fênix coleta apenas os dados necessários para ativar seu
+              perfil, permitir contatos, reforçar a segurança e oferecer suporte
+              ao usuário.
+            </p>
+            <ul>
+              <li>Dados cadastrais e contatos</li>
+              <li>Preferências de notificação e acessibilidade</li>
+              <li>
+                Dados de segurança, como login e dispositivos reconhecidos
+              </li>
+              <li>Informações de uso para melhorar a experiência</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="section-suporte">
+        <div class="section-header">
+          <h1>Suporte</h1>
+          <p>
+            Entre em contato com nossa equipe e envie uma mensagem sobre sua
+            conta ou acesso.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-circle-question"></i> Central de ajuda
+          </h2>
+          <form class="support-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Tipo de suporte</label>
+                <select>
+                  <option>Problema de acesso</option>
+                  <option>Privacidade e dados</option>
+                  <option>Conta e perfil</option>
+                  <option>Financeiro ou plano</option>
+                  <option>Outros</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Assunto</label>
+                <input
+                  type="text"
+                  placeholder="Ex.: Problema ao trocar a senha"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Mensagem</label>
+              <textarea
+                rows="6"
+                placeholder="Descreva detalhadamente o problema, o que aconteceu e qual ação você tentou realizar..."
+              ></textarea>
+            </div>
+            <div class="action-group">
+              <button type="submit" class="btn btn-primary">
+                Enviar mensagem
+              </button>
+              <button type="button" class="btn btn-outline">
+                Baixar log da conta
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal-bg" id="modalBg">
+      <div class="modal">
+        <div class="modal-icon">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 id="modalTitle">Confirmar ação</h3>
+        <p id="modalMsg">Tem certeza?</p>
+        <div class="modal-actions">
+          <button class="btn btn-outline" id="modalCancel">Cancelar</button>
+          <button class="btn btn-danger" id="modalConfirm">Confirmar</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <script src="../js/perfil.js"></script>
-  <script src="../js/text.js"></script>
-</body>
+    <script src="../js/perfil.js"></script>
+    <script src="../js/text.js"></script>
+  </body>
 </html>

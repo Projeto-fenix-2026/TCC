@@ -69,7 +69,7 @@ logoutLinks.forEach((link) => {
       "Tem certeza que deseja sair da sua conta?",
       () => {
         window.location.href = "/logout";
-      }
+      },
     );
   });
 });
@@ -89,16 +89,18 @@ const sidebar = document.getElementById("sidebar");
 const overlay = document.getElementById("overlay");
 const menuBtn = document.getElementById("menuToggle");
 
-function closeSidebar() {
-  sidebar.classList.remove("open");
-  overlay.classList.remove("open");
-}
+if (sidebar && overlay && menuBtn) {
+  function closeSidebar() {
+    sidebar.classList.remove("open");
+    overlay.classList.remove("open");
+  }
 
-menuBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("open");
-  overlay.classList.toggle("open");
-});
-overlay.addEventListener("click", closeSidebar);
+  menuBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+    overlay.classList.toggle("open");
+  });
+  overlay.addEventListener("click", closeSidebar);
+}
 
 // ── FOTO DE PERFIL ────────────────────────────────────────────
 const avatarInput = document.getElementById("avatarInput");
@@ -106,27 +108,30 @@ const avatarPreview = document.getElementById("avatarPreview");
 const topAvatar = document.getElementById("topAvatar");
 
 function updateHeaderAvatar(fotoUrl) {
-  const headerIcon = document.querySelector('.header-icon');
+  const headerIcon = document.querySelector(".header-icon");
   if (!headerIcon) return;
-  const existing = headerIcon.querySelector('.header-avatar');
+  const existing = headerIcon.querySelector(".header-avatar");
   if (fotoUrl) {
     if (existing) {
       existing.src = fotoUrl;
     } else {
-      const svg = headerIcon.querySelector('svg');
-      const img = document.createElement('img');
+      const svg = headerIcon.querySelector("svg");
+      const img = document.createElement("img");
       img.src = fotoUrl;
-      img.alt = 'Foto de perfil';
-      img.className = 'header-avatar';
+      img.alt = "Foto de perfil";
+      img.className = "header-avatar";
       if (svg) headerIcon.replaceChild(img, svg);
       else headerIcon.appendChild(img);
     }
   } else {
     if (existing) {
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.setAttribute('viewBox', '0 0 24 24');
-      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      p.setAttribute('d', 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z');
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("viewBox", "0 0 24 24");
+      const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      p.setAttribute(
+        "d",
+        "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z",
+      );
       svg.appendChild(p);
       headerIcon.replaceChild(svg, existing);
     }
@@ -229,11 +234,22 @@ document.getElementById("removePhoto").addEventListener("click", () => {
 // ── DADOS PESSOAIS ────────────────────────────────────────────
 document.getElementById("formDados").addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  const telefone = document.getElementById("telefone").value.trim();
+  const telefoneLimpo = telefone.replace(/\D/g, "");
+
+  if (telefone && !/^\d{10,11}$/.test(telefoneLimpo)) {
+    showToast("Telefone inválido. Use 10 ou 11 dígitos.", "error");
+    return;
+  }
+
   const payload = {
     nome: document.getElementById("nome").value.trim(),
+    telefone: telefoneLimpo || undefined,
     apelido: document.getElementById("apelido").value.trim(),
     sobre: document.getElementById("sobre").value.trim(),
   };
+
   const ok = await apiFetch("/perfil/dados", "PUT", payload);
   if (ok) showToast("Perfil atualizado!");
 });
@@ -757,6 +773,7 @@ async function apiFetch(endpoint, method = "GET", body = null) {
     const opts = { method, headers: authHead() };
     if (body) opts.body = JSON.stringify(body);
     const res = await fetch(BASE_URL + endpoint, opts);
+    if (res.status === 404) return false;
     if (res.ok) return true;
     const err = await res.json().catch(() => ({}));
     showToast(err.mensagem || "Erro na requisição.", "error");
@@ -772,6 +789,7 @@ async function apiFetchData(endpoint, method = "GET", body = null) {
     const opts = { method, headers: authHead() };
     if (body) opts.body = JSON.stringify(body);
     const res = await fetch(BASE_URL + endpoint, opts);
+    if (res.status === 404) return null;
     if (res.ok) return res.json();
     const err = await res.json().catch(() => ({}));
     showToast(err.mensagem || "Erro ao buscar dados.", "error");
@@ -796,6 +814,7 @@ async function init() {
   const userData = await apiFetchData("/perfil", "GET");
   if (userData) {
     document.getElementById("nome").value = userData.nome || "";
+    document.getElementById("telefone").value = userData.telefone || "";
     document.getElementById("apelido").value = userData.apelido || "";
     document.getElementById("sobre").value = userData.sobre || "";
     const emailAtualEl = document.getElementById("emailAtual");
@@ -806,12 +825,6 @@ async function init() {
     }
     updatePlanUI(userData.plano || "free");
   }
-  await Promise.all([
-    loadDepoimentos(),
-    loadSocorros(),
-    loadPrivacidade(),
-    loadNotificacoes(),
-  ]);
 }
 
 init();

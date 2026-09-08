@@ -12,7 +12,10 @@
 
     <main class="main-conteudo-seguranca">
       <section class="banner-rastreamento">
-        <h1 class="logo-titulo">Painel de Proteção Fênix</h1>
+        <div class="banner-topo">
+          <span class="status-badge">Proteção ativa</span>
+          <h1 class="logo-titulo">Painel de Proteção Fênix</h1>
+        </div>
         <p class="status-conexao" id="status-texto">
           Iniciando rastreamento seguro...
         </p>
@@ -21,16 +24,11 @@
       <nav class="container-seguranca">
         <section class="mapa-wrapper">
           <header class="mapa-header">
-            <h2>Sua Localização em Tempo Real</h2>
-            <p
-              id="endereco-atual"
-              style="
-                font-size: 0.95rem;
-                color: #e6c27a;
-                margin-bottom: 10px;
-                opacity: 0.9;
-              "
-            >
+            <div>
+              <span class="eyebrow">Localização em tempo real</span>
+              <h2>Sua Localização em Tempo Real</h2>
+            </div>
+            <p id="endereco-atual" class="endereco-atual">
               Buscando endereço exato...
             </p>
           </header>
@@ -45,50 +43,26 @@
 
         <section class="contatos-wrapper">
           <header class="contatos-header">
-            <h2>Contatos de Emergência</h2>
+            <div>
+              <span class="eyebrow">Atenção imediata</span>
+              <h2>Contatos de Emergência</h2>
+            </div>
             <p class="titilo-ctt">
               Cadastre pessoas de sua confiança e acione o botão para enviar
               socorro via WhatsApp.
             </p>
           </header>
 
-          <form
-            id="form-cadastro-contato"
-            style="
-              margin-bottom: 2rem;
-              display: flex;
-              flex-direction: column;
-              gap: 0.8rem;
-            "
-          >
-            <nav
-              style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem"
-            >
+          <form id="form-cadastro-contato" class="form-cadastro-contato">
+            <div class="campo-duplo">
               <input
                 type="text"
                 id="cad-nome"
                 placeholder="Nome do contato"
                 required
-                style="
-                  padding: 0.6rem;
-                  border-radius: 6px;
-                  border: 1px solid var(--gold);
-                  background: rgba(255, 255, 255, 0.05);
-                  color: white;
-                "
               />
 
-              <select
-                id="cad-parentesco"
-                required
-                style="
-                  padding: 0.6rem;
-                  border-radius: 6px;
-                  border: 1px solid var(--gold);
-                  background: #2a1336;
-                  color: white;
-                "
-              >
+              <select id="cad-parentesco" required>
                 <option value="" disabled selected>Vínculo / O que é?</option>
                 <option value="Mãe">Mãe</option>
                 <option value="Pai">Pai</option>
@@ -97,34 +71,27 @@
                 <option value="Amigo(a)">Amigo(a)</option>
                 <option value="Outro">Outro de Confiança</option>
               </select>
-            </nav>
+            </div>
 
             <input
               type="tel"
               id="cad-celular"
               placeholder="Celular DDD + Número (ex: 11999999999)"
               required
-              style="
-                padding: 0.6rem;
-                border-radius: 6px;
-                border: 1px solid var(--gold);
-                background: rgba(255, 255, 255, 0.05);
-                color: white;
-              "
             />
 
-            <button type="submit" class="btn-alerta" style="padding: 0.6rem">
+            <div
+              id="contato-validacao"
+              class="form-feedback"
+              aria-live="polite"
+            ></div>
+
+            <button type="submit" class="btn-alerta">
               + Cadastrar Contato
             </button>
           </form>
 
-          <hr
-            style="
-              border: 0;
-              border-top: 1px solid rgba(230, 194, 122, 0.2);
-              margin-bottom: 1.5rem;
-            "
-          />
+          <div class="divisor"></div>
 
           <nav class="lista-contatos" id="lista-contatos-container">
             <article class="card-contato emergência">
