@@ -1,38 +1,39 @@
-// Seleciona os elementos
-const hamburger = document.getElementById('hamburger');
-const sidebarMenu = document.getElementById('sidebar-menu');
+(function () {
+  const hamburger = document.getElementById("hamburger");
+  const sidebarMenu = document.getElementById("sidebar-menu");
 
-// Alterna o menu lateral e a animação do hambúrguer ao clicar
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    sidebarMenu.classList.toggle('active');
-});
-
-// Fecha a barra lateral automaticamente quando um link for clicado
-document.querySelectorAll('.sidebar-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        sidebarMenu.classList.remove('active');
+  if (hamburger && sidebarMenu) {
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      sidebarMenu.classList.toggle("active");
     });
-});
 
-// Fecha a barra lateral se clicar fora dela (opcional, melhora a experiência)
-document.addEventListener('click', (event) => {
-    const isClickInsideMenu = sidebarMenu.contains(event.target);
-    const isClickOnHamburger = hamburger.contains(event.target);
+    document.querySelectorAll(".sidebar-menu a").forEach((link) => {
+      link.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        sidebarMenu.classList.remove("active");
+      });
+    });
 
-    if (!isClickInsideMenu && !isClickOnHamburger && sidebarMenu.classList.contains('active')) {
-        hamburger.classList.remove('active');
-        sidebarMenu.classList.remove('active');
-    }
-});
+    document.addEventListener("click", (event) => {
+      const isClickInsideMenu = sidebarMenu.contains(event.target);
+      const isClickOnHamburger = hamburger.contains(event.target);
 
+      if (
+        !isClickInsideMenu &&
+        !isClickOnHamburger &&
+        sidebarMenu.classList.contains("active")
+      ) {
+        hamburger.classList.remove("active");
+        sidebarMenu.classList.remove("active");
+      }
+    });
+  }
 
+  const carousel = document.getElementById("carousel");
+  const slides = carousel ? carousel.querySelectorAll("img") : [];
 
-
-    const carousel = document.getElementById("carousel");
-    const slides = document.querySelectorAll(".carousel img");
-
+  if (carousel && slides.length > 0) {
     let index = 0;
 
     function updateCarousel() {
@@ -49,42 +50,56 @@ document.addEventListener('click', (event) => {
       updateCarousel();
     }
 
-    // autoplay (opcional)
     setInterval(nextSlide, 4000);
-   function getLocation() {
-  const status = document.getElementById("statusGeo");
-
-  if (!navigator.geolocation) {
-    status.innerText = "Geolocalização não é suportada no seu navegador.";
-    return;
+    window.prevSlide = prevSlide;
+    window.nextSlide = nextSlide;
   }
 
-  status.innerText = "Localizando...";
+  function getLocation() {
+    const status = document.getElementById("statusGeo");
+    const map = document.getElementById("mapFrame");
 
-  navigator.geolocation.watchPosition(
-    (position) => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
+    if (!status) return;
 
-      status.innerText = `Localização atualizada: ${lat.toFixed(5)}, ${lon.toFixed(5)}`;
-
-      // Atualiza o mapa em tempo real
-      const map = document.getElementById("mapFrame");
-      map.src = `https://www.openstreetmap.org/export/embed.html?bbox=${lon-0.01}%2C${lat-0.01}%2C${lon+0.01}%2C${lat+0.01}&layer=mapnik&marker=${lat}%2C${lon}`;
-    },
-    (error) => {
-      status.innerText = "Erro ao obter localização.";
-    },
-    {
-      enableHighAccuracy: true,
-      maximumAge: 0,
-      timeout: 5000
+    if (!navigator.geolocation) {
+      status.innerText = "Geolocalização não é suportada no seu navegador.";
+      return;
     }
-  );
-}
 
-if (navigator.permissions) {
-  navigator.permissions.query({ name: "geolocation" }).then(result => {
-    console.log(result.state); // granted, denied, prompt
-  });
-}
+    status.innerText = "Localizando...";
+
+    navigator.geolocation.watchPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        status.innerText = `Localização atualizada: ${lat.toFixed(5)}, ${lon.toFixed(5)}`;
+
+        if (map) {
+          map.src = `https://www.openstreetmap.org/export/embed.html?bbox=${lon - 0.01}%2C${lat - 0.01}%2C${lon + 0.01}%2C${lat + 0.01}&layer=mapnik&marker=${lat}%2C${lon}`;
+        }
+      },
+      () => {
+        status.innerText = "Erro ao obter localização.";
+      },
+      {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 5000,
+      },
+    );
+  }
+
+  if (document.getElementById("statusGeo")) {
+    getLocation();
+  }
+
+  if (navigator.permissions) {
+    navigator.permissions
+      .query({ name: "geolocation" })
+      .then((result) => {
+        console.log(result.state);
+      })
+      .catch(() => {});
+  }
+})();

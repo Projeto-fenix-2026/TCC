@@ -1,9 +1,18 @@
 :root {
-  --bg-base: #130919;
-  --bg-card: rgba(42, 19, 54, 0.4);
-  --gold: #e6c27a;
-  --white: #ecdada; /* Sua cor de texto atualizada */
-  --header-height: 80px; /* Alinhado com o seu header2.ejs */
+  --bg-page: #f4f7fb;
+  --bg-panel: #ffffff;
+  --bg-panel-alt: #f7f3fb;
+  --purple-deep: #1d1027;
+  --purple-soft: #f3e8ff;
+  --gold: #d6aa4a;
+  --gold-strong: #9b6b1a;
+  --text-strong: #1b2433;
+  --text-muted: #445468;
+  --success: #1f8d5b;
+  --danger: #c83b3b;
+  --border: rgba(29, 16, 39, 0.08);
+  --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
+  --header-height: 80px;
 }
 
 * {
@@ -14,88 +23,237 @@
 }
 
 body {
-  background-color: #f4f4f4; /* MANTIDO: Sua cor de fundo customizada para contraste */
-  color: var(--white);
+  background: var(--bg-page);
+  color: var(--text-strong);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* CONTAINER DO CONTEÚDO: Ajustado para centralizar e alinhar blocos em telas gigantes */
 .main-conteudo-seguranca {
   flex: 1;
   margin-top: var(--header-height);
-  padding: 1.5rem 2rem 2rem 2rem;
+  padding: 2rem 1.5rem 3rem;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Garante que o conteúdo não mude de eixo em telas maiores */
+  align-items: center;
   width: 100%;
 }
 
-/* ADAPTAÇÃO DO BANNER DE AVISO: Alinhamento milimétrico com a largura máxima dos cards */
 .banner-rastreamento {
-  background: #2a1336; /* Seu roxo selecionado */
-  border: 1px solid rgba(230, 194, 122, 0.15);
-  border-radius: 1.5rem;
-  padding: 2rem;
-  text-align: center;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f3ff 100%);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow-soft);
+  padding: 1.5rem 2rem;
   max-width: 1200px;
-  width: 100%; /* Ocupa 100% até atingir o limite do max-width */
-  margin: 0 auto 2rem auto;
+  width: 100%;
+  margin: 0 auto 2rem;
+}
+
+.banner-topo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(30, 157, 99, 0.12);
+  color: var(--success);
+  border: 1px solid rgba(30, 157, 99, 0.2);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .logo-titulo {
-  font-size: 1.6rem;
-  color: var(--gold);
+  width: 100%;
+  text-align: center;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  color: var(--purple-deep);
+  letter-spacing: -0.03em;
 }
 
 .status-conexao {
-  font-size: 0.9rem;
-  margin-top: 0.3rem;
-  opacity: 0.8;
+  margin-top: 0.8rem;
+  text-align: center;
+  font-size: 0.96rem;
+  color: var(--text-muted);
+  font-weight: 600;
 }
 
-/* GRID PRINCIPAL RESPONSIVO */
 .container-seguranca {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
   gap: 2rem;
   max-width: 1200px;
-  margin: 0 auto;
   width: 100%;
+  margin: 0 auto;
 }
 
 .mapa-wrapper,
 .contatos-wrapper {
-  background: #2a1336; /* Seu roxo selecionado */
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(230, 194, 122, 0.1);
-  border-radius: 1.5rem;
-  padding: 2rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow-soft);
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
 }
 
+.mapa-header,
+.contatos-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold-strong);
+  font-weight: 700;
+}
+
 .mapa-header h2,
 .contatos-header h2 {
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-  color: var(--gold);
+  font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+  color: var(--purple-deep);
+}
+
+.endereco-atual {
+  font-size: 0.95rem;
+  color: var(--gold-strong);
+  background: var(--purple-soft);
+  border: 1px solid rgba(183, 134, 44, 0.18);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+  line-height: 1.5;
+  margin-top: 0.3rem;
 }
 
 #mapa-google {
   width: 100%;
-  height: 100%;
-  min-height: 380px;
-  border: 1px solid rgba(230, 194, 122, 0.2);
-  border-radius: 1rem;
-  background: #25162e;
+  min-height: 420px;
+  border: 1px solid rgba(41, 16, 51, 0.08);
+  border-radius: 18px;
+  background: #edf1f7;
 }
 
-.contatos-header p {
+.titilo-ctt {
   font-size: 0.95rem;
-  opacity: 0.7;
+  color: var(--text-strong);
+  line-height: 1.6;
+}
+
+.form-cadastro-contato {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
   margin-bottom: 1.5rem;
+}
+
+.form-feedback {
+  display: none;
+  min-height: 18px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #b42318;
+  background: #fff1f1;
+  border: 1px solid rgba(180, 35, 24, 0.15);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+}
+
+.form-feedback.show {
+  display: block;
+}
+
+.campo-duplo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+input,
+select,
+button {
+  font: inherit;
+}
+
+input,
+select {
+  width: 100%;
+  min-height: 46px;
+  border-radius: 12px;
+  border: 1px solid rgba(41, 16, 51, 0.12);
+  background: #ffffff;
+  color: var(--text-strong);
+  padding: 0.8rem 0.9rem;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+input::placeholder {
+  color: #7d8798;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: rgba(183, 134, 44, 0.7);
+  box-shadow: 0 0 0 3px rgba(183, 134, 44, 0.14);
+}
+
+.btn-alerta,
+.btn-emergencia {
+  width: 100%;
+  min-height: 46px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.btn-alerta {
+  background: linear-gradient(135deg, var(--gold) 0%, #f1dca7 100%);
+  color: var(--purple-deep);
+  box-shadow: 0 10px 18px rgba(183, 134, 44, 0.2);
+}
+
+.btn-alerta:hover,
+.btn-emergencia:hover {
+  transform: translateY(-1px);
+}
+
+.btn-emergencia {
+  background: linear-gradient(135deg, var(--danger) 0%, #b73030 100%);
+  color: #ffffff;
+  box-shadow: 0 10px 18px rgba(209, 67, 67, 0.18);
+}
+
+.divisor {
+  height: 1px;
+  background: rgba(41, 16, 51, 0.08);
+  margin: 0.5rem 0 1.25rem;
 }
 
 .lista-contatos {
@@ -105,161 +263,84 @@ body {
 }
 
 .card-contato {
-  background: rgba(255, 255, 255, 0.03);
+  background: linear-gradient(180deg, #ffffff 0%, #faf7ff 100%);
+  border: 1px solid rgba(41, 16, 51, 0.08);
   border-left: 4px solid var(--gold);
-  border-radius: 0.5rem;
-  padding: 1.2rem;
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.card-contato:hover {
+  box-shadow: 0 12px 25px rgba(41, 16, 51, 0.06);
+  border-color: rgba(183, 134, 44, 0.2);
 }
 
 .card-contato.emergência {
-  border-left-color: #ff7675;
+  border-left-color: var(--danger);
+  background: linear-gradient(180deg, #fff8f8 0%, #fff5f5 100%);
 }
 
 .card-contato h3 {
-  font-size: 1.1rem;
-  color: #f3eef5;
+  font-size: 1.08rem;
+  color: var(--purple-deep);
 }
 
 .card-contato p {
-  font-size: 0.85rem;
-  opacity: 0.6;
-  color: #f3eef5;
+  font-size: 0.88rem;
+  color: var(--text-strong);
+  line-height: 1.6;
 }
 
-.titilo-ctt {
-  font-size: 0.95rem;
-  opacity: 0.7;
-  margin-bottom: 1.5rem;
-  color: #f3eef5;
-}
-
-/* INPUTS DO FORMULÁRIO */
-input:focus,
-select:focus {
-  outline: none;
-  border-color: #f3d08c !important;
-  box-shadow: 0 0 5px rgba(230, 194, 122, 0.4);
-}
-
-/* BOTÕES */
-.btn-alerta,
-.btn-emergencia {
-  width: 100%;
-  padding: 0.8rem;
-  border-radius: 8px;
-  border: none;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  margin-top: 5px;
-}
-
-.btn-alerta {
-  background: var(--gold);
-  color: #0e0711;
-}
-
-.btn-alerta:hover {
-  background: #f3d08c;
-}
-
-.btn-emergencia {
-  background: #d81714; /* MANTIDO: Seu vermelho escuro selecionado */
-  color: white;
-}
-
-.btn-emergencia:hover {
-  background: #d81714; /* MANTIDO: Seu hover do botão vermelho */
-}
-
-/* ==========================================================
-   REGRAS ADICIONADAS PARA RESPONSIVIDADE COMPLETA E TELAS MAIORES
-   ========================================================== */
-
-/* Ajustes finos para Notebooks e telas médias */
 @media (max-width: 1024px) {
   .container-seguranca {
     gap: 1.5rem;
   }
   .mapa-wrapper,
   .contatos-wrapper {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
 }
 
-/* Tablets (Converte o grid de 2 colunas para empilhamento vertical) */
 @media (max-width: 768px) {
   .main-conteudo-seguranca {
-    padding: 1rem;
+    padding: 1rem 1rem 2rem;
   }
   .banner-rastreamento {
-    width: 100%;
-    margin-bottom: 1rem;
-    padding: 1.5rem;
+    padding: 1.2rem 1rem;
+    border-radius: 18px;
   }
   .container-seguranca {
     grid-template-columns: 1fr;
     gap: 1rem;
-    padding: 0;
   }
   #mapa-google {
     min-height: 300px;
   }
+  .campo-duplo {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* Celulares pequenos e Telas Médias Mobile (Correção de quebra de layout) */
 @media (max-width: 480px) {
-  .main-conteudo-seguranca {
-    padding: 0.8rem 4%; /* Padding fluido em porcentagem evita estouro horizontal */
-  }
-  .banner-rastreamento {
-    padding: 1.2rem;
-    border-radius: 1rem;
+  .banner-topo {
+    justify-content: center;
+    text-align: center;
   }
   .logo-titulo {
-    font-size: 1.25rem;
-  }
-  .status-conexao {
-    font-size: 0.8rem;
-  }
-  .container-seguranca {
-    gap: 1rem;
+    width: 100%;
   }
   .mapa-wrapper,
   .contatos-wrapper {
-    padding: 1.2rem;
-    border-radius: 1rem;
-  }
-  /* Torna o grid do topo do formulário (Nome e Vínculo) em linha única se a tela for muito estreita */
-  #form-cadastro-contato div {
-    grid-template-columns: 1fr !important;
+    border-radius: 16px;
+    padding: 1rem;
   }
   #mapa-google {
     min-height: 250px;
-  }
-}
-
-/* Telas Extremamente Pequenas (Celulares antigos ou mini) */
-@media (max-width: 340px) {
-  .main-conteudo-seguranca {
-    padding: 0.5rem 2%;
-  }
-  .banner-rastreamento,
-  .mapa-wrapper,
-  .contatos-wrapper {
-    padding: 0.9rem;
-    border-radius: 0.75rem;
-  }
-  .logo-titulo {
-    font-size: 1.1rem;
-  }
-  #mapa-google {
-    min-height: 200px;
-  }
-  .card-contato {
-    padding: 0.8rem;
   }
 }

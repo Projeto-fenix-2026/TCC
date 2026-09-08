@@ -26,6 +26,13 @@
   --shadow-elevated: 0 10px 30px rgba(41, 16, 51, 0.12);
 }
 
+svg,
+svg * {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
 /* ==========================================================================
    OFFSET GLOBAL DE LAYOUT
    O conteúdo principal (main / .landing-container) precisa respeitar
@@ -49,6 +56,20 @@ body {
 
 body.menu-aberto {
   overflow: hidden;
+}
+
+/* ==========================================================================
+   LEGACY NAV OVERRIDES
+   Evita que componentes antigos de menu/hambúrguer (menu-toggle, sidebar
+   legacy e overlays antigos) sobrescrevam o layout padrão do projeto.
+   ========================================================================== */
+body .menu-toggle,
+body .top-bar,
+body .sidebar:not(.sidebar-nav),
+body .overlay:not(#mobile-drawer-overlay),
+body .sidebar-menu,
+body .mobile-menu {
+  display: none !important;
 }
 
 /* ==========================================================================
@@ -111,6 +132,40 @@ body.menu-aberto {
   flex-shrink: 0;
 }
 
+.emergency-header-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #d32f2f, #b71c1c);
+  color: #fff;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(211, 47, 47, 0.28);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.emergency-header-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(211, 47, 47, 0.32);
+}
+
+.emergency-header-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+
 .topbar-icon-btn {
   display: flex;
   align-items: center;
@@ -122,7 +177,9 @@ body.menu-aberto {
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .topbar-icon-btn:hover {
@@ -223,7 +280,9 @@ body.menu-aberto {
     font-size: 0.9rem;
     font-weight: 500;
     white-space: nowrap;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
   }
 
   .sidebar-links a svg {
@@ -266,7 +325,9 @@ body.menu-aberto {
     color: rgba(255, 255, 255, 0.75);
     font-size: 0.9rem;
     font-weight: 500;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
   }
 
   .sidebar-footer a svg {
@@ -295,7 +356,7 @@ body.menu-aberto {
 @media (max-width: 1023px) {
   .bottom-nav {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     position: fixed;
     bottom: 0;
     left: 0;
@@ -344,6 +405,35 @@ body.menu-aberto {
     object-fit: cover;
     border: 1.5px solid var(--border-ui);
   }
+
+  .bottom-nav-emergency {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    margin: -18px auto 0;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(211, 47, 47, 0.35);
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+  }
+
+  .bottom-nav-emergency svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+  }
+
+  .emergency-header-btn {
+    display: none;
+  }
 }
 
 /* ==========================================================================
@@ -363,7 +453,9 @@ body.menu-aberto {
     z-index: 1500;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.25s ease, visibility 0.25s ease;
+    transition:
+      opacity 0.25s ease,
+      visibility 0.25s ease;
   }
 
   .mobile-drawer-overlay.active {
@@ -510,7 +602,9 @@ body.menu-aberto {
   padding: 1rem;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
   z-index: 2000;
 }
 
@@ -577,7 +671,9 @@ body.menu-aberto {
   padding: 0.75rem 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .logout-modal-cancel {

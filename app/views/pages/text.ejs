@@ -18,8 +18,18 @@
         Correção de ícones: o reset global aplica font-family: "Poppins" em *,
         o que sobrescreve a font-family dos icon fonts (themify-icons usa 'themify').
       */
-      [class^="ti-"],
-      [class*=" ti-"] {
+      i[class^="ti-"],
+      i[class*=" ti-"],
+      span[class^="ti-"],
+      span[class*=" ti-"],
+      i[class^="ti-"]::before,
+      i[class*=" ti-"]::before,
+      span[class^="ti-"]::before,
+      span[class*=" ti-"]::before,
+      i[class^="ti-"]::after,
+      i[class*=" ti-"]::after,
+      span[class^="ti-"]::after,
+      span[class*=" ti-"]::after {
         font-family: "themify" !important;
         speak: never;
         font-style: normal;
@@ -27,17 +37,22 @@
         font-variant: normal;
         text-transform: none;
         line-height: 1;
+        display: inline-block;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
 
-      .icon-circle [class^="ti-"],
-      .icon-circle [class*=" ti-"] {
+      .icon-circle i[class^="ti-"],
+      .icon-circle i[class*=" ti-"],
+      .icon-circle span[class^="ti-"],
+      .icon-circle span[class*=" ti-"] {
         font-size: 1.2rem;
       }
 
-      .floating-badge [class^="ti-"],
-      .floating-badge [class*=" ti-"] {
+      .floating-badge i[class^="ti-"],
+      .floating-badge i[class*=" ti-"],
+      .floating-badge span[class^="ti-"],
+      .floating-badge span[class*=" ti-"] {
         font-size: 1.8rem;
       }
 

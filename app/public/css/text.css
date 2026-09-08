@@ -53,6 +53,25 @@ body.menu-aberto {
   overflow: hidden;
 }
 
+/* Força o render dos ícones Themify na página inicial e nas seções de apoio */
+[class^="ti-"],
+[class*=" ti-"],
+[class^="ti-"]::before,
+[class*=" ti-"]::before,
+[class^="ti-"]::after,
+[class*=" ti-"]::after {
+  font-family: "themify" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* Imagens e mídias não transbordam */
 img,
 video,

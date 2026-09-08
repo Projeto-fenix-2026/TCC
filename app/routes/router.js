@@ -15,15 +15,17 @@ const storageFoto = multer.diskStorage({
   filename: (req, file, cb) => {
     const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);
     cb(null, unique + path.extname(file.originalname));
-  }
+  },
 });
 const uploadFoto = multer({
   storage: storageFoto,
   limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     const allowed = ["image/jpeg", "image/png", "image/webp"];
-    allowed.includes(file.mimetype) ? cb(null, true) : cb(new Error("Formato inválido."));
-  }
+    allowed.includes(file.mimetype)
+      ? cb(null, true)
+      : cb(new Error("Formato inválido."));
+  },
 });
 
 router.get("/login", function (req, res) {
@@ -51,7 +53,8 @@ router.post(
     }
 
     const usuario = await usuarioModel.findByEmail(req.body.email);
-    const senhaCorreta = usuario && bcrypt.compareSync(req.body.password, usuario.senha);
+    const senhaCorreta =
+      usuario && bcrypt.compareSync(req.body.password, usuario.senha);
     if (!senhaCorreta) {
       return res.render("pages/login", {
         erros: null,
@@ -65,7 +68,12 @@ router.post(
       nome: usuario.nome,
       email: usuario.email,
     };
-    req.session.usuario = { id: usuario.id_usuario, nome: usuario.nome, email: usuario.email, foto_url: usuario.foto_url || null };
+    req.session.usuario = {
+      id: usuario.id_usuario,
+      nome: usuario.nome,
+      email: usuario.email,
+      foto_url: usuario.foto_url || null,
+    };
     return res.redirect("/text");
   },
 );
@@ -244,22 +252,32 @@ router.get("/api/perfil", autenticado, async function (req, res) {
 });
 
 router.put("/api/perfil/dados", autenticado, async function (req, res) {
-  const { nome } = req.body;
+  const { nome, telefone } = req.body;
   if (!nome || nome.trim().length < 2) {
     return res.status(400).json({ mensagem: "Nome inválido." });
   }
+
+  const telefoneLimpo = String(telefone || "").replace(/\D/g, "");
+  if (telefone && !/^\d{10,11}$/.test(telefoneLimpo)) {
+    return res
+      .status(400)
+      .json({ mensagem: "Telefone inválido. Use 10 ou 11 dígitos." });
+  }
+
   const linhas = await usuarioModel.findById(req.session.usuario.id);
   const u = linhas[0];
   if (!u) return res.status(404).json({ mensagem: "Usuário não encontrado." });
+
   await usuarioModel.update({
     id: req.session.usuario.id,
     nome: nome.trim(),
     email: u.email,
-    telefone: u.telefone,
+    telefone: telefoneLimpo || u.telefone,
     genero: u.genero,
   });
+
   req.session.usuario.nome = nome.trim();
-  res.json({ ok: true });
+  res.json({ ok: true, telefone: telefoneLimpo || u.telefone });
 });
 
 router.put("/api/perfil/email", autenticado, async function (req, res) {
@@ -267,8 +285,10 @@ router.put("/api/perfil/email", autenticado, async function (req, res) {
   const linhas = await usuarioModel.findById(req.session.usuario.id);
   const u = linhas[0];
   if (!u) return res.status(404).json({ mensagem: "Usuário não encontrado." });
-  if (u.email !== email_atual) return res.status(400).json({ mensagem: "E-mail atual incorreto." });
-  if (u.senha !== senha) return res.status(400).json({ mensagem: "Senha incorreta." });
+  if (u.email !== email_atual)
+    return res.status(400).json({ mensagem: "E-mail atual incorreto." });
+  if (u.senha !== senha)
+    return res.status(400).json({ mensagem: "Senha incorreta." });
   await usuarioModel.update({
     id: req.session.usuario.id,
     nome: u.nome,
@@ -280,13 +300,19 @@ router.put("/api/perfil/email", autenticado, async function (req, res) {
   res.json({ ok: true });
 });
 
-router.post("/api/perfil/foto", autenticado, uploadFoto.single("foto"), async function (req, res) {
-  if (!req.file) return res.status(400).json({ mensagem: "Nenhuma imagem enviada." });
-  const foto_url = "/uploads/fotos/" + req.file.filename;
-  await usuarioModel.updateFoto({ id: req.session.usuario.id, foto_url });
-  req.session.usuario.foto_url = foto_url;
-  res.json({ foto_url });
-});
+router.post(
+  "/api/perfil/foto",
+  autenticado,
+  uploadFoto.single("foto"),
+  async function (req, res) {
+    if (!req.file)
+      return res.status(400).json({ mensagem: "Nenhuma imagem enviada." });
+    const foto_url = "/uploads/fotos/" + req.file.filename;
+    await usuarioModel.updateFoto({ id: req.session.usuario.id, foto_url });
+    req.session.usuario.foto_url = foto_url;
+    res.json({ foto_url });
+  },
+);
 
 router.delete("/api/perfil/foto", autenticado, async function (req, res) {
   await usuarioModel.updateFoto({ id: req.session.usuario.id, foto_url: null });
@@ -299,8 +325,12 @@ router.put("/api/perfil/senha", autenticado, async function (req, res) {
   const linhas = await usuarioModel.findById(req.session.usuario.id);
   const u = linhas[0];
   if (!u) return res.status(404).json({ mensagem: "Usuário não encontrado." });
-  if (!bcrypt.compareSync(senha_atual, u.senha)) return res.status(400).json({ mensagem: "Senha atual incorreta." });
-  await usuarioModel.updateSenha({ id: req.session.usuario.id, senha: bcrypt.hashSync(senha_nova, bcrypt.genSaltSync(10)) });
+  if (!bcrypt.compareSync(senha_atual, u.senha))
+    return res.status(400).json({ mensagem: "Senha atual incorreta." });
+  await usuarioModel.updateSenha({
+    id: req.session.usuario.id,
+    senha: bcrypt.hashSync(senha_nova, bcrypt.genSaltSync(10)),
+  });
   res.json({ ok: true });
 });
 

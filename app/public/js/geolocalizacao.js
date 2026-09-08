@@ -83,7 +83,41 @@ async function obterEnderecoHumano(lat, lng) {
   }
 }
 
+function mostrarErroContato(mensagem) {
+  const box = document.getElementById("contato-validacao");
+  if (!box) return alert(mensagem);
+  box.textContent = mensagem;
+  box.classList.add("show");
+}
+
+function limparErroContato() {
+  const box = document.getElementById("contato-validacao");
+  if (!box) return;
+  box.textContent = "";
+  box.classList.remove("show");
+}
+
+function formatarCelular(input) {
+  const valor = input.value.replace(/\D/g, "").slice(0, 11);
+  let formatado = valor;
+
+  if (valor.length > 2) {
+    formatado = `(${valor.slice(0, 2)}) ${valor.slice(2)}`;
+  }
+
+  if (valor.length > 7) {
+    formatado = `(${valor.slice(0, 2)}) ${valor.slice(2, 7)}-${valor.slice(7)}`;
+  }
+
+  input.value = formatado;
+}
+
 // Gerenciador do Formulário de Contatos
+document.getElementById("cad-celular").addEventListener("input", function () {
+  formatarCelular(this);
+  limparErroContato();
+});
+
 document
   .getElementById("form-cadastro-contato")
   .addEventListener("submit", function (e) {
@@ -91,11 +125,25 @@ document
 
     const nome = document.getElementById("cad-nome").value.trim();
     const parentesco = document.getElementById("cad-parentesco").value;
-    let celular = document
-      .getElementById("cad-celular")
-      .value.replace(/\D/g, ""); // Remove traços e parênteses
+    const celularDigitado = document.getElementById("cad-celular").value.trim();
+    const celularLimpo = celularDigitado.replace(/\D/g, "");
 
-    // Garante o código do país (55) caso o usuário não digite
+    if (!nome || nome.length < 2) {
+      mostrarErroContato("Digite um nome válido para o contato.");
+      return;
+    }
+
+    if (!parentesco) {
+      mostrarErroContato("Selecione o vínculo do contato.");
+      return;
+    }
+
+    if (celularLimpo.length < 10 || celularLimpo.length > 11) {
+      mostrarErroContato("Digite um celular válido com DDD e 9 ou 8 dígitos.");
+      return;
+    }
+
+    let celular = celularLimpo;
     if (celular.length === 11) {
       celular = "55" + celular;
     }
@@ -105,6 +153,7 @@ document
     contatosSalvos.push(novoContato);
     localStorage.setItem("fenix_contatos", JSON.stringify(contatosSalvos));
 
+    limparErroContato();
     this.reset();
     renderizarContatos();
   });

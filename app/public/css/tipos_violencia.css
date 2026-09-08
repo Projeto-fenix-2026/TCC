@@ -1,245 +1,405 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --primary: #4b0082;
-    --secondary: #7e57c2;
-    --dark: #1a1a24;
-    --light: #f8f9fa;
-    --accent: #d32f2f;
-    --text: #2d3436;
-    --bg-card: #ffffff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: "Segoe UI", system-ui, sans-serif;
-    background-color: #f4f4f4; /* Cor de fundo do site para contraste */
-    color: var(--text);
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    font-size: 14px; /* Base menor para telas pequenas (Mobile First) */
+  padding-top: 64px !important;
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding-left: 264px !important;
+    padding-top: 0 !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  body {
+    padding-bottom: 64px !important;
+  }
+}
+
+:root {
+  --primary: #4b0082;
+  --secondary: #7e57c2;
+  --dark: #1a1a24;
+  --light: #f8f9fa;
+  --accent: #d32f2f;
+  --text: #2d3436;
+  --bg-card: #ffffff;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background-color: #f4f4f4; /* Cor de fundo do site para contraste */
+  color: var(--text);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-size: 14px; /* Base menor para telas pequenas (Mobile First) */
+  padding-top: 78px;
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding-left: 264px;
+    padding-top: 0;
+  }
 }
 
 /* Ajuste de tipografia base para telas maiores */
 @media (min-width: 768px) {
-    body { font-size: 16px; }
+  body {
+    font-size: 16px;
+  }
 }
-
-
 
 /* --- CONTAINER PRINCIPAL (GRID REORGANIZÁVEL) --- */
 main {
-    display: grid;
-    grid-template-columns: 1fr; /* Uma coluna por padrão no mobile */
-    gap: 1.5rem;
-    max-width: 1200px;
-    margin: 1.5rem auto;
-    padding: 0 1rem;
-    flex: 1;
+  display: grid;
+  grid-template-columns: 1fr; /* Uma coluna por padrão no mobile */
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+  flex: 1;
 }
 
 /* Transição para Desktop: Conteúdo Principal (3 partes) e Barra Lateral (1 parte) */
 @media (min-width: 992px) {
-    main {
-        grid-template-columns: 3fr 1fr;
-        margin: 3rem auto;
-        gap: 2.5rem;
-        padding: 0 1.5rem;
-    }
+  main {
+    grid-template-columns: 3fr 1fr;
+    margin: 3rem auto;
+    gap: 2.5rem;
+    padding: 0 1.5rem;
+  }
 }
 
 /* --- CONTEXTUALIZAÇÃO --- */
 section.introducao {
-    background: none;
-    padding: 0;
-    box-shadow: none;
+  background: none;
+  padding: 0;
+  box-shadow: none;
 }
 
 section.introducao p {
-    font-size: 1.1rem;
-    color: #4a5568;
-    margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 1.5rem;
 }
 
 /* --- PAINEL DINÂMICO (ACCORDION RESPONSIVO) --- */
 section.painel-violencias {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 section.violencia-card {
-    background: var(--bg-card);
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-    transition: all 0.3s ease;
+  background: var(--bg-card);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
 }
 
 section.violencia-card:hover {
-    border-color: var(--secondary);
-    box-shadow: 0 6px 12px rgba(126, 87, 194, 0.1);
+  border-color: var(--secondary);
+  box-shadow: 0 6px 12px rgba(126, 87, 194, 0.1);
 }
 
 /* Botão disparador / Gatilho do clique */
 section.violencia-card button.gatilho {
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 1.2rem 1rem;
-    text-align: left;
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--dark);
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.2rem 1rem;
+  text-align: left;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--dark);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 @media (min-width: 768px) {
-    section.violencia-card button.gatilho {
-        padding: 1.5rem;
-        font-size: 1.4rem;
-    }
+  section.violencia-card button.gatilho {
+    padding: 1.5rem;
+    font-size: 1.4rem;
+  }
 }
 
 section.violencia-card button.gatilho::after {
-    content: '+';
-    font-size: 1.5rem;
-    color: var(--secondary);
-    font-weight: 400;
-    transition: transform 0.3s;
-    flex-shrink: 0; /* Impede o ícone de quebrar ou achatar em telas pequenas */
+  content: "+";
+  font-size: 1.5rem;
+  color: var(--secondary);
+  font-weight: 400;
+  transition: transform 0.3s;
+  flex-shrink: 0; /* Impede o ícone de quebrar ou achatar em telas pequenas */
 }
 
 section.violencia-card.aberto {
-    border-left: 6px solid var(--secondary);
+  border-left: 6px solid var(--secondary);
 }
 
 section.violencia-card.aberto button.gatilho {
-    color: var(--primary);
-    border-bottom: 1px solid #f1f5f9;
-    background-color: #fcfaff;
+  color: var(--primary);
+  border-bottom: 1px solid #f1f5f9;
+  background-color: #fcfaff;
 }
 
 section.violencia-card.aberto button.gatilho::after {
-    content: '−';
-    transform: rotate(180deg);
+  content: "−";
+  transform: rotate(180deg);
 }
 
 /* Conteúdo interno oculto/expansível */
 article.detalhe-conteudo {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out, padding 0.4s ease;
-    padding: 0 1rem;
-    background-color: #fff;
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.4s ease-out,
+    padding 0.4s ease;
+  padding: 0 1rem;
+  background-color: #fff;
 }
 
 section.violencia-card.aberto article.detalhe-conteudo {
-    max-height: 1200px; /* Limite elástico para acomodar textos longos */
-    padding: 1.2rem 1rem;
+  max-height: 1200px; /* Limite elástico para acomodar textos longos */
+  padding: 1.2rem 1rem;
 }
 
 @media (min-width: 768px) {
-    section.violencia-card.aberto article.detalhe-conteudo {
-        padding: 1.5rem;
-    }
+  section.violencia-card.aberto article.detalhe-conteudo {
+    padding: 1.5rem;
+  }
 }
 
 article.detalhe-conteudo p {
-    margin-bottom: 1.2rem;
-    color: #4a5568;
-    font-size: 1rem;
+  margin-bottom: 1.2rem;
+  color: #4a5568;
+  font-size: 1rem;
 }
 
 @media (min-width: 768px) {
-    article.detalhe-conteudo p { font-size: 1.05rem; }
+  article.detalhe-conteudo p {
+    font-size: 1.05rem;
+  }
 }
 
 /* Lista Descritiva (Exemplos e Leis) Semântica */
 dl.especificacoes {
-    background: #f8fafc;
-    padding: 1rem;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 @media (min-width: 768px) {
-    dl.especificacoes { padding: 1.5rem; }
+  dl.especificacoes {
+    padding: 1.5rem;
+  }
 }
 
 dl.especificacoes dt {
-    font-weight: 700;
-    color: var(--dark);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  font-weight: 700;
+  color: var(--dark);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 dl.especificacoes dd {
-    color: #64748b;
-    margin-left: 0;
-    padding-left: 0.8rem;
-    border-left: 3px solid var(--secondary);
-    font-size: 0.95rem;
+  color: #64748b;
+  margin-left: 0;
+  padding-left: 0.8rem;
+  border-left: 3px solid var(--secondary);
+  font-size: 0.95rem;
 }
 
 /* --- BARRA LATERAL (FIXA NO DESKTOP / BLOCO NO MOBILE) --- */
 aside {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-    height: fit-content;
-    border-top: 5px solid var(--accent);
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  height: fit-content;
+  border-top: 5px solid var(--accent);
 }
 
 @media (min-width: 992px) {
-    aside {
-        position: sticky;
-        top: 2rem; /* Segue a rolagem da página no desktop */
-        padding: 2rem;
-    }
+  aside {
+    position: sticky;
+    top: 2rem; /* Segue a rolagem da página no desktop */
+    padding: 2rem;
+  }
 }
 
 aside h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    color: var(--dark);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--dark);
 }
 
 aside ul {
-    list-style: none;
+  list-style: none;
 }
 
 aside li {
-    margin-bottom: 1.2rem;
-    padding-bottom: 1.2rem;
-    border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #f1f5f9;
 }
 
 aside li:last-child {
-    border: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
+  border: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 aside strong {
-    display: block;
-    color: var(--accent);
-    font-size: 1.2rem;
-    margin-bottom: 0.2rem;
+  display: block;
+  color: var(--accent);
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
 }
 
+/* ==========================================================
+   PADRÃO DO MENU DO SITE - FORÇADO PARA IGUALAR AS OUTRAS PÁGINAS
+   ========================================================== */
+body .site-topbar,
+body .sidebar-nav,
+body .bottom-nav,
+body .mobile-drawer-overlay,
+body .mobile-drawer,
+body .mobile-drawer-links a,
+body .sidebar-links a,
+body .bottom-nav-item,
+body .topbar-icon-btn {
+  font-family: "Poppins", "Segoe UI", sans-serif !important;
+}
+
+body .site-topbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 64px !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 3px rgba(41, 16, 51, 0.06) !important;
+  z-index: 1300 !important;
+}
+
+body .topbar-icon-btn {
+  color: #291033 !important;
+  background: transparent !important;
+  display: flex !important;
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+}
+
+body .topbar-icon-btn:hover {
+  background: #f5edf7 !important;
+  color: #7c3aed !important;
+}
+
+body .bottom-nav {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  background: #ffffff !important;
+  border-top: 1px solid #e2e8f0 !important;
+  box-shadow: 0 -2px 10px rgba(41, 16, 51, 0.06) !important;
+  z-index: 1300 !important;
+  height: 64px !important;
+}
+
+body .bottom-nav-item {
+  color: #64748b !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.2rem !important;
+  font-size: 0.68rem !important;
+  font-weight: 600 !important;
+}
+
+body .bottom-nav-item.active,
+body .bottom-nav-item:active {
+  color: #7c3aed !important;
+}
+
+body .mobile-drawer {
+  position: fixed !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: min(84vw, 320px) !important;
+  background: #291033 !important;
+  box-shadow: 0 10px 30px rgba(41, 16, 51, 0.12) !important;
+  z-index: 1600 !important;
+}
+
+body .mobile-drawer-links a {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+body .mobile-drawer-links a:active {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+body .mobile-drawer-profile-text strong,
+body .mobile-drawer-header .drawer-title {
+  color: #ffffff !important;
+}
+
+@media (min-width: 1024px) {
+  body .sidebar-nav {
+    display: flex !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 264px !important;
+    height: 100vh !important;
+    background: #291033 !important;
+    z-index: 1400 !important;
+  }
+
+  body .site-topbar {
+    left: 264px !important;
+    padding: 0 2rem !important;
+  }
+
+  body .bottom-nav,
+  body .mobile-drawer-overlay {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  body {
+    padding-top: 64px !important;
+    padding-bottom: 64px !important;
+  }
+
+  body .site-topbar {
+    left: 0 !important;
+    right: 0 !important;
+  }
+}
