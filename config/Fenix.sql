@@ -7,12 +7,42 @@ CREATE TABLE IF NOT EXISTS usuario (
   senha       CHAR(60)     NOT NULL,
   genero      VARCHAR(20),
   foto_url    VARCHAR(255) NULL,
+  apelido     VARCHAR(60)  NULL,
+  sobre       TEXT         NULL,
+  is_admin    TINYINT(1)   NOT NULL DEFAULT 0,
   CONSTRAINT pk_usuario PRIMARY KEY (id_usuario)
 );
 
 -- Se a tabela já existir, rode manualmente:
 -- ALTER TABLE usuario ADD COLUMN foto_url VARCHAR(255) NULL;
 -- ALTER TABLE usuario MODIFY COLUMN senha CHAR(60) NOT NULL;
+-- ALTER TABLE usuario ADD COLUMN apelido VARCHAR(60) NULL;
+-- ALTER TABLE usuario ADD COLUMN sobre TEXT NULL;
+
+CREATE TABLE IF NOT EXISTS numeros_socorro (
+  id          INT          NOT NULL AUTO_INCREMENT,
+  id_usuario  INT          NOT NULL,
+  nome        VARCHAR(100) NOT NULL,
+  numero      VARCHAR(20)  NOT NULL,
+  categoria   VARCHAR(60)  NULL,
+  icone       VARCHAR(30)  NULL,
+  descricao   VARCHAR(255) NULL,
+  criado_em   DATETIME     DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT pk_numeros_socorro PRIMARY KEY (id),
+  CONSTRAINT fk_numeros_socorro_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS forum_posts (
+  id_post     INT          NOT NULL AUTO_INCREMENT,
+  id_usuario  INT          NOT NULL,
+  categoria   VARCHAR(60)  NOT NULL DEFAULT 'geral',
+  titulo      VARCHAR(200) NOT NULL,
+  conteudo    TEXT         NOT NULL,
+  criado_em   DATETIME     DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT pk_forum_posts PRIMARY KEY (id_post),
+  CONSTRAINT fk_forum_posts_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE
+);
 
 CREATE TABLE IF NOT EXISTS doacoes (
   id_doacoes       INT            NOT NULL,

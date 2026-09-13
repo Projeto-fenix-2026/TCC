@@ -1,15 +1,16 @@
 let ultimaLatitude = "";
 let ultimaLongitude = "";
 let enderecoFormatado = "Carregando endereço aproximado...";
-let contatosSalvos = JSON.parse(localStorage.getItem("fenix_contatos")) || [];
+let contatosSalvos = [];
 
 // Função disparada ao iniciar o carregamento da página
 function iniciarRastreamento() {
   const status = document.getElementById("status-texto");
   const mapaIframe = document.getElementById("mapa-google");
 
-  // Renderiza os contatos já armazenados anteriormente
-  renderizarContatos();
+  // Carrega os contatos de socorro do perfil (mesma fonte usada no
+  // perfil e no botão de emergência, para ficarem sempre sincronizados)
+  carregarContatos();
 
   if (!navigator.geolocation) {
     status.textContent = "Geolocalização não é suportada pelo seu navegador.";
@@ -120,7 +121,7 @@ document.getElementById("cad-celular").addEventListener("input", function () {
 
 document
   .getElementById("form-cadastro-contato")
-  .addEventListener("submit", function (e) {
+  .addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const nome = document.getElementById("cad-nome").value.trim();
@@ -143,20 +144,53 @@ document
       return;
     }
 
-    let celular = celularLimpo;
-    if (celular.length === 11) {
-      celular = "55" + celular;
+    const botao = this.querySelector("button[type=submit]");
+    botao.disabled = true;
+    botao.textContent = "Cadastrando...";
+
+    try {
+      const res = await fetch("/api/socorro", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome,
+          numero: celularLimpo,
+          categoria: parentesco,
+          icone: "heart",
+        }),
+      });
+
+      if (!res.ok) {
+        const erro = await res.json().catch(() => ({}));
+        mostrarErroContato(erro.mensagem || "Erro ao salvar contato.");
+        return;
+      }
+
+      const contato = await res.json();
+      contatosSalvos.push(contato);
+
+      limparErroContato();
+      this.reset();
+      renderizarContatos();
+    } catch {
+      mostrarErroContato("Sem conexão com o servidor.");
+    } finally {
+      botao.disabled = false;
+      botao.textContent = "+ Cadastrar Contato";
     }
-
-    const novoContato = { nome, parentesco, celular };
-
-    contatosSalvos.push(novoContato);
-    localStorage.setItem("fenix_contatos", JSON.stringify(contatosSalvos));
-
-    limparErroContato();
-    this.reset();
-    renderizarContatos();
   });
+
+// Busca os contatos de socorro salvos (mesmos do perfil / botão de emergência)
+async function carregarContatos() {
+  try {
+    const res = await fetch("/api/socorro");
+    if (!res.ok) return renderizarContatos();
+    contatosSalvos = await res.json();
+  } catch {
+    contatosSalvos = [];
+  }
+  renderizarContatos();
+}
 
 // Renderiza os contatos em tela gerando novos cards dinamicamente
 function renderizarContatos() {
@@ -173,17 +207,19 @@ function renderizarContatos() {
     </article>
   `;
 
-  // Laço que injeta os cartões criados pelo usuário
-  contatosSalvos.forEach((contato, index) => {
+  // Laço que injeta os cartões vindos do perfil (Números de Socorro)
+  contatosSalvos.forEach((contato) => {
     const artigo = document.createElement("article");
     artigo.className = "card-contato";
+    const nome = escHtmlGeo(contato.nome);
+    const vinculo = escHtmlGeo(contato.categoria || "Contato de confiança");
     artigo.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-        <h3>${contato.nome} (${contato.parentesco})</h3>
-        <button onclick="removerContato(${index})" style="background:none; border:none; color:#ff7675; cursor:pointer; font-size:0.8rem;">Remover</button>
+        <h3>${nome} (${vinculo})</h3>
+        <button onclick="removerContato(${contato.id})" style="background:none; border:none; color:#ff7675; cursor:pointer; font-size:0.8rem;">Remover</button>
       </div>
-      <p>Celular: +${contato.celular}</p>
-      <button class="btn-alerta" onclick="enviarAlerta('${contato.celular}')">
+      <p>Celular: ${escHtmlGeo(contato.numero)}</p>
+      <button class="btn-alerta" onclick="enviarAlerta('${contato.numero}')">
         Acionar Guardião via WhatsApp
       </button>
     `;
@@ -191,11 +227,25 @@ function renderizarContatos() {
   });
 }
 
-// Remove o contato caso tenha cadastrado errado
-function removerContato(index) {
-  contatosSalvos.splice(index, 1);
-  localStorage.setItem("fenix_contatos", JSON.stringify(contatosSalvos));
-  renderizarContatos();
+function escHtmlGeo(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+// Remove o contato caso tenha cadastrado errado (também some do perfil e do botão de emergência)
+async function removerContato(id) {
+  try {
+    const res = await fetch(`/api/socorro/${id}`, { method: "DELETE" });
+    if (!res.ok) return;
+    contatosSalvos = contatosSalvos.filter((c) => c.id !== id);
+    renderizarContatos();
+  } catch {
+    /* sem conexão */
+  }
 }
 
 // Envia dados brutos ao MySQL em segundo plano
@@ -227,12 +277,15 @@ function enviarAlerta(numero) {
 
   if (numero === "190") {
     window.location.href = `tel:${numero}`;
-  } else {
-    window.open(
-      `https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`,
-      "_blank",
-    );
+    return;
   }
+
+  const destino = String(numero).replace(/\D/g, "");
+  const telefone = destino.length === 11 ? `55${destino}` : destino;
+  window.open(
+    `https://api.whatsapp.com/send?phone=${telefone}&text=${mensagem}`,
+    "_blank",
+  );
 }
 
 window.onload = iniciarRastreamento;

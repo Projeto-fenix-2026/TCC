@@ -1,10 +1,14 @@
 /* ============ RODAPÉ ============ */
 
-.footer {    
-  font-family: "Segoe UI", system-ui, sans-serif;
-  background-color: #3f2645;
-  color: #f7dd8e;
+.footer {
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  background-color: #291033;
+  color: #ffffff;
   padding: 60px 20px 20px;
+}
+
+.footer-section h4 {
+  color: #ffffff;
 }
 
 /* CONTAINER PRINCIPAL */
@@ -65,8 +69,8 @@
 }
 
 .social-link:hover {
-  background-color: #f7dd8e;
-  color: #3f2645;
+  background-color: #7c3aed;
+  color: #ffffff;
 }
 
 /* RODAPÉ FINAL */
