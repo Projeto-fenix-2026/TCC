@@ -65,6 +65,27 @@ const usuarioModel = {
         }
     },
 
+    updatePerfil: async (dados) => {
+        /*
+        dados json no formato:
+            {
+            id: 1,
+            nome: "nome",
+            telefone: "00000000000",
+            apelido: "apelido",
+            sobre: "texto sobre o usuário"
+            }
+        */
+        try {
+            const [resultado] = await pool.query(
+                "UPDATE usuario SET nome = ?, telefone = ?, apelido = ?, sobre = ? WHERE id_usuario = ?",
+                [dados.nome, dados.telefone, dados.apelido || null, dados.sobre || null, dados.id]);
+            return resultado;
+        } catch (erro) {
+            return erro;
+        }
+    },
+
     deleteById: async (id) => {
         try {
             const [resultado] = await pool.query(

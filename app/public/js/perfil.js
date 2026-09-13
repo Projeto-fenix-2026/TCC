@@ -46,9 +46,10 @@ const sections = document.querySelectorAll(".section");
 function activateSection(id) {
   navItems.forEach((n) => n.classList.remove("active"));
   sections.forEach((s) => s.classList.remove("active"));
-  const link = document.querySelector(`.nav-item[data-section="${id}"]`);
+  document
+    .querySelectorAll(`.nav-item[data-section="${id}"]`)
+    .forEach((link) => link.classList.add("active"));
   const sec = document.getElementById(`section-${id}`);
-  if (link) link.classList.add("active");
   if (sec) sec.classList.add("active");
   if (window.innerWidth <= 768) closeSidebar();
 }
@@ -84,17 +85,17 @@ document.querySelectorAll("[data-section]").forEach((el) => {
   }
 });
 
-// ── SIDEBAR MOBILE ────────────────────────────────────────────
+// ── SIDEBAR MOBILE (páginas que ainda usam a sidebar própria) ──
 const sidebar = document.getElementById("sidebar");
 const overlay = document.getElementById("overlay");
 const menuBtn = document.getElementById("menuToggle");
 
-if (sidebar && overlay && menuBtn) {
-  function closeSidebar() {
-    sidebar.classList.remove("open");
-    overlay.classList.remove("open");
-  }
+function closeSidebar() {
+  if (sidebar) sidebar.classList.remove("open");
+  if (overlay) overlay.classList.remove("open");
+}
 
+if (sidebar && overlay && menuBtn) {
   menuBtn.addEventListener("click", () => {
     sidebar.classList.toggle("open");
     overlay.classList.toggle("open");
@@ -235,7 +236,8 @@ document.getElementById("removePhoto").addEventListener("click", () => {
 document.getElementById("formDados").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const telefone = document.getElementById("telefone").value.trim();
+  const telefoneEl = document.getElementById("telefone");
+  const telefone = telefoneEl ? telefoneEl.value.trim() : "";
   const telefoneLimpo = telefone.replace(/\D/g, "");
 
   if (telefone && !/^\d{10,11}$/.test(telefoneLimpo)) {
@@ -450,6 +452,70 @@ window.deletarDep = function (id) {
         depoimentos = depoimentos.filter((d) => d.id !== id);
         renderDepoimentos();
         showToast("Depoimento excluído.");
+      }
+    },
+  );
+};
+
+// ── MINHAS PUBLICAÇÕES (FÓRUM) ────────────────────────────────
+const CATEGORIAS_FORUM = {
+  violencia_domestica: "Violência Doméstica",
+  direitos: "Direitos da Mulher",
+  apoio: "Buscar Apoio",
+  relatos: "Relatos",
+  saude_mental: "Saúde Mental",
+  ongs: "ONGs",
+  geral: "Geral",
+};
+
+let publicacoes = [];
+
+async function loadPublicacoes() {
+  const data = await apiFetchData("/forum/meus-posts", "GET");
+  if (data) {
+    publicacoes = data;
+    renderPublicacoes();
+  }
+}
+
+function renderPublicacoes() {
+  const container = document.getElementById("publicacoesList");
+  if (!container) return;
+  if (!publicacoes.length) {
+    container.innerHTML = `<div class="empty-state"><i class="fa-solid fa-comment-slash"></i><p>Você ainda não publicou nada no fórum.</p></div>`;
+    return;
+  }
+  container.innerHTML = publicacoes
+    .map(
+      (p) => `
+    <div class="testimonial-item" data-id="${p.id_post}">
+      <div class="test-header">
+        <span class="test-title">${escHtml(p.titulo)}</span>
+        <div class="test-meta">
+          <span class="test-badge com">${escHtml(CATEGORIAS_FORUM[p.categoria] || "Geral")}</span>
+          <span style="font-size:.72rem;color:var(--text-muted)">${new Date(p.criado_em).toLocaleDateString("pt-BR")}</span>
+        </div>
+      </div>
+      <p class="test-text">${escHtml(p.conteudo)}</p>
+      <div class="test-actions">
+        <a class="test-btn test-btn-edit" href="/forum?editar=${p.id_post}">Editar</a>
+        <button class="test-btn test-btn-del" onclick="deletarPublicacao(${p.id_post})">Excluir</button>
+      </div>
+    </div>`,
+    )
+    .join("");
+}
+
+window.deletarPublicacao = function (id) {
+  openModal(
+    "Excluir Publicação",
+    "Tem certeza? Esta ação não pode ser desfeita.",
+    async () => {
+      const ok = await apiFetch(`/forum/posts/${id}`, "DELETE");
+      if (ok) {
+        publicacoes = publicacoes.filter((p) => p.id_post !== id);
+        renderPublicacoes();
+        showToast("Publicação excluída.");
       }
     },
   );
@@ -814,7 +880,8 @@ async function init() {
   const userData = await apiFetchData("/perfil", "GET");
   if (userData) {
     document.getElementById("nome").value = userData.nome || "";
-    document.getElementById("telefone").value = userData.telefone || "";
+    const telefoneEl = document.getElementById("telefone");
+    if (telefoneEl) telefoneEl.value = userData.telefone || "";
     document.getElementById("apelido").value = userData.apelido || "";
     document.getElementById("sobre").value = userData.sobre || "";
     const emailAtualEl = document.getElementById("emailAtual");
@@ -825,6 +892,8 @@ async function init() {
     }
     updatePlanUI(userData.plano || "free");
   }
+  loadPublicacoes();
+  loadSocorros();
 }
 
 init();

@@ -12,18 +12,19 @@
 <body>
          <%- include('../partials/header2.ejs') %>
 
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-logo">
-    <i class="fa-solid fa-heart-pulse"></i>
-    <span>Rede de Apoio</span>
-  </div>
-  <nav class="sidebar-nav">
+<!-- MAIN -->
+<main class="main-content">
+
+  <!-- ABAS DO PERFIL (navegação entre seções desta página) -->
+  <nav class="profile-tabs" aria-label="Seções do perfil">
     <a href="#" class="nav-item active" data-section="perfil">
       <i class="fa-solid fa-user"></i><span>Perfil</span>
     </a>
     <a href="#" class="nav-item" data-section="depoimentos">
       <i class="fa-solid fa-comment-dots"></i><span>Depoimentos</span>
+    </a>
+    <a href="#" class="nav-item" data-section="publicacoes">
+      <i class="fa-solid fa-comments"></i><span>Minhas Publicações</span>
     </a>
     <a href="#" class="nav-item" data-section="socorro">
       <i class="fa-solid fa-phone-volume"></i><span>Números de Socorro</span>
@@ -41,18 +42,6 @@
       <i class="fa-solid fa-crown"></i><span>Plano Plus</span>
     </a>
   </nav>
-  <div class="sidebar-footer">
-    <a href="/logout" class="nav-item logout" data-logout="true">
-      <i class="fa-solid fa-right-from-bracket"></i><span>Sair</span>
-    </a>
-  </div>
-</aside>
-
-<!-- OVERLAY MOBILE -->
-<div class="overlay" id="overlay"></div>
-
-<!-- MAIN -->
-<main class="main-content">
 
   <!-- TOP BAR -->
   <header class="top-bar">
@@ -249,6 +238,28 @@
         <div class="empty-state">
           <i class="fa-solid fa-comment-slash"></i>
           <p>Você ainda não publicou nenhum depoimento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MINHAS PUBLICAÇÕES (FÓRUM) ===== -->
+  <section class="section" id="section-publicacoes">
+    <div class="section-header">
+      <h1>Minhas Publicações</h1>
+      <p>Gerencie as publicações que você fez no Fórum Fênix</p>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title"><i class="fa-solid fa-comments"></i> Publicações no Fórum</h2>
+      <p class="card-desc">
+        Para criar uma nova publicação, acesse o
+        <a href="/forum">Fórum</a> e clique em "Nova publicação".
+      </p>
+      <div class="testimonials-list" id="publicacoesList">
+        <div class="empty-state">
+          <i class="fa-solid fa-comment-slash"></i>
+          <p>Você ainda não publicou nada no fórum.</p>
         </div>
       </div>
     </div>

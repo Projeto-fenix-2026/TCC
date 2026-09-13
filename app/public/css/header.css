@@ -700,3 +700,202 @@ body .mobile-menu {
     display: none !important;
   }
 }
+
+/* ==========================================================================
+   MODAL DE EMERGÊNCIA — seleção de contatos de confiança + polícia
+   ========================================================================== */
+.emergency-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 8, 26, 0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 2000;
+}
+
+.emergency-modal-backdrop.open {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+}
+
+.emergency-modal {
+  width: min(94vw, 420px);
+  max-height: 85vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: var(--shadow-elevated);
+  padding: 1.4rem 1.3rem 1.5rem;
+  color: var(--text-dark);
+}
+
+.emergency-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+}
+
+.emergency-modal-header h3 {
+  font-size: 1.15rem;
+  color: var(--purple-main);
+}
+
+.emergency-modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--purple-light);
+  border: none;
+  color: var(--purple-main);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.emergency-modal-close svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.emergency-modal-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.emergency-contact-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.emergency-contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border-ui);
+  border-radius: 12px;
+  background: var(--bg-light, #f8fafc);
+}
+
+.emergency-contact-item.pinned {
+  border-color: rgba(211, 47, 47, 0.25);
+  background: rgba(211, 47, 47, 0.06);
+}
+
+.emergency-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+.emergency-contact-info strong {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+.emergency-contact-info span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.emergency-contact-action {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.emergency-contact-action svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+.emergency-contact-action.call {
+  background: linear-gradient(135deg, #d32f2f, #b71c1c);
+  color: #fff;
+}
+.emergency-contact-action.whatsapp {
+  background: #e6f7ee;
+  color: #1a7f4b;
+}
+
+.emergency-modal-empty,
+.emergency-modal-login {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 0.9rem;
+}
+.emergency-modal-login a {
+  color: var(--accent-color, #7c3aed);
+  font-weight: 700;
+}
+
+.emergency-add-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border-ui);
+  padding-top: 0.9rem;
+}
+.emergency-add-form[hidden] {
+  display: none;
+}
+.emergency-add-form input {
+  flex: 1 1 130px;
+  min-width: 0;
+  border: 1px solid var(--border-ui);
+  border-radius: 10px;
+  padding: 0.6rem 0.7rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+.emergency-add-form input:focus {
+  outline: none;
+  border-color: var(--accent-color, #7c3aed);
+}
+.emergency-add-form button {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 0.9rem;
+  background: var(--purple-main);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.emergency-add-form button svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}

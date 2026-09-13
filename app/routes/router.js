@@ -8,6 +8,8 @@ const { body, validationResult } = require("express-validator");
 var { validarCNPJ, validarCPF } = require("../helpers/validacoes");
 const { usuarioModel } = require("../models/usuarioModel");
 const { ongModel } = require("../models/ongModel");
+const { forumModel } = require("../models/forumModel");
+const { socorroModel } = require("../models/socorroModel");
 const { autenticado } = require("../helpers/autenticado");
 
 const storageFoto = multer.diskStorage({
@@ -195,6 +197,120 @@ router.get("/forum", autenticado, function (req, res) {
   res.render("pages/forum");
 });
 
+// ── API FÓRUM ─────────────────────────────────────────────────
+router.get("/api/forum/posts", autenticado, async function (req, res) {
+  const posts = await forumModel.findAll();
+  res.json(posts);
+});
+
+router.get("/api/forum/meus-posts", autenticado, async function (req, res) {
+  const posts = await forumModel.findByUsuario(req.session.usuario.id);
+  res.json(posts);
+});
+
+router.post(
+  "/api/forum/posts",
+  autenticado,
+  body("titulo")
+    .trim()
+    .isLength({ min: 5, max: 200 })
+    .withMessage("O título deve ter entre 5 e 200 caracteres."),
+  body("conteudo")
+    .trim()
+    .isLength({ min: 10, max: 5000 })
+    .withMessage("O texto deve ter entre 10 e 5000 caracteres."),
+  body("categoria")
+    .trim()
+    .notEmpty()
+    .withMessage("Escolha uma categoria."),
+  async function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ mensagem: errors.array()[0].msg });
+    }
+
+    const categoria = req.body.categoria;
+    const titulo = req.body.titulo;
+    const conteudo = req.body.conteudo;
+
+    const resultado = await forumModel.create({
+      id_usuario: req.session.usuario.id,
+      categoria,
+      titulo,
+      conteudo,
+    });
+
+    if (!resultado.insertId) {
+      return res
+        .status(500)
+        .json({ mensagem: "Erro ao publicar. Tente novamente." });
+    }
+
+    // Responde com os próprios dados já em mãos, sem outra consulta ao
+    // banco — evita uma segunda viagem de rede até o MySQL remoto.
+    res.status(201).json({
+      id_post: resultado.insertId,
+      categoria,
+      titulo,
+      conteudo,
+      criado_em: new Date().toISOString(),
+      id_usuario: req.session.usuario.id,
+      autor_nome: req.session.usuario.nome,
+      autor_foto: req.session.usuario.foto_url,
+    });
+  },
+);
+
+router.put(
+  "/api/forum/posts/:id",
+  autenticado,
+  body("titulo")
+    .trim()
+    .isLength({ min: 5, max: 200 })
+    .withMessage("O título deve ter entre 5 e 200 caracteres."),
+  body("conteudo")
+    .trim()
+    .isLength({ min: 10, max: 5000 })
+    .withMessage("O texto deve ter entre 10 e 5000 caracteres."),
+  async function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ mensagem: errors.array()[0].msg });
+    }
+
+    const post = await forumModel.findById(req.params.id);
+    if (!post)
+      return res.status(404).json({ mensagem: "Publicação não encontrada." });
+    if (post.id_usuario !== req.session.usuario.id) {
+      return res
+        .status(403)
+        .json({ mensagem: "Você não pode editar esta publicação." });
+    }
+
+    await forumModel.update({
+      id_post: req.params.id,
+      id_usuario: req.session.usuario.id,
+      categoria: req.body.categoria || post.categoria,
+      titulo: req.body.titulo,
+      conteudo: req.body.conteudo,
+    });
+    res.json({ ok: true });
+  },
+);
+
+router.delete("/api/forum/posts/:id", autenticado, async function (req, res) {
+  const post = await forumModel.findById(req.params.id);
+  if (!post)
+    return res.status(404).json({ mensagem: "Publicação não encontrada." });
+  if (post.id_usuario !== req.session.usuario.id) {
+    return res
+      .status(403)
+      .json({ mensagem: "Você não pode excluir esta publicação." });
+  }
+  await forumModel.deleteById(req.params.id, req.session.usuario.id);
+  res.json({ ok: true });
+});
+
 // rotas protegidas — exigem login
 router.get("/home2", function (req, res) {
   res.render("pages/home2");
@@ -252,7 +368,7 @@ router.get("/api/perfil", autenticado, async function (req, res) {
 });
 
 router.put("/api/perfil/dados", autenticado, async function (req, res) {
-  const { nome, telefone } = req.body;
+  const { nome, telefone, apelido, sobre } = req.body;
   if (!nome || nome.trim().length < 2) {
     return res.status(400).json({ mensagem: "Nome inválido." });
   }
@@ -268,12 +384,12 @@ router.put("/api/perfil/dados", autenticado, async function (req, res) {
   const u = linhas[0];
   if (!u) return res.status(404).json({ mensagem: "Usuário não encontrado." });
 
-  await usuarioModel.update({
+  await usuarioModel.updatePerfil({
     id: req.session.usuario.id,
     nome: nome.trim(),
-    email: u.email,
     telefone: telefoneLimpo || u.telefone,
-    genero: u.genero,
+    apelido: apelido ? String(apelido).trim().slice(0, 60) : null,
+    sobre: sobre ? String(sobre).trim().slice(0, 1000) : null,
   });
 
   req.session.usuario.nome = nome.trim();
@@ -303,7 +419,18 @@ router.put("/api/perfil/email", autenticado, async function (req, res) {
 router.post(
   "/api/perfil/foto",
   autenticado,
-  uploadFoto.single("foto"),
+  function (req, res, next) {
+    uploadFoto.single("foto")(req, res, function (err) {
+      if (err) {
+        const msg =
+          err.code === "LIMIT_FILE_SIZE"
+            ? "Imagem maior que 5 MB."
+            : err.message || "Erro ao enviar imagem.";
+        return res.status(400).json({ mensagem: msg });
+      }
+      next();
+    });
+  },
   async function (req, res) {
     if (!req.file)
       return res.status(400).json({ mensagem: "Nenhuma imagem enviada." });
@@ -331,6 +458,74 @@ router.put("/api/perfil/senha", autenticado, async function (req, res) {
     id: req.session.usuario.id,
     senha: bcrypt.hashSync(senha_nova, bcrypt.genSaltSync(10)),
   });
+  res.json({ ok: true });
+});
+
+router.delete("/api/perfil/conta", autenticado, async function (req, res) {
+  const resultado = await usuarioModel.deleteById(req.session.usuario.id);
+  if (!resultado.affectedRows) {
+    return res
+      .status(500)
+      .json({ mensagem: "Erro ao excluir a conta. Tente novamente." });
+  }
+  req.session.destroy(function () {
+    res.json({ ok: true });
+  });
+});
+
+// ── API NÚMEROS DE SOCORRO (perfil + botão de emergência) ──────
+router.get("/api/socorro", autenticado, async function (req, res) {
+  const contatos = await socorroModel.findByUsuario(req.session.usuario.id);
+  res.json(contatos);
+});
+
+router.post(
+  "/api/socorro",
+  autenticado,
+  body("nome")
+    .trim()
+    .isLength({ min: 2, max: 100 })
+    .withMessage("Informe um nome com pelo menos 2 caracteres."),
+  body("numero")
+    .customSanitizer((value) => String(value || "").replace(/\D/g, ""))
+    .isLength({ min: 2, max: 20 })
+    .withMessage("Informe um número de telefone válido."),
+  async function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ mensagem: errors.array()[0].msg });
+    }
+
+    const resultado = await socorroModel.create({
+      id_usuario: req.session.usuario.id,
+      nome: req.body.nome.trim(),
+      numero: req.body.numero,
+      categoria: req.body.categoria ? String(req.body.categoria).trim() : null,
+      icone: req.body.icone ? String(req.body.icone).trim() : "phone",
+      descricao: req.body.descricao ? String(req.body.descricao).trim() : null,
+    });
+
+    if (!resultado.insertId) {
+      return res
+        .status(500)
+        .json({ mensagem: "Erro ao salvar contato. Tente novamente." });
+    }
+
+    const contato = await socorroModel.findById(resultado.insertId);
+    res.status(201).json(contato);
+  },
+);
+
+router.delete("/api/socorro/:id", autenticado, async function (req, res) {
+  const contato = await socorroModel.findById(req.params.id);
+  if (!contato)
+    return res.status(404).json({ mensagem: "Contato não encontrado." });
+  if (contato.id_usuario !== req.session.usuario.id) {
+    return res
+      .status(403)
+      .json({ mensagem: "Você não pode remover este contato." });
+  }
+  await socorroModel.deleteById(req.params.id, req.session.usuario.id);
   res.json({ ok: true });
 });
 
