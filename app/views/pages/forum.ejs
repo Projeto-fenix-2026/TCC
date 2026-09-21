@@ -18,25 +18,25 @@
   <nav class="sidebar-left" aria-label="Categorias do fórum">
     <section class="sidebar-card">
       <header class="sidebar-card-header">Categorias</header>
-      <a class="nav-item active" href="#">
+      <a class="nav-item active" href="#" data-categoria="">
         <span class="nav-icon"><span class="icon">home</span></span> Todos os tópicos
       </a>
-      <a class="nav-item" href="#">
+      <a class="nav-item" href="#" data-categoria="violencia_domestica">
         <span class="nav-icon"><span class="icon">crisis_alert</span></span> Violência Doméstica
       </a>
-      <a class="nav-item" href="#">
+      <a class="nav-item" href="#" data-categoria="direitos">
         <span class="nav-icon"><span class="icon">gavel</span></span> Direitos da Mulher
       </a>
-      <a class="nav-item" href="#">
+      <a class="nav-item" href="#" data-categoria="apoio">
         <span class="nav-icon"><span class="icon">handshake</span></span> Buscar Apoio
       </a>
-      <a class="nav-item" href="#">
+      <a class="nav-item" href="#" data-categoria="relatos">
         <span class="nav-icon"><span class="icon">forum</span></span> Relatos
       </a>
-      <a class="nav-item" href="#">
+      <a class="nav-item" href="#" data-categoria="saude_mental">
         <span class="nav-icon"><span class="icon">psychology</span></span> Saúde Mental
       </a>
-      <a class="nav-item" href="#">
+      <a class="nav-item" href="#" data-categoria="ongs">
         <span class="nav-icon"><span class="icon">business</span></span> ONGs
       </a>
     </section>
@@ -49,162 +49,24 @@
         <span class="icon icon-lg" style="color:var(--primary);">favorite</span>
         Fórum Fênix
       </h1>
-      <button class="btn-nova-post">
+      <button class="btn-nova-post" id="btnNovaPost">
         <span class="icon icon-sm">edit</span> Nova publicação
       </button>
     </header>
 
     <nav class="feed-controls" aria-label="Ordenar publicações">
-      <button class="sort-btn active">
-        <span class="icon icon-sm">local_fire_department</span> Em alta
-      </button>
-      <button class="sort-btn">
+      <button class="sort-btn active" data-sort="recentes">
         <span class="icon icon-sm">schedule</span> Recentes
       </button>
-      <button class="sort-btn">
-        <span class="icon icon-sm">chat_bubble</span> Mais comentados
+      <button class="sort-btn" data-sort="antigas">
+        <span class="icon icon-sm">history</span> Mais antigas
       </button>
     </nav>
 
-    <!-- POST 1 -->
-    <article class="post-card">
-      <div class="post-inner">
-        <section class="vote-col">
-          <button class="vote-btn up" onclick="vote(event,this,'up')"><span class="icon">keyboard_arrow_up</span></button>
-          <span class="vote-count">245</span>
-          <button class="vote-btn down" onclick="vote(event,this,'down')"><span class="icon">keyboard_arrow_down</span></button>
-        </section>
-        <section class="post-body">
-          <header class="post-meta">
-            <a class="post-category" href="#"><span class="icon">crisis_alert</span> Violência Doméstica</a>
-            <span class="meta-sep">•</span>
-            <span class="post-author">por usuária anônima</span>
-            <span class="meta-sep">•</span>
-            <time class="post-time">há 2 horas</time>
-          </header>
-          <span class="post-flair">Dúvida</span>
-          <h2 class="post-title">Como denunciar violência doméstica com segurança e em sigilo?</h2>
-          <p class="post-excerpt">Estou numa situação difícil e tenho medo de fazer a denúncia. Quero saber quais canais são mais seguros e se minha identidade fica protegida...</p>
-          <footer class="post-actions">
-            <button class="action-btn"><span class="icon">chat_bubble</span> 67 Comentários</button>
-            <button class="action-btn"><span class="icon">share</span> Compartilhar</button>
-            <button class="action-btn"><span class="icon">bookmark</span> Salvar</button>
-          </footer>
-        </section>
-      </div>
-    </article>
-
-    <!-- POST 2 -->
-    <article class="post-card">
-      <div class="post-inner">
-        <section class="vote-col">
-          <button class="vote-btn up" onclick="vote(event,this,'up')"><span class="icon">keyboard_arrow_up</span></button>
-          <span class="vote-count">1,2 mil</span>
-          <button class="vote-btn down" onclick="vote(event,this,'down')"><span class="icon">keyboard_arrow_down</span></button>
-        </section>
-        <section class="post-body">
-          <header class="post-meta">
-            <a class="post-category" href="#"><span class="icon">forum</span> Relatos</a>
-            <span class="meta-sep">•</span>
-            <span class="post-author">por Maria S.</span>
-            <span class="meta-sep">•</span>
-            <time class="post-time">há 1 dia</time>
-          </header>
-          <span class="post-flair">Relato</span>
-          <h2 class="post-title">Consegui sair de uma situação de abuso com apoio de uma ONG — minha história</h2>
-          <p class="post-excerpt">Quero compartilhar minha história para dar esperança a outras mulheres. Depois de 3 anos, encontrei apoio no projeto Recomeçar e hoje tenho uma nova vida...</p>
-          <footer class="post-actions">
-            <button class="action-btn"><span class="icon">chat_bubble</span> 134 Comentários</button>
-            <button class="action-btn"><span class="icon">share</span> Compartilhar</button>
-            <button class="action-btn"><span class="icon">bookmark</span> Salvar</button>
-          </footer>
-        </section>
-      </div>
-    </article>
-
-    <!-- POST 3 -->
-    <article class="post-card">
-      <div class="post-inner">
-        <section class="vote-col">
-          <button class="vote-btn up" onclick="vote(event,this,'up')"><span class="icon">keyboard_arrow_up</span></button>
-          <span class="vote-count">89</span>
-          <button class="vote-btn down" onclick="vote(event,this,'down')"><span class="icon">keyboard_arrow_down</span></button>
-        </section>
-        <section class="post-body">
-          <header class="post-meta">
-            <a class="post-category" href="#"><span class="icon">gavel</span> Direitos da Mulher</a>
-            <span class="meta-sep">•</span>
-            <span class="post-author">por Ana Lima</span>
-            <span class="meta-sep">•</span>
-            <time class="post-time">há 3 dias</time>
-          </header>
-          <span class="post-flair">Informação</span>
-          <h2 class="post-title">Quais são meus direitos ao registrar um boletim de ocorrência por violência doméstica?</h2>
-          <p class="post-excerpt">Muitas mulheres não sabem que têm direito a medidas protetivas imediatas, atendimento preferencial e acompanhamento especializado...</p>
-          <footer class="post-actions">
-            <button class="action-btn"><span class="icon">chat_bubble</span> 45 Comentários</button>
-            <button class="action-btn"><span class="icon">share</span> Compartilhar</button>
-            <button class="action-btn"><span class="icon">bookmark</span> Salvar</button>
-          </footer>
-        </section>
-      </div>
-    </article>
-
-    <!-- POST 4 -->
-    <article class="post-card">
-      <div class="post-inner">
-        <section class="vote-col">
-          <button class="vote-btn up" onclick="vote(event,this,'up')"><span class="icon">keyboard_arrow_up</span></button>
-          <span class="vote-count">312</span>
-          <button class="vote-btn down" onclick="vote(event,this,'down')"><span class="icon">keyboard_arrow_down</span></button>
-        </section>
-        <section class="post-body">
-          <header class="post-meta">
-            <a class="post-category" href="#"><span class="icon">psychology</span> Saúde Mental</a>
-            <span class="meta-sep">•</span>
-            <span class="post-author">por equipe Fênix</span>
-            <span class="meta-sep">•</span>
-            <time class="post-time">há 5 dias</time>
-          </header>
-          <span class="post-flair">Recurso</span>
-          <h2 class="post-title">Lista de serviços gratuitos de saúde mental para mulheres em situação de vulnerabilidade</h2>
-          <p class="post-excerpt">Compilamos uma lista com CVV, CAPS, CRAS e outros serviços totalmente gratuitos disponíveis em todo o Brasil. Nenhuma mulher precisa passar por isso sozinha...</p>
-          <footer class="post-actions">
-            <button class="action-btn"><span class="icon">chat_bubble</span> 28 Comentários</button>
-            <button class="action-btn"><span class="icon">share</span> Compartilhar</button>
-            <button class="action-btn"><span class="icon">bookmark</span> Salvar</button>
-          </footer>
-        </section>
-      </div>
-    </article>
-
-    <!-- POST 5 -->
-    <article class="post-card">
-      <div class="post-inner">
-        <section class="vote-col">
-          <button class="vote-btn up" onclick="vote(event,this,'up')"><span class="icon">keyboard_arrow_up</span></button>
-          <span class="vote-count">57</span>
-          <button class="vote-btn down" onclick="vote(event,this,'down')"><span class="icon">keyboard_arrow_down</span></button>
-        </section>
-        <section class="post-body">
-          <header class="post-meta">
-            <a class="post-category" href="#"><span class="icon">handshake</span> Buscar Apoio</a>
-            <span class="meta-sep">•</span>
-            <span class="post-author">por usuária anônima</span>
-            <span class="meta-sep">•</span>
-            <time class="post-time">há 6 dias</time>
-          </header>
-          <span class="post-flair">Pergunta</span>
-          <h2 class="post-title">Existe alguma casa de acolhimento em Recife para mulheres com filhos pequenos?</h2>
-          <p class="post-excerpt">Preciso de ajuda urgente. Tenho dois filhos e não tenho para onde ir. Alguém conhece alguma ONG ou abrigo na região metropolitana do Recife?</p>
-          <footer class="post-actions">
-            <button class="action-btn"><span class="icon">chat_bubble</span> 39 Comentários</button>
-            <button class="action-btn"><span class="icon">share</span> Compartilhar</button>
-            <button class="action-btn"><span class="icon">bookmark</span> Salvar</button>
-          </footer>
-        </section>
-      </div>
-    </article>
+    <div id="postsFeed"></div>
+    <div class="empty-state" id="postsEmpty" hidden>
+      <p>Nenhuma publicação encontrada. Seja a primeira a compartilhar algo nesta categoria.</p>
+    </div>
   </main>
 
   <!-- ── RIGHT SIDEBAR ── -->
@@ -281,6 +143,50 @@
 
 </div>
 
+<!-- ── MODAL: NOVA PUBLICAÇÃO / EDITAR ── -->
+<div class="post-modal-bg" id="postModalBg">
+  <div class="post-modal">
+    <header class="post-modal-header">
+      <h3 id="postModalTitle">Nova publicação</h3>
+      <button type="button" class="post-modal-close" id="postModalClose" aria-label="Fechar">
+        <span class="icon">close</span>
+      </button>
+    </header>
+    <form id="formPost">
+      <input type="hidden" id="postId" value="" />
+      <div class="post-form-group">
+        <label for="postCategoria">Categoria</label>
+        <select id="postCategoria">
+          <option value="violencia_domestica">Violência Doméstica</option>
+          <option value="direitos">Direitos da Mulher</option>
+          <option value="apoio">Buscar Apoio</option>
+          <option value="relatos">Relatos</option>
+          <option value="saude_mental">Saúde Mental</option>
+          <option value="ongs">ONGs</option>
+          <option value="geral">Outro assunto</option>
+        </select>
+      </div>
+      <div class="post-form-group">
+        <label for="postTitulo">Título</label>
+        <input type="text" id="postTitulo" maxlength="200" placeholder="Dê um título para sua publicação" />
+      </div>
+      <div class="post-form-group">
+        <label for="postConteudo">Texto</label>
+        <textarea id="postConteudo" rows="6" maxlength="5000" placeholder="Compartilhe sua dúvida, relato ou informação..."></textarea>
+      </div>
+      <footer class="post-modal-actions">
+        <button type="button" class="post-modal-cancel" id="postModalCancel">Cancelar</button>
+        <button type="submit" class="post-modal-submit" id="postModalSubmit">Publicar</button>
+      </footer>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="forumToast"></div>
+
+<script>
+  window.usuarioAtual = <%- JSON.stringify(locals.usuario ? { id: locals.usuario.id, nome: locals.usuario.nome } : null) %>;
+</script>
 <script src="../js/forum.js"></script>
 <script src="../js/text.js"></script>
 <%- include('../partials/footer.ejs') %>

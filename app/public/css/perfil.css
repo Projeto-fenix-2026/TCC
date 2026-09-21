@@ -236,6 +236,60 @@ body .main-content {
   min-width: 0;
 }
 
+/* ── ABAS DO PERFIL ──────────────────────────────────── */
+.profile-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  gap: 0.35rem;
+  overflow-x: auto;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.7rem 1.5rem;
+  scrollbar-width: none;
+}
+.profile-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.profile-tabs .nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background var(--transition), color var(--transition);
+}
+.profile-tabs .nav-item i {
+  font-size: 0.95rem;
+}
+.profile-tabs .nav-item:hover {
+  background: var(--surface2);
+  color: var(--text);
+}
+.profile-tabs .nav-item.active {
+  background: var(--sidebar-bg);
+  color: var(--gold-light);
+}
+
+@media (max-width: 640px) {
+  .profile-tabs {
+    padding: 0.6rem 1rem;
+  }
+  .profile-tabs .nav-item span {
+    display: none;
+  }
+  .profile-tabs .nav-item {
+    padding: 0.6rem;
+  }
+}
+
 /* ── TOP BAR ─────────────────────────────────────────── */
 .top-bar {
   position: sticky;

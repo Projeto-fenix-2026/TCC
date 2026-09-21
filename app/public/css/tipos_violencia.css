@@ -227,8 +227,11 @@ dl.especificacoes dd {
   font-size: 0.95rem;
 }
 
-/* --- BARRA LATERAL (FIXA NO DESKTOP / BLOCO NO MOBILE) --- */
-aside {
+/* --- BARRA LATERAL (FIXA NO DESKTOP / BLOCO NO MOBILE) ---
+   Escopado para "main aside" para não vazar estilo sobre o
+   <aside class="mobile-drawer"> do menu compartilhado (header2.ejs),
+   que fica fora de <main> — isso quebrava o menu mobile nesta página. */
+main aside {
   background: white;
   padding: 1.5rem;
   border-radius: 16px;
@@ -238,30 +241,30 @@ aside {
 }
 
 @media (min-width: 992px) {
-  aside {
+  main aside {
     position: sticky;
     top: 2rem; /* Segue a rolagem da página no desktop */
     padding: 2rem;
   }
 }
 
-aside h3 {
+main aside h3 {
   font-size: 1.2rem;
   margin-bottom: 1rem;
   color: var(--dark);
 }
 
-aside ul {
+main aside ul {
   list-style: none;
 }
 
-aside li {
+main aside li {
   margin-bottom: 1.2rem;
   padding-bottom: 1.2rem;
   border-bottom: 1px solid #f1f5f9;
 }
 
-aside li:last-child {
+main aside li:last-child {
   border: none;
   margin-bottom: 0;
   padding-bottom: 0;
@@ -272,134 +275,4 @@ aside strong {
   color: var(--accent);
   font-size: 1.2rem;
   margin-bottom: 0.2rem;
-}
-
-/* ==========================================================
-   PADRÃO DO MENU DO SITE - FORÇADO PARA IGUALAR AS OUTRAS PÁGINAS
-   ========================================================== */
-body .site-topbar,
-body .sidebar-nav,
-body .bottom-nav,
-body .mobile-drawer-overlay,
-body .mobile-drawer,
-body .mobile-drawer-links a,
-body .sidebar-links a,
-body .bottom-nav-item,
-body .topbar-icon-btn {
-  font-family: "Poppins", "Segoe UI", sans-serif !important;
-}
-
-body .site-topbar {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  height: 64px !important;
-  background: #ffffff !important;
-  border-bottom: 1px solid #e2e8f0 !important;
-  box-shadow: 0 1px 3px rgba(41, 16, 51, 0.06) !important;
-  z-index: 1300 !important;
-}
-
-body .topbar-icon-btn {
-  color: #291033 !important;
-  background: transparent !important;
-  display: flex !important;
-  width: 38px !important;
-  height: 38px !important;
-  border-radius: 50% !important;
-}
-
-body .topbar-icon-btn:hover {
-  background: #f5edf7 !important;
-  color: #7c3aed !important;
-}
-
-body .bottom-nav {
-  position: fixed !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important;
-  background: #ffffff !important;
-  border-top: 1px solid #e2e8f0 !important;
-  box-shadow: 0 -2px 10px rgba(41, 16, 51, 0.06) !important;
-  z-index: 1300 !important;
-  height: 64px !important;
-}
-
-body .bottom-nav-item {
-  color: #64748b !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 0.2rem !important;
-  font-size: 0.68rem !important;
-  font-weight: 600 !important;
-}
-
-body .bottom-nav-item.active,
-body .bottom-nav-item:active {
-  color: #7c3aed !important;
-}
-
-body .mobile-drawer {
-  position: fixed !important;
-  right: 0 !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  width: min(84vw, 320px) !important;
-  background: #291033 !important;
-  box-shadow: 0 10px 30px rgba(41, 16, 51, 0.12) !important;
-  z-index: 1600 !important;
-}
-
-body .mobile-drawer-links a {
-  color: rgba(255, 255, 255, 0.8) !important;
-}
-
-body .mobile-drawer-links a:active {
-  background: rgba(255, 255, 255, 0.08) !important;
-}
-
-body .mobile-drawer-profile-text strong,
-body .mobile-drawer-header .drawer-title {
-  color: #ffffff !important;
-}
-
-@media (min-width: 1024px) {
-  body .sidebar-nav {
-    display: flex !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 264px !important;
-    height: 100vh !important;
-    background: #291033 !important;
-    z-index: 1400 !important;
-  }
-
-  body .site-topbar {
-    left: 264px !important;
-    padding: 0 2rem !important;
-  }
-
-  body .bottom-nav,
-  body .mobile-drawer-overlay {
-    display: none !important;
-  }
-}
-
-@media (max-width: 1023px) {
-  body {
-    padding-top: 64px !important;
-    padding-bottom: 64px !important;
-  }
-
-  body .site-topbar {
-    left: 0 !important;
-    right: 0 !important;
-  }
 }
