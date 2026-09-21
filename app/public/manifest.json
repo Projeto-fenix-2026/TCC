@@ -1,0 +1,26 @@
+{
+  "name": "Fênix - Reerguendo Mulheres",
+  "short_name": "Fênix",
+  "description": "Plataforma de apoio, acolhimento e informação para mulheres em situação de violência.",
+  "lang": "pt-BR",
+  "start_url": "/text",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f4f4f4",
+  "theme_color": "#3b1c4a",
+  "icons": [
+    {
+      "src": "/imgs/logo.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/imgs/logo.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
