@@ -312,6 +312,19 @@
   </div>
 </div>
 
+<div class="cookie-consent-banner" id="cookieConsentBanner" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+  <div class="cookie-consent-card">
+    <p class="cookie-consent-text">
+      Usamos cookies para manter sua sessão e melhorar sua experiência. Você pode gerenciar suas preferências em
+      <a href="/configuracoes">Configurações &gt; Privacidade</a>.
+    </p>
+    <div class="cookie-consent-actions">
+      <button type="button" class="cookie-consent-reject" id="cookieConsentReject">Recusar</button>
+      <button type="button" class="cookie-consent-accept" id="cookieConsentAccept">Aceitar</button>
+    </div>
+  </div>
+</div>
+
 <script>
   (function () {
     const overlay = document.getElementById('mobile-drawer-overlay');
@@ -521,6 +534,38 @@
 
       window.addEventListener('resize', function () {
         if (window.innerWidth >= 1024) closeDrawer();
+      });
+    }
+
+    // ── AVISO DE COOKIES ─────────────────────────────────────
+    const COOKIE_CONSENT_KEY = 'fenix_cookie_consent';
+    const cookieBanner = document.getElementById('cookieConsentBanner');
+    const cookieAcceptBtn = document.getElementById('cookieConsentAccept');
+    const cookieRejectBtn = document.getElementById('cookieConsentReject');
+
+    function definirConsentimentoCookies(valor) {
+      try {
+        localStorage.setItem(COOKIE_CONSENT_KEY, valor);
+      } catch {
+        /* localStorage indisponível (ex.: modo privado) */
+      }
+      cookieBanner?.classList.remove('show');
+    }
+
+    if (cookieBanner) {
+      let consentimento = null;
+      try {
+        consentimento = localStorage.getItem(COOKIE_CONSENT_KEY);
+      } catch {
+        /* localStorage indisponível (ex.: modo privado) */
+      }
+      if (!consentimento) cookieBanner.classList.add('show');
+
+      cookieAcceptBtn?.addEventListener('click', function () {
+        definirConsentimentoCookies('aceito');
+      });
+      cookieRejectBtn?.addEventListener('click', function () {
+        definirConsentimentoCookies('recusado');
       });
     }
   })();
