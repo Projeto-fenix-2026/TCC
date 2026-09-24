@@ -26,6 +26,28 @@
   --shadow-elevated: 0 10px 30px rgba(41, 16, 51, 0.12);
 }
 
+/* Links de navegação: sem sublinhado padrão do navegador (inclusive no item selecionado) */
+.topbar-brand,
+.sidebar-brand,
+.sidebar-links a,
+.sidebar-footer a,
+.bottom-nav-item,
+.mobile-drawer-profile,
+.mobile-drawer-links a,
+.topbar-brand:is(:hover, :focus, :active, :visited),
+.sidebar-links a:is(:hover, :focus, :active, :visited, .active),
+.bottom-nav-item:is(:hover, :focus, :active, :visited, .active),
+.mobile-drawer-links a:is(:hover, :focus, :active, :visited) {
+  text-decoration: none;
+}
+
+/* Ao tocar/clicar não deixa o contorno de foco; ele continua visível na navegação por teclado */
+.sidebar-links a:focus:not(:focus-visible),
+.bottom-nav-item:focus:not(:focus-visible),
+.mobile-drawer-links a:focus:not(:focus-visible) {
+  outline: none;
+}
+
 svg,
 svg * {
   stroke-linecap: round;

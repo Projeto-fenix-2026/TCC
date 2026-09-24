@@ -528,7 +528,7 @@
           () => {
             resolve(`🚨 ALERTA DE EMERGÊNCIA\n\nEstou em perigo e preciso de ajuda imediatamente.\nHorário: ${dataAtual}\n\nLocalização: indisponível no momento.\n\nMensagem enviada pelo botão de emergência do aplicativo Fênix.`);
           },
-          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+          { enableHighAccuracy: true, timeout: 6000, maximumAge: 60000 }
         );
       });
     }
@@ -539,10 +539,18 @@
         window.location.href = 'tel:190';
         return;
       }
+      // Abre a aba ainda dentro do clique: se o window.open for chamado só depois
+      // da geolocalização (assíncrona), o navegador bloqueia como pop-up.
+      const janela = window.open('', '_blank');
+      const telefone = (destino.length === 10 || destino.length === 11) ? `55${destino}` : destino;
+
       obterMensagemEmergencia().then((mensagem) => {
-        const telefone = destino.length === 11 ? `55${destino}` : destino;
-        const link = `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
-        window.open(link, '_blank');
+        const link = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+        if (janela && !janela.closed) {
+          janela.location.href = link;
+        } else {
+          window.location.href = link;
+        }
       });
     }
 

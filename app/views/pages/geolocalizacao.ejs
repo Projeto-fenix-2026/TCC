@@ -13,10 +13,10 @@
 
     <main class="main-conteudo-seguranca">
       <section class="banner-rastreamento">
-        <div class="banner-topo">
+        <section class="banner-topo">
           <span class="status-badge">Proteção ativa</span>
           <h1 class="logo-titulo">Painel de Proteção Fênix</h1>
-        </div>
+        </section>
         <p class="status-conexao" id="status-texto">
           Iniciando rastreamento seguro...
         </p>
@@ -25,10 +25,10 @@
       <nav class="container-seguranca">
         <section class="mapa-wrapper">
           <header class="mapa-header">
-            <div>
+            <nav>
               <span class="eyebrow">Localização em tempo real</span>
               <h2>Sua Localização em Tempo Real</h2>
-            </div>
+            </nav>
             <p id="endereco-atual" class="endereco-atual">
               Buscando endereço exato...
             </p>
@@ -44,10 +44,10 @@
 
         <section class="contatos-wrapper">
           <header class="contatos-header">
-            <div>
+            <nav>
               <span class="eyebrow">Atenção imediata</span>
               <h2>Contatos de Emergência</h2>
-            </div>
+            </nav>
             <p class="titilo-ctt">
               Cadastre pessoas de sua confiança e acione o botão para enviar
               socorro via WhatsApp.
@@ -55,7 +55,7 @@
           </header>
 
           <form id="form-cadastro-contato" class="form-cadastro-contato">
-            <div class="campo-duplo">
+            <nav class="campo-duplo">
               <input
                 type="text"
                 id="cad-nome"
@@ -72,7 +72,7 @@
                 <option value="Amigo(a)">Amigo(a)</option>
                 <option value="Outro">Outro de Confiança</option>
               </select>
-            </div>
+            </nav>
 
             <input
               type="tel"
@@ -81,11 +81,11 @@
               required
             />
 
-            <div
+            <section
               id="contato-validacao"
               class="form-feedback"
               aria-live="polite"
-            ></div>
+            ></section>
 
             <button type="submit" class="btn-alerta">
               + Cadastrar Contato

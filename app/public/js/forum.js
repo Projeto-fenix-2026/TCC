@@ -107,7 +107,7 @@ function renderFeed() {
       const isOwner = userId && Number(userId) === Number(post.id_usuario);
       return `
     <article class="post-card" data-id="${post.id_post}">
-      <div class="post-inner">
+      <section class="post-inner">
         <section class="post-body">
           <header class="post-meta">
             <span class="post-category"><span class="icon">${cat.icon}</span> ${escHtml(cat.label)}</span>
@@ -117,23 +117,49 @@ function renderFeed() {
             <time class="post-time">${tempoRelativo(post.criado_em)}</time>
           </header>
           <h2 class="post-title">${escHtml(post.titulo)}</h2>
-          <p class="post-excerpt">${escHtml(post.conteudo)}</p>
+          <p class="post-excerpt" id="post-texto-${post.id_post}">${escHtml(post.conteudo)}</p>
+          <button type="button" class="ler-mais-btn" aria-expanded="false" aria-controls="post-texto-${post.id_post}" hidden>Ler mais</button>
           <footer class="post-actions">
             ${
               isOwner
-                ? `<div class="post-own-actions">
+                ? `<nav class="post-own-actions" aria-label="Ações da publicação">
                     <button class="action-btn" onclick="abrirEdicaoPost(${post.id_post})"><span class="icon">edit</span> Editar</button>
                     <button class="action-btn danger" onclick="excluirPost(${post.id_post})"><span class="icon">delete</span> Excluir</button>
-                  </div>`
+                  </nav>`
                 : ""
             }
           </footer>
         </section>
-      </div>
+      </section>
     </article>`;
     })
     .join("");
+
+  prepararLerMais(feed);
 }
+
+// ── LER MAIS: expande o texto completo da publicação ──────────
+function prepararLerMais(container) {
+  container.querySelectorAll(".ler-mais-btn").forEach((btn) => {
+    const texto = document.getElementById(btn.getAttribute("aria-controls"));
+    if (!texto || texto.classList.contains("expandido")) return;
+    btn.hidden = texto.scrollHeight <= texto.clientHeight + 1;
+  });
+}
+
+document.getElementById("postsFeed")?.addEventListener("click", (e) => {
+  const btn = e.target.closest(".ler-mais-btn");
+  if (!btn) return;
+  const texto = document.getElementById(btn.getAttribute("aria-controls"));
+  const expandido = texto.classList.toggle("expandido");
+  btn.setAttribute("aria-expanded", String(expandido));
+  btn.textContent = expandido ? "Ler menos" : "Ler mais";
+});
+
+window.addEventListener("resize", () => {
+  const feed = document.getElementById("postsFeed");
+  if (feed) prepararLerMais(feed);
+});
 
 // ── FILTRO POR CATEGORIA ──────────────────────────────────────
 document.querySelectorAll(".sidebar-left .nav-item").forEach((item) => {

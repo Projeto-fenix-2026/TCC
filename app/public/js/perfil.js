@@ -50,7 +50,10 @@ function activateSection(id) {
     .querySelectorAll(`.nav-item[data-section="${id}"]`)
     .forEach((link) => link.classList.add("active"));
   const sec = document.getElementById(`section-${id}`);
-  if (sec) sec.classList.add("active");
+  if (sec) {
+    sec.classList.add("active");
+    prepararLerMais(sec);
+  }
   if (window.innerWidth <= 768) closeSidebar();
 }
 
@@ -407,25 +410,48 @@ function renderDepoimentos() {
   container.innerHTML = depoimentos
     .map(
       (d) => `
-    <div class="testimonial-item" data-id="${d.id}">
-      <div class="test-header">
-        <span class="test-title">${escHtml(d.titulo)}</span>
-        <div class="test-meta">
+    <article class="testimonial-item" data-id="${d.id}">
+      <header class="test-header">
+        <h3 class="test-title">${escHtml(d.titulo)}</h3>
+        <p class="test-meta">
           <span class="test-badge ${d.visibilidade === "publico" ? "pub" : d.visibilidade === "privado" ? "priv" : "com"}">
             ${d.visibilidade === "publico" ? "Público" : d.visibilidade === "privado" ? "Privado" : "Comunidade"}
           </span>
-          <span style="font-size:.72rem;color:var(--text-muted)">${d.criado_em || ""}</span>
-        </div>
-      </div>
-      <p class="test-text">${escHtml(d.texto)}</p>
-      <div class="test-actions">
+          <time style="font-size:.72rem;color:var(--text-muted)">${d.criado_em || ""}</time>
+        </p>
+      </header>
+      <p class="test-text" id="dep-texto-${d.id}">${escHtml(d.texto)}</p>
+      <button type="button" class="ler-mais-btn" aria-expanded="false" aria-controls="dep-texto-${d.id}" hidden>Ler mais</button>
+      <footer class="test-actions">
         <button class="test-btn test-btn-edit" onclick="editarDep(${d.id})">Editar</button>
         <button class="test-btn test-btn-del"  onclick="deletarDep(${d.id})">Excluir</button>
-      </div>
-    </div>`,
+      </footer>
+    </article>`,
     )
     .join("");
+  prepararLerMais(container);
 }
+
+// ── LER MAIS: expande o texto completo ────────────────────────
+function prepararLerMais(container) {
+  container.querySelectorAll(".ler-mais-btn").forEach((btn) => {
+    const texto = document.getElementById(btn.getAttribute("aria-controls"));
+    if (!texto || texto.classList.contains("expandido")) return;
+    btn.hidden = texto.scrollHeight <= texto.clientHeight + 1;
+  });
+}
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".ler-mais-btn");
+  if (!btn) return;
+  const texto = document.getElementById(btn.getAttribute("aria-controls"));
+  if (!texto) return;
+  const expandido = texto.classList.toggle("expandido");
+  btn.setAttribute("aria-expanded", String(expandido));
+  btn.textContent = expandido ? "Ler menos" : "Ler mais";
+});
+
+window.addEventListener("resize", () => prepararLerMais(document));
 
 window.editarDep = function (id) {
   const dep = depoimentos.find((d) => d.id === id);
@@ -488,22 +514,24 @@ function renderPublicacoes() {
   container.innerHTML = publicacoes
     .map(
       (p) => `
-    <div class="testimonial-item" data-id="${p.id_post}">
-      <div class="test-header">
-        <span class="test-title">${escHtml(p.titulo)}</span>
-        <div class="test-meta">
+    <article class="testimonial-item" data-id="${p.id_post}">
+      <header class="test-header">
+        <h3 class="test-title">${escHtml(p.titulo)}</h3>
+        <p class="test-meta">
           <span class="test-badge com">${escHtml(CATEGORIAS_FORUM[p.categoria] || "Geral")}</span>
-          <span style="font-size:.72rem;color:var(--text-muted)">${new Date(p.criado_em).toLocaleDateString("pt-BR")}</span>
-        </div>
-      </div>
-      <p class="test-text">${escHtml(p.conteudo)}</p>
-      <div class="test-actions">
+          <time style="font-size:.72rem;color:var(--text-muted)">${new Date(p.criado_em).toLocaleDateString("pt-BR")}</time>
+        </p>
+      </header>
+      <p class="test-text" id="pub-texto-${p.id_post}">${escHtml(p.conteudo)}</p>
+      <button type="button" class="ler-mais-btn" aria-expanded="false" aria-controls="pub-texto-${p.id_post}" hidden>Ler mais</button>
+      <footer class="test-actions">
         <a class="test-btn test-btn-edit" href="/forum?editar=${p.id_post}">Editar</a>
         <button class="test-btn test-btn-del" onclick="deletarPublicacao(${p.id_post})">Excluir</button>
-      </div>
-    </div>`,
+      </footer>
+    </article>`,
     )
     .join("");
+  prepararLerMais(container);
 }
 
 window.deletarPublicacao = function (id) {

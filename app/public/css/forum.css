@@ -279,7 +279,30 @@ body {
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  overflow-wrap: anywhere;
 }
+
+.post-excerpt.expandido {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: none;
+  overflow: visible;
+  white-space: pre-line;
+}
+
+.ler-mais-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: -4px 0 10px;
+  color: var(--primary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ler-mais-btn:hover { text-decoration: underline; }
 
 .post-actions {
   display: flex;

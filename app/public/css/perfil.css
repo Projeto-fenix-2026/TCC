@@ -1073,8 +1073,11 @@ body .main-content {
 .test-title {
   font-weight: 600;
   font-size: 0.88rem;
+  margin: 0;
+  overflow-wrap: anywhere;
 }
 .test-meta {
+  margin: 0;
   display: flex;
   gap: 0.4rem;
   flex-wrap: wrap;
@@ -1105,9 +1108,34 @@ body .main-content {
   font-size: 0.84rem;
   color: var(--text-muted);
   line-height: 1.6;
+  margin: 0;
   display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  overflow-wrap: anywhere;
+}
+.test-text.expandido {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: none;
+  overflow: visible;
+  white-space: pre-line;
+}
+.ler-mais-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 0.35rem;
+  color: var(--gold-dark);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.ler-mais-btn:hover {
+  text-decoration: underline;
 }
 .test-actions {
   display: flex;
