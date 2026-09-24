@@ -1,0 +1,44 @@
+<!-- ============================================================
+     ASSISTENTE VIRTUAL (Gemini) — botão flutuante inferior direito
+     ============================================================ -->
+<button type="button" class="chatbot-toggle-btn" id="chatbotToggleBtn" aria-haspopup="dialog" aria-controls="chatbotWindow" aria-expanded="false" aria-label="Abrir assistente virtual">
+  <svg class="icon-chat" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M21 11.5a8.4 8.4 0 0 1-8.9 8.4 8.6 8.6 0 0 1-3.6-.8L3 21l1.9-5.5A8.4 8.4 0 1 1 21 11.5z"></path>
+  </svg>
+  <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+  </svg>
+</button>
+
+<section class="chatbot-window" id="chatbotWindow" role="dialog" aria-modal="false" aria-label="Assistente virtual Fênix">
+  <header class="chatbot-header">
+    <div class="chatbot-header-avatar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+    </div>
+    <div class="chatbot-header-text">
+      <strong>Assistente Fênix</strong>
+      <span>Tira-dúvidas com IA</span>
+    </div>
+    <div class="chatbot-header-actions">
+      <button type="button" id="chatbotClearBtn" title="Limpar conversa" aria-label="Limpar conversa">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path></svg>
+      </button>
+      <button type="button" id="chatbotCloseBtn" title="Fechar" aria-label="Fechar assistente">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <p class="chatbot-disclaimer">
+    Respostas geradas por IA podem conter erros. Em situação de risco, use o <a href="#" id="chatbotEmergencyLink">botão de emergência</a> ou ligue 190.
+  </p>
+
+  <div class="chatbot-messages" id="chatbotMessages"></div>
+
+  <form class="chatbot-form" id="chatbotForm">
+    <input type="text" id="chatbotInput" placeholder="Digite sua dúvida..." maxlength="1000" autocomplete="off" />
+    <button type="submit" id="chatbotSendBtn" aria-label="Enviar mensagem">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </button>
+  </form>
+</section>
