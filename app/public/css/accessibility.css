@@ -5,7 +5,8 @@
    ============================================================ */
 
 :root {
-  --a11y-accent: #7c3aed;
+  --a11y-accent: #291033;
+  --a11y-gold: #c49a4a;
   --a11y-bg: #ffffff;
   --a11y-text: #1e293b;
   --a11y-text-muted: #64748b;
@@ -25,7 +26,8 @@
   gap: 0.4rem;
   background: var(--a11y-accent);
   color: #fff;
-  border: none;
+  border: 1px solid var(--a11y-gold);
+  border-right: none;
   border-radius: 12px 0 0 12px;
   padding: 0.9rem 0.55rem;
   cursor: pointer;

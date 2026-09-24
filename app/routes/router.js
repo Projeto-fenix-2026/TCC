@@ -11,6 +11,7 @@ const { ongModel } = require("../models/ongModel");
 const { forumModel } = require("../models/forumModel");
 const { socorroModel } = require("../models/socorroModel");
 const { autenticado } = require("../helpers/autenticado");
+const { perguntarChatbot } = require("../helpers/gemini");
 
 const storageFoto = multer.diskStorage({
   destination: path.join(__dirname, "../../app/public/uploads/fotos"),
@@ -732,5 +733,39 @@ router.post(
     }
   },
 );
+
+/* ============================================================
+   CHATBOT (Gemini) — tira dúvidas sobre o site e sobre o tema
+   ============================================================ */
+router.post("/api/chatbot", async function (req, res) {
+  const mensagem = (req.body.mensagem || "").toString().trim();
+
+  if (!mensagem) {
+    return res.status(400).json({ erro: "Digite uma mensagem." });
+  }
+  if (mensagem.length > 1000) {
+    return res.status(400).json({ erro: "Mensagem muito longa (máx. 1000 caracteres)." });
+  }
+
+  try {
+    const { resposta, interactionId } = await perguntarChatbot(
+      mensagem,
+      req.session.chatInteractionId,
+    );
+    req.session.chatInteractionId = interactionId;
+    res.json({ resposta });
+  } catch (error) {
+    console.error("Erro no chatbot:", error);
+    res.status(500).json({
+      erro:
+        "Não consegui falar com a IA agora. Se você está em perigo, use o botão de emergência no topo da página.",
+    });
+  }
+});
+
+router.post("/api/chatbot/limpar", function (req, res) {
+  req.session.chatInteractionId = null;
+  res.json({ ok: true });
+});
 
 module.exports = router;

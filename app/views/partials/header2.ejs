@@ -6,6 +6,7 @@
 />
 <link rel="stylesheet" href="../css/header.css" />
 <link rel="stylesheet" href="../css/accessibility.css" />
+<link rel="stylesheet" href="../css/chatbot.css" />
 
 <%
   /* Ativa o link correspondente à rota atual, se a rota for passada pela view */
@@ -462,6 +463,8 @@
   </aside>
 </div>
 
+<%- include('./chatbot.ejs') %>
+
 <script>
   (function () {
     const overlay = document.getElementById('mobile-drawer-overlay');
@@ -708,3 +711,4 @@
   })();
 </script>
 <script src="../js/accessibility.js"></script>
+<script src="../js/chatbot.js"></script>
