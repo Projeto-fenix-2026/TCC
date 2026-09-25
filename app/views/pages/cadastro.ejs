@@ -19,13 +19,14 @@
     
     <% var cssErro={"firstname":"", "email" :"", "cpf" :"","cnpj":"", "number" :"","password":"","confirmPassword":""};
         var msgErro={"firstname":"", "email" :"", "cpf" :"", "number" :"","password":"","confirmPassword":"" };
+        var erroGeral = "";
         if(listaErros) { listaErros.errors.forEach(function(itemErro){ if (itemErro.path=="firstname" ){
         cssErro.firstname="erro" ; msgErro.firstname=itemErro.msg; } if (itemErro.path=="email" ){ cssErro.email="erro"
         ; msgErro.email=itemErro.msg; } if (itemErro.path=="cnpj" ){ cssErro.cnpj="erro" ; msgErro.cnpj=itemErro.msg; }
         if (itemErro.path=="cpf" ){ cssErro.cpf="erro" ; msgErro.cpf=itemErro.msg; } if (itemErro.path=="number" ){
         cssErro.number="erro" ; msgErro.number=itemErro.msg; } if (itemErro.path=="password" ){ cssErro.password="erro"
         ; msgErro.password=itemErro.msg; } if (itemErro.path=="confirmPassword" ){ cssErro.confirmPassword="erro" ;
-        msgErro.confirmPassword=itemErro.msg; } }); }; %>
+        msgErro.confirmPassword=itemErro.msg; } if (!itemErro.path) { erroGeral = itemErro.msg; } }); }; %>
         
         <main>
             <section class="container">
@@ -34,7 +35,7 @@
                 </section>
                 <section class="form">
 
-                    <form method="post" action="/cadastro">
+                    <form method="post" action="/cadastro" id="cadastroForm">
 
                         <section class="form-header">
                             <section class="title">
@@ -134,6 +135,11 @@
                         <section class="continue-button">
                             <button type="submit">Enviar</button>
                         </section>
+
+                        <% if (erroGeral) { %>
+                            <p style="color: red; text-align: center; margin-top: 8px;"><%= erroGeral %></p>
+                        <% } %>
+
                         <p class="texto-secundario">Já tem login? <button class="btn-entrar"><a
                                     href="/login">Entrar</a></button></p>
                     </form>

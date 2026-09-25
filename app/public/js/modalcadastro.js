@@ -6,7 +6,10 @@
 class FormValidator {
   constructor() {
     // A classe não precisa de this.forms, pois o formulário é dinâmico.
-    this.form = document.querySelector('form');
+    // Usa o id específico do form de cadastro — a página também tem o
+    // form "emergencyAddForm" (botão de emergência no header), que viria
+    // antes no DOM e seria pego por um querySelector('form') genérico.
+    this.form = document.getElementById('cadastroForm');
     
     // Mapeamento dos validadores (adaptado para os IDs/Names do seu projeto)
     this.validators = {
@@ -338,27 +341,18 @@ this.form._submitListener = (e) => {
   }
  
   validatePassword(value) {
+    // Mesma regra do back-end (express-validator: isLength({ min: 6 })) —
+    // mantida igual aqui para não bloquear no front uma senha que o
+    // servidor aceitaria. A barra de força (calculatePasswordStrength)
+    // continua sugerindo maiúscula/símbolo/etc., só não bloqueia o envio.
     if (!value) {
       return { isValid: false, message: 'Senha é obrigatória' };
     }
-    if (value.length < 8) {
-      return { isValid: false, message: 'Senha deve ter pelo menos 8 caracteres' };
+    if (value.length < 6) {
+      return { isValid: false, message: 'Senha deve ter pelo menos 6 caracteres' };
     }
     if (value.length > 128) {
       return { isValid: false, message: 'Senha muito longa (máximo 128 caracteres)' };
-    }
-    if (!/(?=.*[a-z])/.test(value)) {
-      return { isValid: false, message: 'Senha deve conter pelo menos uma letra minúscula' };
-    }
-    if (!/(?=.*[A-Z])/.test(value)) {
-      return { isValid: false, message: 'Senha deve conter pelo menos uma letra maiúscula' };
-    }
-    if (!/(?=.*\d)/.test(value)) {
-      return { isValid: false, message: 'Senha deve conter pelo menos um número' };
-    }
-    // Adicionando a validação de símbolo (mantendo o que você pediu)
-    if (!/(?=.*[^a-zA-Z0-9\s])/.test(value)) {
-      return { isValid: false, message: 'Senha deve conter pelo menos um símbolo' };
     }
     return { isValid: true, message: '' };
   }

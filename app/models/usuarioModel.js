@@ -128,6 +128,17 @@ const usuarioModel = {
         } catch (erro) {
             return null;
         }
+    },
+
+    ativarConta: async (id) => {
+        try {
+            const [resultado] = await pool.query(
+                "UPDATE usuario SET status_usuario = 1 WHERE id_usuario = ?",
+                [id]);
+            return resultado;
+        } catch (erro) {
+            return erro;
+        }
     }
 
 }
