@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS usuario (
   apelido     VARCHAR(60)  NULL,
   sobre       TEXT         NULL,
   is_admin    TINYINT(1)   NOT NULL DEFAULT 0,
+  status_usuario TINYINT(1) NOT NULL DEFAULT 0,
   CONSTRAINT pk_usuario PRIMARY KEY (id_usuario)
 );
 
@@ -18,6 +19,10 @@ CREATE TABLE IF NOT EXISTS usuario (
 -- ALTER TABLE usuario MODIFY COLUMN senha CHAR(60) NOT NULL;
 -- ALTER TABLE usuario ADD COLUMN apelido VARCHAR(60) NULL;
 -- ALTER TABLE usuario ADD COLUMN sobre TEXT NULL;
+-- ALTER TABLE usuario ADD COLUMN status_usuario TINYINT(1) NOT NULL DEFAULT 0;
+-- Contas já existentes ficam com status_usuario = 0 (inativas) após essa migração.
+-- Ative-as manualmente ou rode uma vez:
+-- UPDATE usuario SET status_usuario = 1 WHERE status_usuario = 0;
 
 CREATE TABLE IF NOT EXISTS numeros_socorro (
   id          INT          NOT NULL AUTO_INCREMENT,

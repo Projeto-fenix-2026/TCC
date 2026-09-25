@@ -3,6 +3,7 @@ var router = express.Router();
 const path = require("path");
 const multer = require("multer");
 var bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const pool = require("../../config/pool_conexoes");
 const { body, validationResult } = require("express-validator");
 var { validarCNPJ, validarCPF } = require("../helpers/validacoes");
@@ -12,6 +13,8 @@ const { forumModel } = require("../models/forumModel");
 const { socorroModel } = require("../models/socorroModel");
 const { autenticado } = require("../helpers/autenticado");
 const { perguntarChatbot } = require("../helpers/gemini");
+const { enviarEmail } = require("../util/email");
+const templateAtivarConta = require("../util/email-ativar-conta");
 
 const storageFoto = multer.diskStorage({
   destination: path.join(__dirname, "../../app/public/uploads/fotos"),
@@ -63,6 +66,17 @@ router.post(
         erros: null,
         valores: req.body,
         retorno: { tipo: "erro", msg: "E-mail ou senha incorretos." },
+      });
+    }
+
+    if (!usuario.status_usuario) {
+      return res.render("pages/login", {
+        erros: null,
+        valores: req.body,
+        retorno: {
+          tipo: "erro",
+          msg: "Sua conta ainda não foi ativada. Verifique o e-mail que enviamos para você.",
+        },
       });
     }
 
@@ -165,18 +179,74 @@ router.post(
     });
 
     if (resultado.affectedRows) {
-      return res.redirect("/login");
+      const token = jwt.sign(
+        { userId: resultado.insertId },
+        process.env.SECRET_KEY,
+        { expiresIn: "1d" },
+      );
+      const html = templateAtivarConta(process.env.URL_BASE, token);
+      enviarEmail(req.body.email, "Ative sua conta - Fênix", null, html);
+
+      return res.render("pages/login", {
+        erros: null,
+        valores: { email: req.body.email, password: "" },
+        retorno: {
+          tipo: "sucesso",
+          msg: "Cadastro realizado! Enviamos um e-mail para você ativar sua conta.",
+        },
+      });
     } else {
+      const mensagem =
+        resultado && resultado.code === "ER_DUP_ENTRY"
+          ? "Este e-mail ou CPF já está cadastrado."
+          : "Erro ao cadastrar. Tente novamente.";
       return res.render("pages/cadastro", {
         retorno: null,
         listaErros: {
-          errors: [{ msg: "Erro ao cadastrar. Tente novamente." }],
+          errors: [{ msg: mensagem }],
         },
         campos: req.body,
       });
     }
   },
 );
+
+/* ============================================================
+   ROTA DE ATIVAÇÃO DE CONTA
+   ============================================================ */
+router.get("/ativar-conta", async function (req, res) {
+  const renderLogin = (retorno) =>
+    res.render("pages/login", {
+      erros: null,
+      valores: { email: "", password: "" },
+      retorno,
+    });
+
+  try {
+    const decoded = jwt.verify(req.query.token, process.env.SECRET_KEY);
+    const linhas = await usuarioModel.findById(decoded.userId);
+    const usuario = linhas[0];
+
+    if (!usuario) {
+      return renderLogin({
+        tipo: "erro",
+        msg: "Usuário não encontrado.",
+      });
+    }
+
+    await usuarioModel.ativarConta(usuario.id_usuario);
+
+    return renderLogin({
+      tipo: "sucesso",
+      msg: "Conta ativada! Use seu e-mail e senha para acessar o seu perfil.",
+    });
+  } catch (erro) {
+    return renderLogin({
+      tipo: "erro",
+      msg: "Link de ativação inválido ou expirado.",
+    });
+  }
+});
 
 /* ============================================================
    ROTAS DE CONSULTA E RENDERIZAÇÃO DE PÁGINAS SEMÂNTICAS

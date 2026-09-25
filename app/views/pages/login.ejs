@@ -66,6 +66,8 @@
 
                             <% if (retorno && retorno.tipo === 'erro') { %>
                                 <p style="color: red; text-align: center; margin-top: 8px;"><%= retorno.msg %></p>
+                            <% } else if (retorno && retorno.tipo === 'sucesso') { %>
+                                <p style="color: #28a745; text-align: center; margin-top: 8px;"><%= retorno.msg %></p>
                             <% } %>
 
                         </form>
