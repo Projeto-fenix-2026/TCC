@@ -1,6 +1,5 @@
 var express = require("express");
 var router = express.Router();
-const path = require("path");
 const multer = require("multer");
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
@@ -9,14 +8,13 @@ const { ongModel } = require("../models/ongModel");
 const { validarCNPJ } = require("../helpers/validacoes");
 const { autenticadoAdm } = require("../helpers/autenticadoAdm");
 
-const storage = multer.diskStorage({
-    destination: path.join(__dirname, "../../app/public/uploads/ongs"),
-    filename: (req, file, cb) => {
-        const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);
-        cb(null, unique + path.extname(file.originalname));
-    }
+// Guarda a imagem em memória (req.file.buffer) em vez de escrever em
+// disco: no Render o disco é apagado a cada reinício/deploy, então a
+// foto precisa ir direto pro banco (colunas imagem_dados/imagem_mime).
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 3 * 1024 * 1024 },
 });
-const upload = multer({ storage, limits: { fileSize: 3 * 1024 * 1024 } });
 
 const validacoesOng = [
     body("nome").trim().notEmpty().withMessage("Nome é obrigatório.")
@@ -91,8 +89,11 @@ router.post("/adm-ong/cadastrar", autenticadoAdm, upload.single("imagem"), valid
         return res.redirect(`/adm/adm-ong?erro=${encodeURIComponent(msg)}`);
     }
     const { nome, email, telefone, cnpj, descricao } = req.body;
-    const imagem = req.file ? "/uploads/ongs/" + req.file.filename : null;
-    await ongModel.create({ nome, email, telefone, cnpj, descricao, imagem });
+    await ongModel.create({
+        nome, email, telefone, cnpj, descricao,
+        imagemBuffer: req.file ? req.file.buffer : null,
+        imagemMime: req.file ? req.file.mimetype : null,
+    });
     res.redirect("/adm/adm-ong");
 });
 
@@ -102,9 +103,12 @@ router.post("/adm-ong/editar", autenticadoAdm, upload.single("imagem"), validaco
         const msg = erros.array()[0].msg;
         return res.redirect(`/adm/adm-ong?erro=${encodeURIComponent(msg)}`);
     }
-    const { id, nome, email, telefone, cnpj, descricao, imagemAtual } = req.body;
-    const imagem = req.file ? "/uploads/ongs/" + req.file.filename : (imagemAtual || null);
-    await ongModel.update({ id, nome, email, telefone, cnpj, descricao, imagem });
+    const { id, nome, email, telefone, cnpj, descricao } = req.body;
+    await ongModel.update({
+        id, nome, email, telefone, cnpj, descricao,
+        imagemBuffer: req.file ? req.file.buffer : null,
+        imagemMime: req.file ? req.file.mimetype : null,
+    });
     res.redirect("/adm/adm-ong");
 });
 

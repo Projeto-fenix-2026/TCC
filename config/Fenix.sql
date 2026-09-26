@@ -76,8 +76,18 @@ CREATE TABLE IF NOT EXISTS ONG (
   CNPJ      CHAR(14)    NOT NULL,
   descricao VARCHAR(500) NULL,
   imagem    VARCHAR(255) NULL,
+  imagem_dados LONGBLOB    NULL,
+  imagem_mime  VARCHAR(100) NULL,
   CONSTRAINT pk_ong PRIMARY KEY (id_ong)
 );
+-- imagem passa a guardar a ROTA que serve a foto (/ongs/imagem/<id>),
+-- e os bytes de verdade ficam em imagem_dados — assim a foto sobrevive
+-- a um reinício do Render (o disco dele é apagado a cada deploy/restart).
+-- Se a tabela já existir, rode manualmente:
+-- ALTER TABLE ONG ADD COLUMN imagem_dados LONGBLOB NULL;
+-- ALTER TABLE ONG ADD COLUMN imagem_mime VARCHAR(100) NULL;
+-- ONGs cadastradas antes dessa migração ficam sem imagem_dados —
+-- é preciso reenviar a foto delas pelo painel admin.
 
 CREATE TABLE IF NOT EXISTS profissionais (
   id_profissionais INT         NOT NULL,

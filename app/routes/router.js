@@ -501,6 +501,18 @@ router.get("/ong_page", autenticado, async function (req, res) {
   if (!ong) return res.redirect("/ongs");
   res.render("pages/ong_page", { ong });
 });
+
+// Serve a foto da ONG direto do banco (imagem_dados) — não do disco,
+// que no Render é apagado a cada reinício/deploy.
+router.get("/ongs/imagem/:id", autenticado, async function (req, res) {
+  const dados = await ongModel.findImagem(req.params.id);
+  if (!dados || !dados.imagem_dados) {
+    return res.status(404).end();
+  }
+  res.set("Content-Type", dados.imagem_mime || "image/jpeg");
+  res.set("Cache-Control", "private, max-age=86400");
+  res.send(dados.imagem_dados);
+});
 router.get("/login_profissionais", function (req, res) {
   res.render("pages/login_profissionais");
 });
