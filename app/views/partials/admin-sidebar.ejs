@@ -1,0 +1,43 @@
+<%
+  /* Destaca o link correspondente à rota atual */
+  const _path = typeof currentPath !== 'undefined' ? currentPath : '';
+  function isActiveAdm(href) {
+    return _path === href ? 'active' : '';
+  }
+%>
+
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="brand">
+            <img src="../imgs/logo.png" class="sidebar-logo" alt="Logo Fênix">
+            <h3><span>Fênix Admin</span></h3>
+        </div>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li>
+            <a href="/adm" class="<%= isActiveAdm('/adm') %>">
+                <span class="ti-dashboard"></span>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="/adm/adm-cliente" class="<%= isActiveAdm('/adm/adm-cliente') %>">
+                <span class="ti-id-badge"></span>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li>
+            <a href="/adm/adm-ong" class="<%= isActiveAdm('/adm/adm-ong') %>">
+                <span class="ti-world"></span>
+                <span>ONGs</span>
+            </a>
+        </li>
+        <li>
+            <a href="/adm/logout">
+                <span class="ti-power-off"></span>
+                <span>Sair</span>
+            </a>
+        </li>
+    </ul>
+</aside>

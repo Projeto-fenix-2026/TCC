@@ -61,10 +61,21 @@
 .sidebar a {
     color: #fff;
     font-size: .9rem;
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    padding: .5rem .6rem;
+    border-radius: 6px;
+    transition: background 200ms;
 }
 
 .sidebar a span:last-child{
     padding-left: .6rem;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: rgba(255, 255, 255, 0.14);
 }
 
 #sidebare-toggle:checked ~ .sidebar {
