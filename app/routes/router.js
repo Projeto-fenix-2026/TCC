@@ -15,6 +15,7 @@ const { autenticado } = require("../helpers/autenticado");
 const { perguntarChatbot } = require("../helpers/gemini");
 const { enviarEmail } = require("../util/email");
 const templateAtivarConta = require("../util/email-ativar-conta");
+const passport = require("../../config/passport");
 
 const storageFoto = multer.diskStorage({
   destination: path.join(__dirname, "../../app/public/uploads/fotos"),
@@ -60,7 +61,7 @@ router.post(
 
     const usuario = await usuarioModel.findByEmail(req.body.email);
     const senhaCorreta =
-      usuario && bcrypt.compareSync(req.body.password, usuario.senha);
+      usuario && usuario.senha && bcrypt.compareSync(req.body.password, usuario.senha);
     if (!senhaCorreta) {
       return res.render("pages/login", {
         erros: null,
@@ -92,6 +93,101 @@ router.post(
       foto_url: usuario.foto_url || null,
     };
     return res.redirect("/text");
+  },
+);
+
+/* ============================================================
+   ROTAS DE AUTENTICAÇÃO: LOGIN COM GOOGLE
+   ============================================================ */
+router.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+    session: false,
+  }),
+);
+
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    session: false,
+    failureRedirect: "/login",
+  }),
+  function (req, res) {
+    const usuario = req.user;
+    req.session.usuario = {
+      id: usuario.id_usuario,
+      nome: usuario.nome,
+      email: usuario.email,
+      foto_url: usuario.foto_url || null,
+    };
+
+    if (usuario.perfil_incompleto) {
+      return res.redirect("/completar-cadastro");
+    }
+    return res.redirect("/text");
+  },
+);
+
+// Conta criada pelo Google ainda não tem CPF/telefone (exigidos pelo
+// resto do site) — pede esses dados antes de liberar o restante.
+router.get("/completar-cadastro", autenticado, async function (req, res) {
+  const linhas = await usuarioModel.findById(req.session.usuario.id);
+  const usuario = linhas[0];
+  if (usuario && usuario.CPF && usuario.telefone) {
+    return res.redirect("/text");
+  }
+  res.render("pages/completar-cadastro", {
+    listaErros: null,
+    campos: { cpf: "", number: "" },
+  });
+});
+
+router.post(
+  "/completar-cadastro",
+  autenticado,
+  body("cpf")
+    .customSanitizer((value) => value.replace(/\D/g, ""))
+    .isLength({ min: 11, max: 11 })
+    .withMessage("O CPF deve ter 11 dígitos!")
+    .custom((value) => {
+      if (validarCPF(value)) {
+        return true;
+      } else {
+        throw new Error("CPF inválido!");
+      }
+    }),
+  body("number")
+    .customSanitizer((value) => value.replace(/\D/g, ""))
+    .isLength({ min: 10, max: 11 })
+    .withMessage("O celular deve ter 10 ou 11 dígitos!"),
+  async function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.render("pages/completar-cadastro", {
+        listaErros: errors,
+        campos: req.body,
+      });
+    }
+
+    const resultado = await usuarioModel.completarCadastro({
+      id: req.session.usuario.id,
+      cpf: req.body.cpf,
+      telefone: req.body.number,
+    });
+
+    if (resultado.affectedRows) {
+      return res.redirect("/text");
+    }
+
+    const mensagem =
+      resultado && resultado.code === "ER_DUP_ENTRY"
+        ? "Este CPF já está cadastrado em outra conta."
+        : "Erro ao salvar. Tente novamente.";
+    return res.render("pages/completar-cadastro", {
+      listaErros: { errors: [{ msg: mensagem }] },
+      campos: req.body,
+    });
   },
 );
 

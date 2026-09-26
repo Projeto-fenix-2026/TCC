@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv").config();
 const session = require("express-session");
+const passport = require("./config/passport");
 const { usuarioModel } = require("./app/models/usuarioModel");
 
 app.use(express.static("./app/public"));
@@ -21,6 +22,12 @@ app.use(
   }),
 );
 
+app.use(passport.initialize());
+
+// Rotas liberadas mesmo com o cadastro (CPF/telefone) incompleto,
+// para não travar o próprio fluxo de completar o cadastro nem o logout.
+const ROTAS_LIVRES_PERFIL_INCOMPLETO = ["/completar-cadastro", "/logout"];
+
 app.use(async function (req, res, next) {
   try {
     res.locals.usuario = req.session.usuario || null;
@@ -36,6 +43,16 @@ app.use(async function (req, res, next) {
           email: dadosUsuario.email,
           foto_url: dadosUsuario.foto_url || null,
         };
+
+        // Conta criada via Google ainda sem CPF/telefone: manda
+        // completar o cadastro antes de liberar o resto do site.
+        if (
+          (!dadosUsuario.CPF || !dadosUsuario.telefone) &&
+          !ROTAS_LIVRES_PERFIL_INCOMPLETO.includes(req.path)
+        ) {
+          res.locals.usuario = req.session.usuario;
+          return res.redirect("/completar-cadastro");
+        }
       }
 
       res.locals.usuario = req.session.usuario;

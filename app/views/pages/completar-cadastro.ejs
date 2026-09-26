@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/cadastro.css">
+    <title>Complete seu cadastro</title>
+    <%- include('../partials/pwa-head.ejs') %>
+</head>
+
+<body>
+    <%- include('../partials/header2.ejs') %>
+
+    <% var cssErro={"cpf":"", "number":""};
+        var msgErro={"cpf":"", "number":""};
+        var erroGeral = "";
+        if(listaErros) { listaErros.errors.forEach(function(itemErro){
+        if (itemErro.path=="cpf" ){ cssErro.cpf="erro" ; msgErro.cpf=itemErro.msg; }
+        if (itemErro.path=="number" ){ cssErro.number="erro" ; msgErro.number=itemErro.msg; }
+        if (!itemErro.path) { erroGeral = itemErro.msg; } }); }; %>
+
+    <main>
+        <section class="container">
+            <section class="form-image">
+                <img src="../imgs/svg2.svg" alt="">
+            </section>
+            <section class="form">
+
+                <form method="post" action="/completar-cadastro" id="completarCadastroForm">
+
+                    <section class="form-header">
+                        <section class="title">
+                            <h1>Falta pouco!</h1>
+                        </section>
+                    </section>
+
+                    <p class="texto-secundario">
+                        Sua conta Google foi conectada. Para usar o restante do site,
+                        precisamos só do seu CPF e telefone.
+                    </p>
+
+                    <section class="input-group">
+                        <section class="input-box">
+                            <label for="cpf">CPF</label>
+                            <input id="cpf" type="text" name="cpf" value="<%= campos.cpf %>"
+                                class="<%= cssErro.cpf %>" placeholder="Digite seu CPF" required>
+                            <span>
+                                <%= msgErro.cpf %>
+                            </span>
+                        </section>
+
+                        <section class="input-box">
+                            <label for="number">Celular</label>
+                            <input id="number" type="tel" name="number" value="<%= campos.number %>"
+                                class="<%= cssErro.number %>" placeholder="(xx) xxxxx-xxxx" required>
+                            <span>
+                                <%= msgErro.number %>
+                            </span>
+                        </section>
+                    </section>
+
+                    <section class="continue-button">
+                        <button type="submit">Continuar</button>
+                    </section>
+
+                    <% if (erroGeral) { %>
+                        <p style="color: red; text-align: center; margin-top: 8px;"><%= erroGeral %></p>
+                    <% } %>
+
+                </form>
+
+            </section>
+        </section>
+    </main>
+    <%- include('../partials/footer.ejs') %>
+
+</body>
+
+</html>

@@ -1,16 +1,17 @@
 CREATE TABLE IF NOT EXISTS usuario (
   id_usuario  INT          NOT NULL AUTO_INCREMENT,
   nome        VARCHAR(60)  NOT NULL,
-  CPF         CHAR(11)     NOT NULL UNIQUE,
+  CPF         CHAR(11)     NULL UNIQUE,
   email       VARCHAR(100) NOT NULL UNIQUE,
-  telefone    CHAR(11)     NOT NULL,
-  senha       CHAR(60)     NOT NULL,
+  telefone    CHAR(11)     NULL,
+  senha       CHAR(60)     NULL,
   genero      VARCHAR(20),
   foto_url    VARCHAR(255) NULL,
   apelido     VARCHAR(60)  NULL,
   sobre       TEXT         NULL,
   is_admin    TINYINT(1)   NOT NULL DEFAULT 0,
   status_usuario TINYINT(1) NOT NULL DEFAULT 0,
+  google_id   VARCHAR(255) NULL UNIQUE,
   CONSTRAINT pk_usuario PRIMARY KEY (id_usuario)
 );
 
@@ -23,6 +24,14 @@ CREATE TABLE IF NOT EXISTS usuario (
 -- Contas já existentes ficam com status_usuario = 0 (inativas) após essa migração.
 -- Ative-as manualmente ou rode uma vez:
 -- UPDATE usuario SET status_usuario = 1 WHERE status_usuario = 0;
+--
+-- Login com Google: CPF/telefone/senha passam a poder ficar em branco
+-- (contas criadas pelo Google só ganham esses dados depois, na tela
+-- "completar cadastro"), e google_id guarda o id da conta Google:
+-- ALTER TABLE usuario MODIFY COLUMN CPF CHAR(11) NULL;
+-- ALTER TABLE usuario MODIFY COLUMN telefone CHAR(11) NULL;
+-- ALTER TABLE usuario MODIFY COLUMN senha CHAR(60) NULL;
+-- ALTER TABLE usuario ADD COLUMN google_id VARCHAR(255) NULL UNIQUE;
 
 CREATE TABLE IF NOT EXISTS numeros_socorro (
   id          INT          NOT NULL AUTO_INCREMENT,
