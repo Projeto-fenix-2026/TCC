@@ -155,22 +155,3 @@ CREATE TABLE IF NOT EXISTS chamados_suporte (
     data_envio DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Estrutura para os chamados enviados à central de suporte
-CREATE TABLE IF NOT EXISTS chamados_suporte (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id INT NULL,
-    assunto VARCHAR(255) NOT NULL,
-    mensagem TEXT NOT NULL,
-    data_criacao DATETIME NOT NULL,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL
-);
-
--- Tabela genérica para histórico de rotas (Garante que as rotas de exclusão funcionem se baseadas nessa estrutura)
-CREATE TABLE IF NOT EXISTS historico_localizacao (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id INT NOT NULL,
-    latitude VARCHAR(50) NOT NULL,
-    longitude VARCHAR(50) NOT NULL,
-    data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
-);
