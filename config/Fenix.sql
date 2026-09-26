@@ -1,16 +1,17 @@
 CREATE TABLE IF NOT EXISTS usuario (
   id_usuario  INT          NOT NULL AUTO_INCREMENT,
   nome        VARCHAR(60)  NOT NULL,
-  CPF         CHAR(11)     NOT NULL UNIQUE,
+  CPF         CHAR(11)     NULL UNIQUE,
   email       VARCHAR(100) NOT NULL UNIQUE,
-  telefone    CHAR(11)     NOT NULL,
-  senha       CHAR(60)     NOT NULL,
+  telefone    CHAR(11)     NULL,
+  senha       CHAR(60)     NULL,
   genero      VARCHAR(20),
   foto_url    VARCHAR(255) NULL,
   apelido     VARCHAR(60)  NULL,
   sobre       TEXT         NULL,
   is_admin    TINYINT(1)   NOT NULL DEFAULT 0,
   status_usuario TINYINT(1) NOT NULL DEFAULT 0,
+  google_id   VARCHAR(255) NULL UNIQUE,
   CONSTRAINT pk_usuario PRIMARY KEY (id_usuario)
 );
 
@@ -23,6 +24,14 @@ CREATE TABLE IF NOT EXISTS usuario (
 -- Contas já existentes ficam com status_usuario = 0 (inativas) após essa migração.
 -- Ative-as manualmente ou rode uma vez:
 -- UPDATE usuario SET status_usuario = 1 WHERE status_usuario = 0;
+--
+-- Login com Google: CPF/telefone/senha passam a poder ficar em branco
+-- (contas criadas pelo Google só ganham esses dados depois, na tela
+-- "completar cadastro"), e google_id guarda o id da conta Google:
+-- ALTER TABLE usuario MODIFY COLUMN CPF CHAR(11) NULL;
+-- ALTER TABLE usuario MODIFY COLUMN telefone CHAR(11) NULL;
+-- ALTER TABLE usuario MODIFY COLUMN senha CHAR(60) NULL;
+-- ALTER TABLE usuario ADD COLUMN google_id VARCHAR(255) NULL UNIQUE;
 
 CREATE TABLE IF NOT EXISTS numeros_socorro (
   id          INT          NOT NULL AUTO_INCREMENT,
@@ -67,8 +76,18 @@ CREATE TABLE IF NOT EXISTS ONG (
   CNPJ      CHAR(14)    NOT NULL,
   descricao VARCHAR(500) NULL,
   imagem    VARCHAR(255) NULL,
+  imagem_dados LONGBLOB    NULL,
+  imagem_mime  VARCHAR(100) NULL,
   CONSTRAINT pk_ong PRIMARY KEY (id_ong)
 );
+-- imagem passa a guardar a ROTA que serve a foto (/ongs/imagem/<id>),
+-- e os bytes de verdade ficam em imagem_dados — assim a foto sobrevive
+-- a um reinício do Render (o disco dele é apagado a cada deploy/restart).
+-- Se a tabela já existir, rode manualmente:
+-- ALTER TABLE ONG ADD COLUMN imagem_dados LONGBLOB NULL;
+-- ALTER TABLE ONG ADD COLUMN imagem_mime VARCHAR(100) NULL;
+-- ONGs cadastradas antes dessa migração ficam sem imagem_dados —
+-- é preciso reenviar a foto delas pelo painel admin.
 
 CREATE TABLE IF NOT EXISTS profissionais (
   id_profissionais INT         NOT NULL,
@@ -136,22 +155,3 @@ CREATE TABLE IF NOT EXISTS chamados_suporte (
     data_envio DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Estrutura para os chamados enviados à central de suporte
-CREATE TABLE IF NOT EXISTS chamados_suporte (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id INT NULL,
-    assunto VARCHAR(255) NOT NULL,
-    mensagem TEXT NOT NULL,
-    data_criacao DATETIME NOT NULL,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL
-);
-
--- Tabela genérica para histórico de rotas (Garante que as rotas de exclusão funcionem se baseadas nessa estrutura)
-CREATE TABLE IF NOT EXISTS historico_localizacao (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id INT NOT NULL,
-    latitude VARCHAR(50) NOT NULL,
-    longitude VARCHAR(50) NOT NULL,
-    data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
-);

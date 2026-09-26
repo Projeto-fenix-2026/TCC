@@ -139,6 +139,59 @@ const usuarioModel = {
         } catch (erro) {
             return erro;
         }
+    },
+
+    findByGoogleId: async (googleId) => {
+        try {
+            const [linhas] = await pool.query(
+                "SELECT * FROM usuario WHERE google_id = ? LIMIT 1",
+                [googleId]);
+            return linhas[0] || null;
+        } catch (erro) {
+            return null;
+        }
+    },
+
+    vincularGoogleId: async (id, googleId) => {
+        try {
+            const [resultado] = await pool.query(
+                "UPDATE usuario SET google_id = ? WHERE id_usuario = ?",
+                [googleId, id]);
+            return resultado;
+        } catch (erro) {
+            return erro;
+        }
+    },
+
+    createGoogle: async (dados) => {
+        /*
+        dados json no formato:
+            {
+            nome: "nome",
+            email: "email@email.com",
+            googleId: "108...",
+            foto_url: "https://..."
+            }
+        */
+        try {
+            const [resultado] = await pool.query(
+                "INSERT INTO usuario (nome, email, google_id, foto_url, status_usuario) VALUES (?, ?, ?, ?, 1)",
+                [dados.nome, dados.email, dados.googleId, dados.foto_url || null]);
+            return resultado;
+        } catch (erro) {
+            return erro;
+        }
+    },
+
+    completarCadastro: async (dados) => {
+        try {
+            const [resultado] = await pool.query(
+                "UPDATE usuario SET CPF = ?, telefone = ? WHERE id_usuario = ?",
+                [dados.cpf, dados.telefone, dados.id]);
+            return resultado;
+        } catch (erro) {
+            return erro;
+        }
     }
 
 }
