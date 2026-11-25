@@ -21,10 +21,17 @@ const chatbotController = {
             res.json({ resposta });
         } catch (error) {
             console.error("Erro no chatbot:", error);
-            res.status(500).json({
-                erro:
-                    "Não consegui falar com a IA agora. Se você está em perigo, use o botão de emergência no topo da página.",
-            });
+
+            const status = error.status || error.statusCode;
+            let erro = "Não consegui falar com a IA agora. Se você está em perigo, use o botão de emergência no topo da página.";
+
+            if (status === 429) {
+                erro = "A IA atingiu o limite de uso por hoje. Tente novamente mais tarde.";
+            } else if (status === 503) {
+                erro = "A IA está sobrecarregada no momento. Tente novamente em alguns segundos.";
+            }
+
+            res.status(500).json({ erro });
         }
     },
 
